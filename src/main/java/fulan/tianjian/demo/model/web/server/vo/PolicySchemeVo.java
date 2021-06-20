@@ -1,11 +1,10 @@
-package fulan.tianjian.demo.model.client.insure;
+package fulan.tianjian.demo.model.web.server.vo;
 
-import java.util.List;
 
 /**
- * 订单保险方案数据
+ * Created by tianjian on 2021/6/20.
  */
-public class PolicySchemeDTO {
+public class PolicySchemeVo {
 
     /**
      * 保额
@@ -38,9 +37,12 @@ public class PolicySchemeDTO {
     private String endData;
 
     /**
-     * 子险
+     * 保险类型
      */
-    private List<PolicySchemeDTO> subInsurancePolicySchemes;
+    private String policyType;
 
-
+    /**
+     * 订单id
+     */
+    private String orderNumber;
 }

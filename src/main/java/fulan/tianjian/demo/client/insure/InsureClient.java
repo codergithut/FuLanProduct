@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 
 import static fulan.tianjian.demo.constant.ConstantCls.*;
 
+/**
+ * 核心请求类
+ */
 public class InsureClient {
 
     @Autowired

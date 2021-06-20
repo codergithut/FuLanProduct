@@ -16,4 +16,8 @@ public class ConstantCls {
     public final static String THIRD_VEHICLE_DETAIL = "thirdVehicle";
 
     public final static String TRAFFIC_MANGEMENT_VEHICLE_DETAIL = "trafficMangementVehicle";
+
+    public final static Integer REST_COMMON_FAIL_CODE = 100000;
+
+    public final static Integer REST_COMMON_SUCCESS_CODE = 000000;
 }
