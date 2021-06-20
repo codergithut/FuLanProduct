@@ -12,7 +12,7 @@ public class MyRestValueModel<T> extends ApplicationEvent {
 
     private String message;
 
-    private T t;
+    private T data;
 
     private String status;
 
@@ -46,12 +46,12 @@ public class MyRestValueModel<T> extends ApplicationEvent {
         this.message = message;
     }
 
-    public T getT() {
-        return t;
+    public T getData() {
+        return data;
     }
 
-    public void setT(T t) {
-        this.t = t;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public String getStatus() {
@@ -64,7 +64,7 @@ public class MyRestValueModel<T> extends ApplicationEvent {
 
     @Override
     public String toString() {
-        return JSON.toJSONString(t);
+        return JSON.toJSONString(data);
 
     }
 }

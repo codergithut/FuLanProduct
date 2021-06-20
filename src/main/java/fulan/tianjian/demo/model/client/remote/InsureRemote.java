@@ -45,6 +45,10 @@ public class InsureRemote {
      */
     private PayInfoRemote payInfoRemote;
 
+    private PremiumFloatingItemsRemote premiumFloatingItemsRemote;
+
+    private InsuranceRiskInformationRemote insuranceRiskInformationRemote;
+
     public InsureConfigRemote getInsureConfigRemote() {
         return insureConfigRemote;
     }
@@ -107,5 +111,21 @@ public class InsureRemote {
 
     public void setPayInfoRemote(PayInfoRemote payInfoRemote) {
         this.payInfoRemote = payInfoRemote;
+    }
+
+    public PremiumFloatingItemsRemote getPremiumFloatingItemsRemote() {
+        return premiumFloatingItemsRemote;
+    }
+
+    public void setPremiumFloatingItemsRemote(PremiumFloatingItemsRemote premiumFloatingItemsRemote) {
+        this.premiumFloatingItemsRemote = premiumFloatingItemsRemote;
+    }
+
+    public InsuranceRiskInformationRemote getInsuranceRiskInformationRemote() {
+        return insuranceRiskInformationRemote;
+    }
+
+    public void setInsuranceRiskInformationRemote(InsuranceRiskInformationRemote insuranceRiskInformationRemote) {
+        this.insuranceRiskInformationRemote = insuranceRiskInformationRemote;
     }
 }

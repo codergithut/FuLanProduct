@@ -111,6 +111,27 @@ public class VehicleRemote {
      */
     private String fuelType;
 
+
+    /**
+     * 车船税开始时间
+     */
+    private String vehicleTaxStartTime;
+
+    /**
+     * 车船税结速时间
+     */
+    private String vehicleTaxEndTime;
+
+    /**
+     * 车船税纳税类型
+     */
+    private String vehicleTaxType;
+
+    /**
+     * 历年拒缴金额
+     */
+    private String vehicleTaxRefuseAmount;
+
     public String getVinCode() {
         return vinCode;
     }
@@ -269,6 +290,38 @@ public class VehicleRemote {
 
     public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
+    }
+
+    public String getVehicleTaxStartTime() {
+        return vehicleTaxStartTime;
+    }
+
+    public void setVehicleTaxStartTime(String vehicleTaxStartTime) {
+        this.vehicleTaxStartTime = vehicleTaxStartTime;
+    }
+
+    public String getVehicleTaxEndTime() {
+        return vehicleTaxEndTime;
+    }
+
+    public void setVehicleTaxEndTime(String vehicleTaxEndTime) {
+        this.vehicleTaxEndTime = vehicleTaxEndTime;
+    }
+
+    public String getVehicleTaxType() {
+        return vehicleTaxType;
+    }
+
+    public void setVehicleTaxType(String vehicleTaxType) {
+        this.vehicleTaxType = vehicleTaxType;
+    }
+
+    public String getVehicleTaxRefuseAmount() {
+        return vehicleTaxRefuseAmount;
+    }
+
+    public void setVehicleTaxRefuseAmount(String vehicleTaxRefuseAmount) {
+        this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
     }
 
     @Override

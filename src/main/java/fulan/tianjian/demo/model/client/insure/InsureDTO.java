@@ -25,6 +25,17 @@ public class InsureDTO {
      */
     private AllVehicleDTO allVehicleDTO;
 
+    /**
+     * 报价核保方法区分
+     */
+    private String insureType;
+
+
+    /**
+     * 订单号
+     */
+    private String orderNumber;
+
 
     public InsureConfigDTO getInsureConfigDTO() {
         return insureConfigDTO;
@@ -56,5 +67,21 @@ public class InsureDTO {
 
     public void setAllVehicleDTO(AllVehicleDTO allVehicleDTO) {
         this.allVehicleDTO = allVehicleDTO;
+    }
+
+    public String getInsureType() {
+        return insureType;
+    }
+
+    public void setInsureType(String insureType) {
+        this.insureType = insureType;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

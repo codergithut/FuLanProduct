@@ -68,6 +68,26 @@ public class VehicleDTO {
      */
     private String pmVehicleStyle;
 
+    /**
+     * 车船税开始时间
+     */
+    private String vehicleTaxStartTime;
+
+    /**
+     * 车船税结速时间
+     */
+    private String vehicleTaxEndTime;
+
+    /**
+     * 车船税纳税类型
+     */
+    private String vehicleTaxType;
+
+    /**
+     * 历年拒缴金额
+     */
+    private String vehicleTaxRefuseAmount;
+
 
 
 
