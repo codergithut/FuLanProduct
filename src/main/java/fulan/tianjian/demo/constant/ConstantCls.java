@@ -10,4 +10,10 @@ public class ConstantCls {
     public final static String QUOTED_PRICE_URL = "http://localhost:8080/mock/quotedPrice";
 
     public final static String RENEW_POLICY_URL = "http://localhost:8080/mock/renewPolicy";
+
+    public final static String RENEW_VEHICLE_DETAIL = "renewVehicle";
+
+    public final static String THIRD_VEHICLE_DETAIL = "thirdVehicle";
+
+    public final static String TRAFFIC_MANGEMENT_VEHICLE_DETAIL = "trafficMangementVehicle";
 }

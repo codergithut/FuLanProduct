@@ -1,26 +1,34 @@
 package fulan.tianjian.demo.model.client.convert;
 
-import fulan.tianjian.demo.model.client.insure.AllVehicleDTO;
+import fulan.tianjian.demo.model.client.database.VehicleDetailEo;
 import fulan.tianjian.demo.model.client.insure.VehicleDTO;
-import fulan.tianjian.demo.model.client.insure.VehicleTemplateDTO;
 import fulan.tianjian.demo.model.client.remote.VehicleRemote;
 import fulan.tianjian.demo.model.client.vehicle.ThirdPartyVehicle;
 import org.springframework.beans.BeanUtils;
+
+import static fulan.tianjian.demo.constant.ConstantCls.THIRD_VEHICLE_DETAIL;
 
 /**
  * 车辆模型转换
  */
 public class VehicleConvertUtil {
-    public static VehicleTemplateDTO convertThirdPartyVehicle(ThirdPartyVehicle thirdPartyVehicle) {
-        VehicleTemplateDTO vehicleTemplateDTO = new VehicleTemplateDTO();
-        BeanUtils.copyProperties(thirdPartyVehicle, vehicleTemplateDTO);
-        return vehicleTemplateDTO;
+    public static VehicleDetailEo convertThirdPartyVehicle(ThirdPartyVehicle thirdPartyVehicle) {
+        VehicleDetailEo vehicleDetailEo = new VehicleDetailEo();
+        BeanUtils.copyProperties(thirdPartyVehicle, vehicleDetailEo);
+        vehicleDetailEo.setDataSource(THIRD_VEHICLE_DETAIL);
+        return vehicleDetailEo;
     }
 
-    public static VehicleRemote convertVehicleRemoteByDTO(AllVehicleDTO allVehicleDTO){
+    public static VehicleRemote convertVehicleRemoteByDTO(VehicleDTO vehicleDTO){
         VehicleRemote vehicleRemote = new VehicleRemote();
-        BeanUtils.copyProperties(vehicleRemote, allVehicleDTO.getVehicleDTO());
-        BeanUtils.copyProperties(vehicleRemote, allVehicleDTO.getVehicleTemplateDTO());
+        BeanUtils.copyProperties(vehicleRemote, vehicleDTO);
         return vehicleRemote;
+    }
+
+    public static VehicleDetailEo convertRemoteToEo(VehicleRemote vehicleDetail, String tag) {
+        VehicleDetailEo vehicleDetailEo = new VehicleDetailEo();
+        BeanUtils.copyProperties(vehicleDetail, vehicleDetailEo);
+        vehicleDetailEo.setDataSource(tag);
+        return vehicleDetailEo;
     }
 }

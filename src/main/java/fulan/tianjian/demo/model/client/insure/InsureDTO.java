@@ -23,7 +23,7 @@ public class InsureDTO {
     /**
      * 当前保单车辆数据
      */
-    private AllVehicleDTO allVehicleDTO;
+    private VehicleDTO vehicleDTO;
 
     /**
      * 报价核保方法区分
@@ -61,12 +61,12 @@ public class InsureDTO {
         this.policySchemeDTO = policySchemeDTO;
     }
 
-    public AllVehicleDTO getAllVehicleDTO() {
-        return allVehicleDTO;
+    public VehicleDTO getVehicleDTO() {
+        return vehicleDTO;
     }
 
-    public void setAllVehicleDTO(AllVehicleDTO allVehicleDTO) {
-        this.allVehicleDTO = allVehicleDTO;
+    public void setVehicleDTO(VehicleDTO vehicleDTO) {
+        this.vehicleDTO = vehicleDTO;
     }
 
     public String getInsureType() {

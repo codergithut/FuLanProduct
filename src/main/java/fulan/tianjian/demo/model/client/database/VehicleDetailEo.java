@@ -1,13 +1,11 @@
-package fulan.tianjian.demo.model.client.remote;
-
-import com.alibaba.fastjson.JSON;
-import org.springframework.util.DigestUtils;
+package fulan.tianjian.demo.model.client.database;
 
 /**
- * 车辆完整数据
+ * Created by tianjian on 2021/6/20.
  */
-public class VehicleRemote {
+public class VehicleDetailEo {
 
+    private String id;
 
     /**
      * 车架号
@@ -72,6 +70,26 @@ public class VehicleRemote {
     private String pmVehicleStyle;
 
     /**
+     * 车船税开始时间
+     */
+    private String vehicleTaxStartTime;
+
+    /**
+     * 车船税结速时间
+     */
+    private String vehicleTaxEndTime;
+
+    /**
+     * 车船税纳税类型
+     */
+    private String vehicleTaxType;
+
+    /**
+     * 历年拒缴金额
+     */
+    private String vehicleTaxRefuseAmount;
+
+    /**
      * 车辆品牌名称
      */
     private String brandName;
@@ -111,26 +129,23 @@ public class VehicleRemote {
      */
     private String fuelType;
 
+    /**
+     * 0 三方车型库数据 1 续保查询数据 2 交管查询数据
+     */
+    private String dataSource;
 
     /**
-     * 车船税开始时间
+     * md5
      */
-    private String vehicleTaxStartTime;
+    private String md5Value;
 
-    /**
-     * 车船税结速时间
-     */
-    private String vehicleTaxEndTime;
+    public String getId() {
+        return id;
+    }
 
-    /**
-     * 车船税纳税类型
-     */
-    private String vehicleTaxType;
-
-    /**
-     * 历年拒缴金额
-     */
-    private String vehicleTaxRefuseAmount;
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getVinCode() {
         return vinCode;
@@ -228,6 +243,38 @@ public class VehicleRemote {
         this.pmVehicleStyle = pmVehicleStyle;
     }
 
+    public String getVehicleTaxStartTime() {
+        return vehicleTaxStartTime;
+    }
+
+    public void setVehicleTaxStartTime(String vehicleTaxStartTime) {
+        this.vehicleTaxStartTime = vehicleTaxStartTime;
+    }
+
+    public String getVehicleTaxEndTime() {
+        return vehicleTaxEndTime;
+    }
+
+    public void setVehicleTaxEndTime(String vehicleTaxEndTime) {
+        this.vehicleTaxEndTime = vehicleTaxEndTime;
+    }
+
+    public String getVehicleTaxType() {
+        return vehicleTaxType;
+    }
+
+    public void setVehicleTaxType(String vehicleTaxType) {
+        this.vehicleTaxType = vehicleTaxType;
+    }
+
+    public String getVehicleTaxRefuseAmount() {
+        return vehicleTaxRefuseAmount;
+    }
+
+    public void setVehicleTaxRefuseAmount(String vehicleTaxRefuseAmount) {
+        this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
+    }
+
     public String getBrandName() {
         return brandName;
     }
@@ -292,51 +339,11 @@ public class VehicleRemote {
         this.fuelType = fuelType;
     }
 
-    public String getVehicleTaxStartTime() {
-        return vehicleTaxStartTime;
+    public String getDataSource() {
+        return dataSource;
     }
 
-    public void setVehicleTaxStartTime(String vehicleTaxStartTime) {
-        this.vehicleTaxStartTime = vehicleTaxStartTime;
-    }
-
-    public String getVehicleTaxEndTime() {
-        return vehicleTaxEndTime;
-    }
-
-    public void setVehicleTaxEndTime(String vehicleTaxEndTime) {
-        this.vehicleTaxEndTime = vehicleTaxEndTime;
-    }
-
-    public String getVehicleTaxType() {
-        return vehicleTaxType;
-    }
-
-    public void setVehicleTaxType(String vehicleTaxType) {
-        this.vehicleTaxType = vehicleTaxType;
-    }
-
-    public String getVehicleTaxRefuseAmount() {
-        return vehicleTaxRefuseAmount;
-    }
-
-    public void setVehicleTaxRefuseAmount(String vehicleTaxRefuseAmount) {
-        this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
-    }
-
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
-
-    public String getMd5Value() {
-        String value = this.toString();
-        return DigestUtils.md5DigestAsHex(value.getBytes());
-    }
-
-    public String getMd5ValuePart() {
-        String key = plateNo + vinCode + engineNo;
-        return DigestUtils.md5DigestAsHex(key.getBytes());
-
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource;
     }
 }
