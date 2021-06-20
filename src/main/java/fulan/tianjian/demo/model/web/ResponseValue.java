@@ -25,11 +25,11 @@ public class ResponseValue<T> {
         this.code = code;
     }
 
-    public static final ResponseValue createFailResponse() {
+    public static final ResponseValue failResponse() {
         return new ResponseValue("返回结果错误", REST_COMMON_FAIL_CODE);
     }
 
-    public static<T> ResponseValue<T> okSuccess(T data) {
+    public static<T> ResponseValue<T> successResponse(T data) {
         ResponseValue responseValue = new ResponseValue("成功", REST_COMMON_SUCCESS_CODE);
         return responseValue;
     }

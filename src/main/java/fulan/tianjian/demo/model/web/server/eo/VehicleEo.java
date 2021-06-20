@@ -55,4 +55,14 @@ public class VehicleEo {
      * 车辆转移日期
      */
     private String transferDate;
+
+    /**
+     * 订单编码
+     */
+    private String orderNumber;
+
+    /**
+     * 用户编码
+     */
+    private String userId;
 }
