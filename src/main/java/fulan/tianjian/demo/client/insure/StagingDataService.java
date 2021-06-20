@@ -1,7 +1,10 @@
 package fulan.tianjian.demo.client.insure;
 
 import fulan.tianjian.demo.model.client.database.*;
+import fulan.tianjian.demo.model.client.insure.VehicleDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 暂存数据
@@ -55,6 +58,12 @@ public class StagingDataService {
     }
 
     public VehicleDetailEo getVehicleDetailByMd5ValueAndSource(String md5ValuePart, String renewVehicleDetail) {
+        return null;
+    }
+
+    public List<VehicleDetailEo> findVehicleDetailByVehicleDTO(VehicleDTO vehicleDTO) {
+        String vehicleCode = vehicleDTO.getVehicleCode();
+        String md5Value = vehicleDTO.getMd5Value();
         return null;
     }
 }
