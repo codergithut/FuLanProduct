@@ -11,6 +11,9 @@ public class ConstantCls {
 
     public final static String RENEW_POLICY_URL = "http://localhost:8080/mock/renewPolicy";
 
+    public final static String SMS_URL = "http://localhost:8080/mock/smsUrl";
+
+
     public final static String RENEW_VEHICLE_DETAIL = "renewVehicle";
 
     public final static String THIRD_VEHICLE_DETAIL = "thirdVehicle";
