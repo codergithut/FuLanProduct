@@ -1,13 +1,13 @@
 package fulan.tianjian.demo.client.insure;
 
-import fulan.tianjian.demo.model.client.database.InsuranceRiskInformationEo;
-import fulan.tianjian.demo.model.client.database.PremiumFloatingItemsEo;
-import fulan.tianjian.demo.model.client.database.PureRiskEo;
-import fulan.tianjian.demo.model.client.database.VehicleTaxEo;
+import fulan.tianjian.demo.model.client.database.*;
+import org.springframework.stereotype.Service;
 
 /**
+ * 暂存数据
  * Created by tianjian on 2021/6/20.
  */
+@Service
 public class StagingDataService {
     /**
      * 根据车辆实际情况获取存风险保费
@@ -44,5 +44,17 @@ public class StagingDataService {
 
     public boolean saveVehicleTaxEo(VehicleTaxEo vehicleTaxEo) {
         return true;
+    }
+
+    public VehicleDetailEo getVehicleDetailByVehicleCode(String vehicleCode) {
+        return null;
+    }
+
+    public boolean saveVehicleDetail(VehicleDetailEo vehicleDetailEo) {
+        return true;
+    }
+
+    public VehicleDetailEo getVehicleDetailByMd5ValueAndSource(String md5ValuePart, String renewVehicleDetail) {
+        return null;
     }
 }

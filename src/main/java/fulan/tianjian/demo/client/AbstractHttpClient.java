@@ -59,7 +59,7 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
 
         if(resut.getBody() != null) {
             data = resut.getBody();
-            myRestValueModel.setT(data);
+            myRestValueModel.setData(data);
         }
 
         //根据返回对象判断该消息是否正确返回了

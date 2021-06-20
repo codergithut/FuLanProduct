@@ -40,7 +40,7 @@ public class InsureModelService {
         InsureRemote insureRemote = new InsureRemote();
 
         //将用户车辆数据和模版数据合并
-        VehicleRemote vehicleRemote = convertVehicleRemoteByDTO(insureDTO.getAllVehicleDTO());
+        VehicleRemote vehicleRemote = convertVehicleRemoteByDTO(insureDTO.getVehicleDTO());
 
         //将改单车船税节点数据合并
         VehicleTaxEo vehicleTaxEo = stagingDataService.getVehicleTaxEoByOrderNumber(insureDTO.getOrderNumber());
