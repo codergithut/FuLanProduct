@@ -1,14 +1,10 @@
 package fulan.tianjian.demo.model.web.server.eo;
 
-
-/**
- * Created by tianjian on 2021/6/20.
- */
-public class PolicySchemeEo {
-
-    private String id;
-
-    /**
+public class PolicyInstanceEo {
+	
+	private String id;
+	
+	/**
      * 保额
      */
     private String premium;
@@ -27,6 +23,16 @@ public class PolicySchemeEo {
      * 保险名称
      */
     private String policyName;
+
+    /**
+     * 起始时间
+     */
+    private String startDate;
+
+    /**
+     * 结束时间
+     */
+    private String endData;
     
 
     /**
@@ -35,14 +41,8 @@ public class PolicySchemeEo {
     private String policyType;
 
     /**
-     * 地区编码
+     * 订单id
      */
-    private String regionCode;
-    
-    /**
-     * 是否默认选中
-     */
-    private String isSelected;
-    
-    
+    private String orderNumber;
+
 }

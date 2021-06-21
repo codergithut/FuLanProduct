@@ -65,4 +65,10 @@ public class VehicleEo {
      * 用户编码
      */
     private String userId;
+    
+    /**
+     * 地区编码
+     */
+    private String regionCode;
+    
 }

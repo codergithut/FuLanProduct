@@ -1,12 +1,7 @@
 package fulan.tianjian.demo.model.web.server.vo;
 
-
-/**
- * Created by tianjian on 2021/6/20.
- */
-public class PolicySchemeVo {
-
-    /**
+public class PolicyInstanceVo {
+	 /**
      * 保额
      */
     private String premium;
@@ -26,6 +21,16 @@ public class PolicySchemeVo {
      */
     private String policyName;
 
+    /**
+     * 起始时间
+     */
+    private String startDate;
+
+    /**
+     * 结束时间
+     */
+    private String endData;
+    
 
     /**
      * 保险类型
@@ -33,12 +38,8 @@ public class PolicySchemeVo {
     private String policyType;
 
     /**
-     * 地区编码
+     * 订单id
      */
-    private String regionCode;
-    
-    /**
-     * 是否某人选中
-     */
-    private String isSelected;
+    private String orderNumber;
+
 }

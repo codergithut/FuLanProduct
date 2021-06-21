@@ -50,4 +50,14 @@ public class VehicleVo {
      * 车辆转移日期
      */
     private String transferDate;
+    
+    /**
+     * 订单编号
+     */
+    private String orderNumber;
+    
+    /**
+     * 地区编码
+     */
+    private String regionCode;
 }

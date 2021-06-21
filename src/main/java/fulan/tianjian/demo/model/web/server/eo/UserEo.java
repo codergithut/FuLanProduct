@@ -4,6 +4,9 @@ package fulan.tianjian.demo.model.web.server.eo;
  * Created by tianjian on 2021/6/20.
  */
 public class UserEo {
+	
+	private String id;
+	
     /**
      * 用户姓名
      */
