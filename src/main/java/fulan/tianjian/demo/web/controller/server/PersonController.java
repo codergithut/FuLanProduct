@@ -24,7 +24,10 @@ public class PersonController {
 	 * @return
 	 */
 	public ResponseValue<Boolean> savePersonData(List<PersonVo> persons) {
-		return null;
+		
+		Boolean result = personService.savePersonData(persons);
+		
+		return ResponseValue.successResponse(result);
 	}
 
 

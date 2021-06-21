@@ -25,5 +25,39 @@ public class InsureResultDTO {
      */
     private String businessCode;
 
+	public InsureDTO getInsureDTO() {
+		return insureDTO;
+	}
+
+	public void setInsureDTO(InsureDTO insureDTO) {
+		this.insureDTO = insureDTO;
+	}
+
+	public String getResultCode() {
+		return resultCode;
+	}
+
+	public void setResultCode(String resultCode) {
+		this.resultCode = resultCode;
+	}
+
+	public String getResultMsg() {
+		return resultMsg;
+	}
+
+	public void setResultMsg(String resultMsg) {
+		this.resultMsg = resultMsg;
+	}
+
+	public String getBusinessCode() {
+		return businessCode;
+	}
+
+	public void setBusinessCode(String businessCode) {
+		this.businessCode = businessCode;
+	}
+    
+    
+
 
 }

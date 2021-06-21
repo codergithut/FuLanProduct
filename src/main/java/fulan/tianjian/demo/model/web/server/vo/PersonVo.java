@@ -1,5 +1,9 @@
 package fulan.tianjian.demo.model.web.server.vo;
 
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.client.insure.InsurePersonDTO;
+
 /**
  * Created by tianjian on 2021/6/20.
  */
@@ -34,4 +38,10 @@ public class PersonVo {
      * 对应的订单编码
      */
     private String orderNumber;
+    
+    public InsurePersonDTO convertToDTO() {
+    	InsurePersonDTO insurePersonDTO = new InsurePersonDTO();
+    	BeanUtils.copyProperties(this, insurePersonDTO);
+    	return insurePersonDTO;
+    }
 }

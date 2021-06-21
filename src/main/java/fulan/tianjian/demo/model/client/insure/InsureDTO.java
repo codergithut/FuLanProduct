@@ -1,5 +1,7 @@
 package fulan.tianjian.demo.model.client.insure;
 
+import java.util.List;
+
 /**
  * 保险基础数据封装
  */
@@ -13,12 +15,12 @@ public class InsureDTO {
     /**
      * 当前投保人受益人车主信息
      */
-    private InsurePersonDTO insurePersonDTO;
+    private List<InsurePersonDTO> insurePersons;
 
     /**
      * 当前订单保险方案
      */
-    private PolicySchemeDTO policySchemeDTO;
+    private List<PolicySchemeDTO> policySchemes;
 
     /**
      * 当前保单车辆数据
@@ -44,24 +46,16 @@ public class InsureDTO {
     public void setInsureConfigDTO(InsureConfigDTO insureConfigDTO) {
         this.insureConfigDTO = insureConfigDTO;
     }
+    
+    public List<InsurePersonDTO> getInsurePersons() {
+		return insurePersons;
+	}
 
-    public InsurePersonDTO getInsurePersonDTO() {
-        return insurePersonDTO;
-    }
+	public void setInsurePersons(List<InsurePersonDTO> insurePersons) {
+		this.insurePersons = insurePersons;
+	}
 
-    public void setInsurePersonDTO(InsurePersonDTO insurePersonDTO) {
-        this.insurePersonDTO = insurePersonDTO;
-    }
-
-    public PolicySchemeDTO getPolicySchemeDTO() {
-        return policySchemeDTO;
-    }
-
-    public void setPolicySchemeDTO(PolicySchemeDTO policySchemeDTO) {
-        this.policySchemeDTO = policySchemeDTO;
-    }
-
-    public VehicleDTO getVehicleDTO() {
+	public VehicleDTO getVehicleDTO() {
         return vehicleDTO;
     }
 
@@ -84,4 +78,14 @@ public class InsureDTO {
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
     }
+
+	public List<PolicySchemeDTO> getPolicySchemes() {
+		return policySchemes;
+	}
+
+	public void setPolicySchemes(List<PolicySchemeDTO> policySchemes) {
+		this.policySchemes = policySchemes;
+	}
+    
+    
 }

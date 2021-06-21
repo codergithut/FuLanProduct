@@ -2,6 +2,10 @@ package fulan.tianjian.demo.model.client.insure;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
+
 /**
  * 订单保险方案数据
  */
@@ -41,6 +45,12 @@ public class PolicySchemeDTO {
      * 子险
      */
     private List<PolicySchemeDTO> subInsurancePolicySchemes;
+    
+    public PolicyInstanceVo convertToVo() {
+    	PolicyInstanceVo policyInstanceVo = new PolicyInstanceVo();
+    	BeanUtils.copyProperties(this, policyInstanceVo);
+    	return policyInstanceVo;
+    }
 
 
 }

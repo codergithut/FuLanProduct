@@ -40,12 +40,16 @@ public class UserManagerController {
      * @return
      */
     public ResponseValue<Boolean> getCheckCode(UserVo userVo) {
+    	
         String identityCardNumber = userVo.getIdentityCardNumber();
         String checkCode = RandomStringUtils.random(6, true, true);
+        //根据用户id查询系统是否已有用户
         UserEo userEo =  userService.findUserInfo(userVo.getIdentityCardNumber());
         if(userEo != null) {
+        	//发送验证码给用户
             boolean sendResult = smsService.sendCheckCode(userEo.getPhoneNumber(), checkCode);
             if(sendResult) {
+            	//缓存记录
             	Cache<String, String> checkCodeCache = loginCacheDataService.getCheckCodeCache();
                 checkCodeCache.put(identityCardNumber, checkCode);
             }

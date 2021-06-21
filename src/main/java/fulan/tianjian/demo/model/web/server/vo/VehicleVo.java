@@ -1,5 +1,9 @@
 package fulan.tianjian.demo.model.web.server.vo;
 
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.client.insure.VehicleDTO;
+
 /**
  * 车辆视图模型
  * Created by tianjian on 2021/6/20.
@@ -60,4 +64,10 @@ public class VehicleVo {
      * 地区编码
      */
     private String regionCode;
+    
+    public VehicleDTO convertToDTO() {
+    	VehicleDTO vehicleDTO = new VehicleDTO();
+    	BeanUtils.copyProperties(this, vehicleDTO);
+    	return vehicleDTO;
+    }
 }

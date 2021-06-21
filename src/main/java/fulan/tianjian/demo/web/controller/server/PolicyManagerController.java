@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fulan.tianjian.demo.model.web.ResponseValue;
 import fulan.tianjian.demo.model.web.server.vo.PolicyDescribeVo;
+import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
 import fulan.tianjian.demo.model.web.server.vo.PolicySchemeVo;
 import fulan.tianjian.demo.model.web.server.vo.PolicyValueViewVo;
 import fulan.tianjian.demo.model.web.server.vo.UserVo;
@@ -21,6 +22,7 @@ public class PolicyManagerController {
 	private PolicyService policyService;
 	
 	/**
+	 * 前端缓存
 	 * 获取保险描述详情
 	 * @return
 	 */
@@ -32,6 +34,7 @@ public class PolicyManagerController {
 	}
 	
 	/**
+	 * 前端缓存
 	 * 获取保险视图主要是提供保险保额选线等数据
 	 * @return
 	 */
@@ -44,6 +47,7 @@ public class PolicyManagerController {
 	
 	
 	/**
+	 * 前端缓存
 	 * 获取保险具体方案
 	 * @param regionCode 地区编码
 	 * @return
@@ -54,6 +58,31 @@ public class PolicyManagerController {
 		
 		return ResponseValue.successResponse(policySchemes);
 		
+	}
+	
+	/**
+	 * 将保险方案入库
+	 * @param policySchemeVos
+	 * @return
+	 */
+	public ResponseValue<Boolean> savePolicyInstance(List<PolicyInstanceVo> policyInstances){
+		
+		Boolean result = policyService.savePolicyInstance(policyInstances);
+		
+		return ResponseValue.successResponse(result);
+		
+	}
+	
+	/**
+	 * 根据订单号获取保险方案数据
+	 * @param orderNumber
+	 * @return
+	 */
+	public ResponseValue<List<PolicyInstanceVo>> getPolicyInstanceByOrderNumber(String orderNumber) {
+		
+		List<PolicyInstanceVo> policyResults = policyService.findPolicyInstanceByOrderNumber(orderNumber);
+		
+		return ResponseValue.successResponse(policyResults);
 	}
 	
 	

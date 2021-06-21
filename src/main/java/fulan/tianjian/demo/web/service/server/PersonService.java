@@ -8,9 +8,15 @@ import fulan.tianjian.demo.model.web.server.vo.PersonVo;
 
 @Service
 public class PersonService {
-	
-	public Boolean savePerson(List<PersonVo> personVos) {
-		return false;
+
+	public Boolean savePersonData(List<PersonVo> persons) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PersonVo> findPersonByOrderNumber(String orderNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

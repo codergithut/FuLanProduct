@@ -1,5 +1,9 @@
 package fulan.tianjian.demo.model.web.server.vo;
 
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.client.insure.PolicySchemeDTO;
+
 public class PolicyInstanceVo {
 	 /**
      * 保额
@@ -41,5 +45,11 @@ public class PolicyInstanceVo {
      * 订单id
      */
     private String orderNumber;
+    
+    public PolicySchemeDTO convertToDTO() {
+    	PolicySchemeDTO policySchemeDTO = new PolicySchemeDTO();
+    	BeanUtils.copyProperties(this, policySchemeDTO);
+    	return policySchemeDTO;
+    }
 
 }

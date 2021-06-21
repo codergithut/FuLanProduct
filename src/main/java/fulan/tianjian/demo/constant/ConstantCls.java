@@ -23,4 +23,8 @@ public class ConstantCls {
     public final static Integer REST_COMMON_FAIL_CODE = 100000;
 
     public final static Integer REST_COMMON_SUCCESS_CODE = 000000;
+    
+    public final static String UNDERWRITING = "underwriting";
+    
+    public final static String QUOTE = "quote";
 }

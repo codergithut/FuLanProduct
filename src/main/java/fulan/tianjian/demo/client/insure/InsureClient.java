@@ -44,7 +44,7 @@ public class InsureClient {
      * @param insureDTO
      * @return
      */
-    InsureResultDTO quotedPrice(InsureDTO insureDTO) throws PureRiskLossException {
+    public InsureResultDTO quotedPrice(InsureDTO insureDTO) throws PureRiskLossException {
         InsureRemote insureRemote = insureModelService.createInsureRemoteByInsureDTO(insureDTO, "quotePrice");
         MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(QUOTED_PRICE_URL,
                 JSON.toJSONString(insureRemote), InsureRemote.class);
