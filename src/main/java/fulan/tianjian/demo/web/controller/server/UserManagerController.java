@@ -3,6 +3,7 @@ package fulan.tianjian.demo.web.controller.server;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import fulan.tianjian.demo.client.sms.SmsService;
+import fulan.tianjian.demo.interceptor.LoginCacheDataService;
 import fulan.tianjian.demo.model.web.ResponseValue;
 import fulan.tianjian.demo.model.web.server.eo.UserEo;
 import fulan.tianjian.demo.model.web.server.vo.UserVo;
@@ -12,6 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by tianjian on 2021/6/20.
@@ -23,20 +27,11 @@ public class UserManagerController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private LoginCacheDataService loginCacheDataService;
 
-    Cache<String, String> checkCodeCache = CacheBuilder.newBuilder()
-            .maximumSize(100) // 设置缓存的最大容量
-            .expireAfterWrite(5, TimeUnit.MINUTES) // 设置缓存在写入一分钟后失效
-            .concurrencyLevel(10) // 设置并发级别为10
-            .recordStats() // 开启缓存统计
-            .build();
-
-    Cache<String, String> loginCache = CacheBuilder.newBuilder()
-            .maximumSize(100) // 设置缓存的最大容量
-            .expireAfterWrite(5, TimeUnit.DAYS) // 设置缓存在写入一分钟后失效
-            .concurrencyLevel(10) // 设置并发级别为10
-            .recordStats() // 开启缓存统计
-            .build();
+ 
 
 
     /**
@@ -51,6 +46,7 @@ public class UserManagerController {
         if(userEo != null) {
             boolean sendResult = smsService.sendCheckCode(userEo.getPhoneNumber(), checkCode);
             if(sendResult) {
+            	Cache<String, String> checkCodeCache = loginCacheDataService.getCheckCodeCache();
                 checkCodeCache.put(identityCardNumber, checkCode);
             }
         }
@@ -64,7 +60,10 @@ public class UserManagerController {
      * @param userVo
      * @return
      */
-    public ResponseValue<UserVo> userLogin(UserVo userVo) {
+    public ResponseValue<UserVo> userLogin(UserVo userVo, HttpServletResponse response) {
+    	
+    	Cache<String, String> checkCodeCache = loginCacheDataService.getCheckCodeCache();
+    	Cache<String, String> loginCache = loginCacheDataService.getLoginCache();
 
         //获取缓存身份证编码
         String checkCode = checkCodeCache.getIfPresent(userVo.getIdentityCardNumber());
@@ -76,6 +75,12 @@ public class UserManagerController {
             //将用户凭证写入缓存
             loginCache.put(userCredential, userVo.getIdentityCardNumber());
             userVo.setUserCredential(userCredential);
+            
+            //为前端设置用户凭证并设置只读属性
+            Cookie cookie = new Cookie("userCredential",userCredential);  //对比入参数据
+            cookie.setHttpOnly(true);
+            response.addCookie(cookie);
+            
             return ResponseValue.successResponse(userVo);
         } else {
             return ResponseValue.failResponse();
