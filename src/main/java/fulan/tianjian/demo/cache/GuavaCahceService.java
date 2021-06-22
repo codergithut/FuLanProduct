@@ -2,9 +2,6 @@ package fulan.tianjian.demo.cache;
 
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 

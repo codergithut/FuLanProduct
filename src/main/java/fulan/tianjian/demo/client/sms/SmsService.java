@@ -3,7 +3,6 @@ package fulan.tianjian.demo.client.sms;
 import fulan.tianjian.demo.client.AbstractHttpClient;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.sms.SmsModel;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import static fulan.tianjian.demo.constant.ConstantCls.SMS_URL;
 

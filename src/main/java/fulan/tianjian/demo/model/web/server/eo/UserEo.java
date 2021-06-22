@@ -63,4 +63,22 @@ public class UserEo {
     public void setUserCredential(String userCredential) {
         this.userCredential = userCredential;
     }
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Long getOverdue() {
+		return overdue;
+	}
+
+	public void setOverdue(Long overdue) {
+		this.overdue = overdue;
+	}
+    
+    
 }

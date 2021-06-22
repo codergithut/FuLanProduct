@@ -11,6 +11,24 @@ public class PolicyValueViewVo {
      * 保额
      */
     private String premium;
+
+	public String getPolicyCode() {
+		return policyCode;
+	}
+
+	public void setPolicyCode(String policyCode) {
+		this.policyCode = policyCode;
+	}
+
+	public String getPremium() {
+		return premium;
+	}
+
+	public void setPremium(String premium) {
+		this.premium = premium;
+	}
+    
+    
    
 	
 }

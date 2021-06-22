@@ -31,8 +31,70 @@ public class VehicleTaxEo {
      * 改单车船税数据情况
      */
     private String orderNumber;
+    
+    
 
-    public VehicleRemote coverVehicleRemote(VehicleRemote vehicleRemote) {
+    public String getVehicleTaxStartTime() {
+		return vehicleTaxStartTime;
+	}
+
+
+
+	public void setVehicleTaxStartTime(String vehicleTaxStartTime) {
+		this.vehicleTaxStartTime = vehicleTaxStartTime;
+	}
+
+
+
+	public String getVehicleTaxEndTime() {
+		return vehicleTaxEndTime;
+	}
+
+
+
+	public void setVehicleTaxEndTime(String vehicleTaxEndTime) {
+		this.vehicleTaxEndTime = vehicleTaxEndTime;
+	}
+
+
+
+	public String getVehicleTaxType() {
+		return vehicleTaxType;
+	}
+
+
+
+	public void setVehicleTaxType(String vehicleTaxType) {
+		this.vehicleTaxType = vehicleTaxType;
+	}
+
+
+
+	public String getVehicleTaxRefuseAmount() {
+		return vehicleTaxRefuseAmount;
+	}
+
+
+
+	public void setVehicleTaxRefuseAmount(String vehicleTaxRefuseAmount) {
+		this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
+	}
+
+
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+
+
+	public VehicleRemote coverVehicleRemote(VehicleRemote vehicleRemote) {
         if(vehicleRemote == null) {
             return null;
         }

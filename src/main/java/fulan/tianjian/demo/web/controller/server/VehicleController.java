@@ -35,8 +35,7 @@ public class VehicleController {
      * @return
      */
     public ResponseValue<Boolean> deleteVehicle(String orderNumber) {
-    	Boolean result = vehicleService.deleteVehicleByOrderNumber(orderNumber);
-    	return null;
+    	return ResponseValue.successResponse(vehicleService.deleteVehicleByOrderNumber(orderNumber));
     }
     
     /**

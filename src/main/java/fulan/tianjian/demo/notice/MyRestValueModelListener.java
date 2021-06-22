@@ -5,9 +5,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyRestValueModelListener implements ApplicationListener<MyRestValueModel> {
+public class MyRestValueModelListener<T> implements ApplicationListener<MyRestValueModel<T>> {
     @Override
-    public void onApplicationEvent(MyRestValueModel myRestValueModel) {
+    public void onApplicationEvent(MyRestValueModel<T> myRestValueModel) {
         System.out.println(myRestValueModel.toString());
     }
 }

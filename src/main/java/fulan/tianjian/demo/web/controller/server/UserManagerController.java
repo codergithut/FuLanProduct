@@ -1,7 +1,6 @@
 package fulan.tianjian.demo.web.controller.server;
 
 import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 import fulan.tianjian.demo.client.sms.SmsService;
 import fulan.tianjian.demo.interceptor.LoginCacheDataService;
 import fulan.tianjian.demo.model.web.ResponseValue;
@@ -11,8 +10,6 @@ import fulan.tianjian.demo.web.service.server.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;

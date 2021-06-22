@@ -20,7 +20,7 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     private RestTemplate restTemplate;
 
     @Autowired
-    private SendNoticeService sendNoticeService;
+    private SendNoticeService<MyRestValueModel<T>> sendNoticeService;
 
     /**
      * 通用远程调用请求

@@ -35,5 +35,55 @@ public class PolicySchemeRemote {
      */
     private String endData;
 
+	public String getPremium() {
+		return premium;
+	}
+
+	public void setPremium(String premium) {
+		this.premium = premium;
+	}
+
+	public String getSumInsured() {
+		return sumInsured;
+	}
+
+	public void setSumInsured(String sumInsured) {
+		this.sumInsured = sumInsured;
+	}
+
+	public String getPolicyCode() {
+		return policyCode;
+	}
+
+	public void setPolicyCode(String policyCode) {
+		this.policyCode = policyCode;
+	}
+
+	public String getPolicyName() {
+		return policyName;
+	}
+
+	public void setPolicyName(String policyName) {
+		this.policyName = policyName;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndData() {
+		return endData;
+	}
+
+	public void setEndData(String endData) {
+		this.endData = endData;
+	}
+    
+    
+
 
 }

@@ -22,7 +22,6 @@ import fulan.tianjian.demo.model.web.server.vo.PayInfoVo;
 import fulan.tianjian.demo.model.web.server.vo.PersonVo;
 import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
 import fulan.tianjian.demo.model.web.server.vo.VehicleVo;
-import fulan.tianjian.demo.web.service.config.InssureConfigService;
 
 @Service
 public class InssureCoreService {

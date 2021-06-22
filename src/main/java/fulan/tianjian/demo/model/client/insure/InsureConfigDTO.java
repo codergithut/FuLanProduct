@@ -45,5 +45,61 @@ public class InsureConfigDTO {
      */
     private List<InsureHandlePersonDTO> insureHandlePersonDTOS;
 
+	public String getQuotationMode() {
+		return quotationMode;
+	}
+
+	public void setQuotationMode(String quotationMode) {
+		this.quotationMode = quotationMode;
+	}
+
+	public String getIsElectronicApplicationForm() {
+		return isElectronicApplicationForm;
+	}
+
+	public void setIsElectronicApplicationForm(String isElectronicApplicationForm) {
+		this.isElectronicApplicationForm = isElectronicApplicationForm;
+	}
+
+	public String getIsFaceRecognition() {
+		return isFaceRecognition;
+	}
+
+	public void setIsFaceRecognition(String isFaceRecognition) {
+		this.isFaceRecognition = isFaceRecognition;
+	}
+
+	public String getDistributionChannel() {
+		return distributionChannel;
+	}
+
+	public void setDistributionChannel(String distributionChannel) {
+		this.distributionChannel = distributionChannel;
+	}
+
+	public String getAgentPointName() {
+		return agentPointName;
+	}
+
+	public void setAgentPointName(String agentPointName) {
+		this.agentPointName = agentPointName;
+	}
+
+	public String getAgentPointCode() {
+		return agentPointCode;
+	}
+
+	public void setAgentPointCode(String agentPointCode) {
+		this.agentPointCode = agentPointCode;
+	}
+
+	public List<InsureHandlePersonDTO> getInsureHandlePersonDTOS() {
+		return insureHandlePersonDTOS;
+	}
+
+	public void setInsureHandlePersonDTOS(List<InsureHandlePersonDTO> insureHandlePersonDTOS) {
+		this.insureHandlePersonDTOS = insureHandlePersonDTOS;
+	}
+    
 
 }

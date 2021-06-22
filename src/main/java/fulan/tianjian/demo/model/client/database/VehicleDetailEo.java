@@ -346,4 +346,14 @@ public class VehicleDetailEo {
     public void setDataSource(String dataSource) {
         this.dataSource = dataSource;
     }
+
+	public String getMd5Value() {
+		return md5Value;
+	}
+
+	public void setMd5Value(String md5Value) {
+		this.md5Value = md5Value;
+	}
+    
+    
 }

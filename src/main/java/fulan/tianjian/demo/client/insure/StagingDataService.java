@@ -62,8 +62,9 @@ public class StagingDataService {
     }
 
     public List<VehicleDetailEo> findVehicleDetailByVehicleDTO(VehicleDTO vehicleDTO) {
-        String vehicleCode = vehicleDTO.getVehicleCode();
-        String md5Value = vehicleDTO.getMd5Value();
+    	//todo 处理
+//        String vehicleCode = vehicleDTO.getVehicleCode();
+//        String md5Value = vehicleDTO.getMd5Value();
         return null;
     }
 }

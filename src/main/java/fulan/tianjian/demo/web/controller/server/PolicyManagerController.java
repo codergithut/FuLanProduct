@@ -9,8 +9,6 @@ import fulan.tianjian.demo.model.web.server.vo.PolicyDescribeVo;
 import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
 import fulan.tianjian.demo.model.web.server.vo.PolicySchemeVo;
 import fulan.tianjian.demo.model.web.server.vo.PolicyValueViewVo;
-import fulan.tianjian.demo.model.web.server.vo.UserVo;
-import fulan.tianjian.demo.web.service.server.PersonService;
 import fulan.tianjian.demo.web.service.server.PolicyService;
 
 /**
