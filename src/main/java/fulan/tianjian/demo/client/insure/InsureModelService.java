@@ -11,6 +11,7 @@ import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PureRiskInfoRemote;
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
+import fulan.tianjian.demo.model.client.order.OrderCenterVo;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,4 +115,11 @@ public class InsureModelService {
         return insureResultDTO;
 
     }
+
+	public InsureRemote createInsureRemoteByOrderCenterVo(OrderCenterVo orderCenterVo, String string) {
+		// TODO Auto-generated method stub
+		InsureRemote insureRemote = new InsureRemote();
+		BeanUtils.copyProperties(orderCenterVo, insureRemote);
+		return insureRemote;
+	}
 }

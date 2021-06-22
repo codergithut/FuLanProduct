@@ -23,6 +23,11 @@ public class VehicleService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Boolean saveVehicle(VehicleVo vehicleVo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

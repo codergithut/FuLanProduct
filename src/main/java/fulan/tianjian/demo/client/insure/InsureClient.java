@@ -10,6 +10,7 @@ import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
+import fulan.tianjian.demo.model.client.order.OrderCenterVo;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.vehicle.ThirdPartyVehicle;
 import org.springframework.beans.BeanUtils;
@@ -48,24 +49,7 @@ public class InsureClient {
      */
     public InsureResultDTO quotedPrice(InsureDTO insureDTO) throws PureRiskLossException {
         InsureRemote insureRemote = insureModelService.createInsureRemoteByInsureDTO(insureDTO, "quotePrice");
-        MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(QUOTED_PRICE_URL,
-                JSON.toJSONString(insureRemote), InsureRemote.class);
-
-        InsureRemote backData = null;
-        if(result.getData() != null) {
-            backData = result.getData();
-        }
-
-        if("0000".equals(result.getStatus())) {
-            return insureModelService.createInsureResultDTOByInsureRemote(backData);
-        }
-
-        //核保或报价失败，按照返回数据封装数据给前端使用
-        if(backData != null) {
-
-        }
-
-        return null;
+        return getRemoteValue(insureRemote);
     }
 
 
@@ -166,6 +150,33 @@ public class InsureClient {
         }
         return true;
     }
+
+
+	public InsureResultDTO underwritingByOrderCenter(OrderCenterVo orderCenterVo) {
+		InsureRemote insureRemote = insureModelService.createInsureRemoteByOrderCenterVo(orderCenterVo, "quotePrice");
+		return getRemoteValue(insureRemote);
+	}
+	
+	private InsureResultDTO getRemoteValue(InsureRemote insureRemote) {
+		 MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(QUOTED_PRICE_URL,
+	                JSON.toJSONString(insureRemote), InsureRemote.class);
+
+	        InsureRemote backData = null;
+	        if(result.getData() != null) {
+	            backData = result.getData();
+	        }
+
+	        if("0000".equals(result.getStatus())) {
+	            return insureModelService.createInsureResultDTOByInsureRemote(backData);
+	        }
+
+	        //核保或报价失败，按照返回数据封装数据给前端使用
+	        if(backData != null) {
+
+	        }
+
+	        return null;
+	}
 
 
 }

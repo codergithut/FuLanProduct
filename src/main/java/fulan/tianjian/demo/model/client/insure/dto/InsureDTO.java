@@ -37,6 +37,11 @@ public class InsureDTO {
      * 订单号
      */
     private String orderNumber;
+    
+    /**
+     * 是否全流程
+     */
+    private boolean isWholeProcess;
 
 
     public InsureConfigDTO getInsureConfigDTO() {
@@ -86,6 +91,15 @@ public class InsureDTO {
 	public void setPolicySchemes(List<PolicySchemeDTO> policySchemes) {
 		this.policySchemes = policySchemes;
 	}
+
+	public boolean isWholeProcess() {
+		return isWholeProcess;
+	}
+
+	public void setWholeProcess(boolean isWholeProcess) {
+		this.isWholeProcess = isWholeProcess;
+	}
     
+	
     
 }
