@@ -1,9 +1,15 @@
-package fulan.tianjian.demo.model.client.remote;
+package fulan.tianjian.demo.model.client.insure.dto;
+
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
 
 /**
  * 订单保险方案数据
  */
-public class PolicySchemeRemote {
+public class PolicySchemeDTO {
 
     /**
      * 保额
@@ -35,55 +41,117 @@ public class PolicySchemeRemote {
      */
     private String endData;
 
-	public String getPremium() {
+    /**
+     * 子险
+     */
+    private List<PolicySchemeDTO> subInsurancePolicySchemes;
+    
+    
+    
+    
+    public String getPremium() {
 		return premium;
 	}
+
+
+
 
 	public void setPremium(String premium) {
 		this.premium = premium;
 	}
 
+
+
+
 	public String getSumInsured() {
 		return sumInsured;
 	}
+
+
+
 
 	public void setSumInsured(String sumInsured) {
 		this.sumInsured = sumInsured;
 	}
 
+
+
+
 	public String getPolicyCode() {
 		return policyCode;
 	}
+
+
+
 
 	public void setPolicyCode(String policyCode) {
 		this.policyCode = policyCode;
 	}
 
+
+
+
 	public String getPolicyName() {
 		return policyName;
 	}
+
+
+
 
 	public void setPolicyName(String policyName) {
 		this.policyName = policyName;
 	}
 
+
+
+
 	public String getStartDate() {
 		return startDate;
 	}
+
+
+
 
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
+
+
+
 	public String getEndData() {
 		return endData;
 	}
 
+
+
+
 	public void setEndData(String endData) {
 		this.endData = endData;
 	}
-    
-    
+
+
+
+
+	public List<PolicySchemeDTO> getSubInsurancePolicySchemes() {
+		return subInsurancePolicySchemes;
+	}
+
+
+
+
+	public void setSubInsurancePolicySchemes(List<PolicySchemeDTO> subInsurancePolicySchemes) {
+		this.subInsurancePolicySchemes = subInsurancePolicySchemes;
+	}
+
+
+
+
+	public PolicyInstanceVo convertToVo() {
+    	PolicyInstanceVo policyInstanceVo = new PolicyInstanceVo();
+    	BeanUtils.copyProperties(this, policyInstanceVo);
+    	return policyInstanceVo;
+    }
 
 
 }

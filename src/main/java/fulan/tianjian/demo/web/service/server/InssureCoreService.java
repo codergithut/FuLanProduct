@@ -3,6 +3,8 @@ package fulan.tianjian.demo.web.service.server;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,15 +14,16 @@ import fulan.tianjian.demo.cache.GuavaCahceService;
 import fulan.tianjian.demo.client.insure.InsureClient;
 import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.exception.PureRiskLossException;
-import fulan.tianjian.demo.model.client.insure.InsureConfigDTO;
-import fulan.tianjian.demo.model.client.insure.InsureDTO;
-import fulan.tianjian.demo.model.client.insure.InsurePersonDTO;
-import fulan.tianjian.demo.model.client.insure.InsureResultDTO;
-import fulan.tianjian.demo.model.client.insure.PolicySchemeDTO;
-import fulan.tianjian.demo.model.client.insure.VehicleDTO;
+import fulan.tianjian.demo.model.client.insure.dto.InsureConfigDTO;
+import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
+import fulan.tianjian.demo.model.client.insure.dto.InsurePersonDTO;
+import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
+import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
+import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 import fulan.tianjian.demo.model.web.server.vo.PayInfoVo;
 import fulan.tianjian.demo.model.web.server.vo.PersonVo;
 import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
+import fulan.tianjian.demo.model.web.server.vo.UrlParamConfigVo;
 import fulan.tianjian.demo.model.web.server.vo.VehicleVo;
 
 @Service
@@ -75,6 +78,10 @@ public class InssureCoreService {
 	@Autowired
 	private InsureClient insureClient;
 	
+	@Autowired
+	private UrlParamConfigService urlParamConfigService;
+	
+
 	private List<PolicyInstanceVo> generalBehavior(String orderNumber, String regionCode, String type) throws PureRiskLossException {
 		
 		//获取人员信息并转换
@@ -86,8 +93,17 @@ public class InssureCoreService {
 			return e.convertToDTO();
 		}).collect(Collectors.toList());
 		
+		//获取车辆数据
+		VehicleVo vehicleVo = vehicleService.findVehicleByOrderNumber(orderNumber);
+		VehicleDTO vehicleDTO = insureClient.getVehicle(vehicleVo.convertToDTO());
+		
+		
 		//获取配置信息
 		InsureConfigDTO insureConfigDTO = insureConfigService.getValueByKey(regionCode);
+		if(StringUtils.isNoneBlank(vehicleVo.getConfigId())) {
+			UrlParamConfigVo urlParamConfigVo = urlParamConfigService.getUrlParamConfigVo(vehicleVo.getConfigId());
+			insureConfigDTO = overrideInsureConfig(insureConfigDTO, urlParamConfigVo);
+		}
 		
 		//获取保单信息
 		List<PolicyInstanceVo> policyInstances = policyService.findPolicyInstanceByOrderNumber(orderNumber);
@@ -98,10 +114,7 @@ public class InssureCoreService {
 			return e.convertToDTO();
 		}).collect(Collectors.toList());
 		
-		//获取车辆数据
-		VehicleVo vehicleVo = vehicleService.findVehicleByOrderNumber(orderNumber);
-		VehicleDTO vehicleDTO = insureClient.getVehicle(vehicleVo.convertToDTO());
-		
+	
 		InsureDTO insureDTO = new InsureDTO();
 		insureDTO.setOrderNumber(orderNumber);
 		insureDTO.setPolicySchemes(policySchemes);
@@ -126,6 +139,15 @@ public class InssureCoreService {
 		//保存报价后的方案并返回给调用方
 		policyService.savePolicyInstance(policyInstances);
 		return policyInstanceVos;
+		
+	}
+	
+	private InsureConfigDTO overrideInsureConfig(InsureConfigDTO insureConfigDTO, UrlParamConfigVo urlParamConfigVo) {
+		if(urlParamConfigVo == null) {
+			return insureConfigDTO;
+		}
+		BeanUtils.copyProperties(urlParamConfigVo, insureConfigDTO);
+		return insureConfigDTO;
 		
 	}
 	

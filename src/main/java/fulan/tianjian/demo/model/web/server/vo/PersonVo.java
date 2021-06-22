@@ -2,7 +2,7 @@ package fulan.tianjian.demo.model.web.server.vo;
 
 import org.springframework.beans.BeanUtils;
 
-import fulan.tianjian.demo.model.client.insure.InsurePersonDTO;
+import fulan.tianjian.demo.model.client.insure.dto.InsurePersonDTO;
 
 /**
  * Created by tianjian on 2021/6/20.

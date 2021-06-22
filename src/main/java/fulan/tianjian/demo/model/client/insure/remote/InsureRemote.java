@@ -1,4 +1,4 @@
-package fulan.tianjian.demo.model.client.remote;
+package fulan.tianjian.demo.model.client.insure.remote;
 
 /**
  * 保险基础数据封装

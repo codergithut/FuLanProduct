@@ -1,11 +1,11 @@
-package fulan.tianjian.demo.model.client.remote;
+package fulan.tianjian.demo.model.client.insure.dto;
 
 import java.util.List;
 
 /**
  * 保单的基础配置信息
  */
-public class InsureConfigRemote {
+public class InsureConfigDTO {
     /**
      * 报价模式
      */
@@ -43,7 +43,7 @@ public class InsureConfigRemote {
     /**
      * 保险操作人信息
      */
-    private List<InsureHandlePersonRemote> insureHandlePersonRemotes;
+    private List<InsureHandlePersonDTO> insureHandlePersonDTOS;
 
 	public String getQuotationMode() {
 		return quotationMode;
@@ -93,15 +93,13 @@ public class InsureConfigRemote {
 		this.agentPointCode = agentPointCode;
 	}
 
-	public List<InsureHandlePersonRemote> getInsureHandlePersonRemotes() {
-		return insureHandlePersonRemotes;
+	public List<InsureHandlePersonDTO> getInsureHandlePersonDTOS() {
+		return insureHandlePersonDTOS;
 	}
 
-	public void setInsureHandlePersonRemotes(List<InsureHandlePersonRemote> insureHandlePersonRemotes) {
-		this.insureHandlePersonRemotes = insureHandlePersonRemotes;
+	public void setInsureHandlePersonDTOS(List<InsureHandlePersonDTO> insureHandlePersonDTOS) {
+		this.insureHandlePersonDTOS = insureHandlePersonDTOS;
 	}
     
-    
-
 
 }

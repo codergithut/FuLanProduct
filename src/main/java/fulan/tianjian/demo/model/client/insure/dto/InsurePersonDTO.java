@@ -1,4 +1,4 @@
-package fulan.tianjian.demo.model.client.insure;
+package fulan.tianjian.demo.model.client.insure.dto;
 
 /**
  * 投保人 被保人 受益人 信息

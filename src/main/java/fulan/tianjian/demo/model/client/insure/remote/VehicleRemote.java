@@ -1,4 +1,4 @@
-package fulan.tianjian.demo.model.client.remote;
+package fulan.tianjian.demo.model.client.insure.remote;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.util.DigestUtils;

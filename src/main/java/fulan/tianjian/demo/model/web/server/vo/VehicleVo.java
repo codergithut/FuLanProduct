@@ -2,7 +2,7 @@ package fulan.tianjian.demo.model.web.server.vo;
 
 import org.springframework.beans.BeanUtils;
 
-import fulan.tianjian.demo.model.client.insure.VehicleDTO;
+import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 
 /**
  * 车辆视图模型
@@ -64,6 +64,11 @@ public class VehicleVo {
      * 地区编码
      */
     private String regionCode;
+    
+    /**
+     * url携带参数编码
+     */
+    private String configId;
     
     
     
@@ -192,9 +197,19 @@ public class VehicleVo {
 	}
 
 
-
 	public void setRegionCode(String regionCode) {
 		this.regionCode = regionCode;
+	}
+	
+
+	public String getConfigId() {
+		return configId;
+	}
+
+
+
+	public void setConfigId(String configId) {
+		this.configId = configId;
 	}
 
 

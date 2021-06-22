@@ -2,7 +2,7 @@ package fulan.tianjian.demo.model.web.server.vo;
 
 import org.springframework.beans.BeanUtils;
 
-import fulan.tianjian.demo.model.client.insure.PolicySchemeDTO;
+import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
 
 public class PolicyInstanceVo {
 	 /**

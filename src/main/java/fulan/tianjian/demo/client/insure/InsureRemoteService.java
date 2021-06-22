@@ -1,7 +1,8 @@
 package fulan.tianjian.demo.client.insure;
 
 import fulan.tianjian.demo.client.AbstractHttpClient;
-import fulan.tianjian.demo.model.client.remote.InsureRemote;
+import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
+
 import org.springframework.stereotype.Service;
 
 @Service

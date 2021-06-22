@@ -1,7 +1,8 @@
 package fulan.tianjian.demo.client.insure;
 
 import fulan.tianjian.demo.model.client.database.*;
-import fulan.tianjian.demo.model.client.insure.VehicleDTO;
+import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

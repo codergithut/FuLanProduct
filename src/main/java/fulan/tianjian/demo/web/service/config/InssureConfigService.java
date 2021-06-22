@@ -3,7 +3,7 @@ package fulan.tianjian.demo.web.service.config;
 import org.springframework.stereotype.Service;
 
 import fulan.tianjian.demo.cache.GuavaCahceService;
-import fulan.tianjian.demo.model.client.insure.InsureConfigDTO;
+import fulan.tianjian.demo.model.client.insure.dto.InsureConfigDTO;
 
 @Service("insureConfig")
 public class InssureConfigService extends GuavaCahceService<String, InsureConfigDTO>{

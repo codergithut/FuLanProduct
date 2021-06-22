@@ -1,4 +1,4 @@
-package fulan.tianjian.demo.model.client.insure;
+package fulan.tianjian.demo.model.client.insure.dto;
 
 /**
  * 核保报价返回数据

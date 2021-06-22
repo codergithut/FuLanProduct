@@ -1,7 +1,8 @@
 package fulan.tianjian.demo.model.client.database;
 
-import fulan.tianjian.demo.model.client.remote.PureRiskInfoRemote;
 import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.client.insure.remote.PureRiskInfoRemote;
 
 /**
  * Created by tianjian on 2021/6/20.

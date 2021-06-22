@@ -1,4 +1,4 @@
-package fulan.tianjian.demo.model.client.insure;
+package fulan.tianjian.demo.model.client.insure.dto;
 
 /**
  * 保单经办人等基础信息
