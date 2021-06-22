@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import fulan.tianjian.demo.cache.GuavaCahceService;
 import fulan.tianjian.demo.client.insure.InsureClient;
 import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.exception.PureRiskLossException;
@@ -26,7 +28,8 @@ import fulan.tianjian.demo.web.service.config.InssureConfigService;
 public class InssureCoreService {
 	
 	@Autowired
-	private InssureConfigService inssureConfigService;
+    @Qualifier("insureConfig") 
+	private GuavaCahceService<String, InsureConfigDTO> insureConfigService;
 
 	/**
 	 * 核保请求
@@ -85,7 +88,7 @@ public class InssureCoreService {
 		}).collect(Collectors.toList());
 		
 		//获取配置信息
-		InsureConfigDTO insureConfigDTO = inssureConfigService.getGeneralConfigByRegionCode(regionCode);
+		InsureConfigDTO insureConfigDTO = insureConfigService.getValueByKey(regionCode);
 		
 		//获取保单信息
 		List<PolicyInstanceVo> policyInstances = policyService.findPolicyInstanceByOrderNumber(orderNumber);

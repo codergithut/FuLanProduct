@@ -101,7 +101,8 @@ public class InsureModelService {
         if("0000".equals(result.getStatus())) {
             PureRiskEo savePureRiskEo = result.getData()
                     .getPureRiskInfoRemote().createPureRiskEoByPureRiskInfoRemote();
-            boolean v = stagingDataService.savePureRiskEo(savePureRiskEo);
+            stagingDataService.savePureRiskEo(savePureRiskEo);
+            return result.getData().getPureRiskInfoRemote();
         }
 
         return null;

@@ -14,6 +14,7 @@ import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.vehicle.ThirdPartyVehicle;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
@@ -24,6 +25,7 @@ import static fulan.tianjian.demo.constant.ConstantCls.*;
 /**
  * 核心请求类
  */
+@Service
 public class InsureClient {
 
     @Autowired
