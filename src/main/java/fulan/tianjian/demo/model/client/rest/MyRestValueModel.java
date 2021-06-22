@@ -2,23 +2,35 @@ package fulan.tianjian.demo.model.client.rest;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.util.DigestUtils;
 
 public class MyRestValueModel<T> extends ApplicationEvent {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 请求url
+	 */
 	private String url;
 
+	/**
+	 * 请求参数
+	 */
     private String params;
 
-
+    /**
+     * 响应消息
+     */
     private String message;
 
+    /**
+     * 返回数据
+     */
     private T data;
 
+    /**
+     * 响应代码
+     */
     private String status;
 
     public MyRestValueModel(Object source, String url, String params) {
@@ -71,5 +83,9 @@ public class MyRestValueModel<T> extends ApplicationEvent {
     public String toString() {
         return JSON.toJSONString(data);
 
+    }
+    
+    public String getMd5Value() {
+    	return DigestUtils.md5DigestAsHex(params.getBytes());
     }
 }

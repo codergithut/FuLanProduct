@@ -1,4 +1,4 @@
-package fulan.tianjian.demo.model.client.database;
+package fulan.tianjian.demo.model.client.insure.database;
 
 /**
  * Created by tianjian on 2021/6/20.

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import fulan.tianjian.demo.client.vehicle.ThirdPartyModelWarehouseClient;
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.client.convert.VehicleConvertUtil;
-import fulan.tianjian.demo.model.client.database.VehicleDetailEo;
+import fulan.tianjian.demo.model.client.insure.database.VehicleDetailEo;
 import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;

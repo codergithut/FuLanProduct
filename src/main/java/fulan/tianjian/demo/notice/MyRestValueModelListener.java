@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 public class MyRestValueModelListener<T> implements ApplicationListener<MyRestValueModel<T>> {
     @Override
     public void onApplicationEvent(MyRestValueModel<T> myRestValueModel) {
-        System.out.println(myRestValueModel.toString());
+    	
+    	if("0000".equals(myRestValueModel.getStatus())) {
+    		System.out.println(myRestValueModel.toString());
+    	}
+    	
     }
 }

@@ -8,8 +8,6 @@ import org.springframework.util.CollectionUtils;
 
 import fulan.tianjian.demo.client.insure.InsureClient;
 import fulan.tianjian.demo.client.order.OrderCenterClient;
-import fulan.tianjian.demo.exception.PureRiskLossException;
-import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.order.OrderCenterVo;
 import fulan.tianjian.demo.model.web.server.vo.PersonVo;

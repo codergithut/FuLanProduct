@@ -48,6 +48,11 @@ public class VehicleController {
     	return ResponseValue.successResponse(vehicleVo);
     }
     
+    
+    public ResponseValue<Boolean> saveVehicle(VehicleVo vehicleVo) {
+    	Boolean result = vehicleService.saveVehicle(vehicleVo);
+    	return ResponseValue.successResponse(result);
+    }
 
 }
  

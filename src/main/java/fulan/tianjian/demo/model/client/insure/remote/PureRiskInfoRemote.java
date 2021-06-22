@@ -1,8 +1,9 @@
 package fulan.tianjian.demo.model.client.insure.remote;
 
 
-import fulan.tianjian.demo.model.client.database.PureRiskEo;
 import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.client.insure.database.PureRiskEo;
 
 public class PureRiskInfoRemote {
     public PureRiskEo createPureRiskEoByPureRiskInfoRemote(){

@@ -1,4 +1,4 @@
-package fulan.tianjian.demo.model.client.database;
+package fulan.tianjian.demo.model.client.insure.database;
 
 import org.springframework.beans.BeanUtils;
 

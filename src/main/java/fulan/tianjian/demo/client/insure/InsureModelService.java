@@ -2,10 +2,10 @@ package fulan.tianjian.demo.client.insure;
 
 import com.alibaba.fastjson.JSON;
 import fulan.tianjian.demo.exception.PureRiskLossException;
-import fulan.tianjian.demo.model.client.database.InsuranceRiskInformationEo;
-import fulan.tianjian.demo.model.client.database.PremiumFloatingItemsEo;
-import fulan.tianjian.demo.model.client.database.PureRiskEo;
-import fulan.tianjian.demo.model.client.database.VehicleTaxEo;
+import fulan.tianjian.demo.model.client.insure.database.InsuranceRiskInformationEo;
+import fulan.tianjian.demo.model.client.insure.database.PremiumFloatingItemsEo;
+import fulan.tianjian.demo.model.client.insure.database.PureRiskEo;
+import fulan.tianjian.demo.model.client.insure.database.VehicleTaxEo;
 import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;

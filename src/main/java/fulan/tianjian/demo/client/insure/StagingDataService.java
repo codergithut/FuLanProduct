@@ -1,6 +1,10 @@
 package fulan.tianjian.demo.client.insure;
 
-import fulan.tianjian.demo.model.client.database.*;
+import fulan.tianjian.demo.model.client.insure.database.InsuranceRiskInformationEo;
+import fulan.tianjian.demo.model.client.insure.database.PremiumFloatingItemsEo;
+import fulan.tianjian.demo.model.client.insure.database.PureRiskEo;
+import fulan.tianjian.demo.model.client.insure.database.VehicleDetailEo;
+import fulan.tianjian.demo.model.client.insure.database.VehicleTaxEo;
 import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 
 import org.springframework.stereotype.Service;

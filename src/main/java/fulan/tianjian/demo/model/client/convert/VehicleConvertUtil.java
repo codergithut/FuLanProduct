@@ -1,6 +1,6 @@
 package fulan.tianjian.demo.model.client.convert;
 
-import fulan.tianjian.demo.model.client.database.VehicleDetailEo;
+import fulan.tianjian.demo.model.client.insure.database.VehicleDetailEo;
 import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 import fulan.tianjian.demo.model.client.vehicle.ThirdPartyVehicle;
