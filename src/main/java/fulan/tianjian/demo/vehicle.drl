@@ -1,0 +1,24 @@
+package fulan.tianjian.demo.drools;
+rule "vehicle" when
+    $p : PolicyRuleEngine(true)
+then
+    System.out.println($p.carAge);
+    $p.saveGivingPolicy("1", "2", "3", "4");
+end
+
+
+package fulan.tianjian.demo.drools;
+rule "Persons older than Mark" when
+    $p : PolicyRuleEngine(carAge == 3)
+then
+    System.out.println($p.getCarAge());
+end
+
+
+package fulan.tianjian.demo.drools;
+rule "Persons older than Mark" when
+    $p : PolicyRuleEngine(carAge == 3)
+then
+    $p.saveGivingPolicy("1", "2", "3", "4");
+    System.out.println("3");
+end

@@ -1,6 +1,9 @@
 package fulan.tianjian.demo.model.client.rest;
 
 import com.alibaba.fastjson.JSON;
+
+import fulan.tianjian.demo.model.client.RemoteRecordEo;
+
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.DigestUtils;
 
@@ -87,5 +90,16 @@ public class MyRestValueModel<T> extends ApplicationEvent {
     
     public String getMd5Value() {
     	return DigestUtils.md5DigestAsHex(params.getBytes());
+    }
+    
+    public RemoteRecordEo convertToRemoteRecordEo() {
+    	RemoteRecordEo remoteRecord = new RemoteRecordEo();
+    	remoteRecord.setMd5Value(this.getMd5Value());
+    	remoteRecord.setParams(params);
+    	remoteRecord.setUrl(url);
+    	remoteRecord.setIsDelete("N");
+    	return remoteRecord;
+    	
+    	
     }
 }

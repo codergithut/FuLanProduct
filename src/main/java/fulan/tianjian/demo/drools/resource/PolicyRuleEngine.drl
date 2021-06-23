@@ -1,0 +1,9 @@
+package fulan.tianjian.demo.drools
+rule "PolicyRuleEngine Rule"
+    when
+        $p : PolicyRuleEngine(carAge == 3)
+    then
+        $p.saveGivingPolicy("1", "2", "3", "4");
+        System.out.println("3");
+end
+
