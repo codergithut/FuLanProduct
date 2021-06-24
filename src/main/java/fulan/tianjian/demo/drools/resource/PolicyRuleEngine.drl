@@ -4,6 +4,16 @@ rule "PolicyRuleEngine Rule"
         $p : PolicyRuleEngine(carAge == 3)
     then
         $p.saveGivingPolicy("1", "2", "3", "4");
-        System.out.println("3");
+        System.out.println("PolicyRuleEngine Rule");
 end
+
+
+rule "PolicyRuleEngine isNewEnergy"
+	when
+	    $p : PolicyRuleEngine(seat == 3)
+    then
+        $p.saveGivingPolicy("1", "2", "3", "4");
+        System.out.println("PolicyRuleEngine Rule");
+end
+	    
 

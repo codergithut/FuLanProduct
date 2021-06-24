@@ -20,7 +20,16 @@ public class DroolsTest {
 				+ "        $p : PolicyRuleEngine(carAge == 3)\r\n"
 				+ "    then\r\n"
 				+ "        $p.saveGivingPolicy(\"1\", \"2\", \"3\", \"4\");\r\n"
-				+ "        System.out.println(\"3\");\r\n"
+				+ "        System.out.println(\"PolicyRuleEngine Rule\");\r\n"
+				+ "end\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "rule \"PolicyRuleEngine isNewEnergy\"\r\n"
+				+ "	when\r\n"
+				+ "	    $p : PolicyRuleEngine(seat == 3)\r\n"
+				+ "    then\r\n"
+				+ "        $p.saveGivingPolicy(\"1\", \"2\", \"3\", \"4\");\r\n"
+				+ "        System.out.println(\"PolicyRuleEngine Rule\");\r\n"
 				+ "end";
 		KnowledgeBuilder  kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
 		
@@ -46,9 +55,11 @@ public class DroolsTest {
 		
 		kieSession.insert(policyEngine);
 		
-		kieSession.fireAllRules();
+		kieSession.fireAllRules(1);
 		
 		kieSession.dispose();
+		
+		System.out.println(policyEngine.getSeat() + ":" + policyEngine.isNewEnergy() + policyEngine.getCarAge());
 		
 		
 		

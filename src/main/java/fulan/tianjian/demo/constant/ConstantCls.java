@@ -6,6 +6,8 @@ public class ConstantCls {
     public final static String HTTP_POST = "POST";
 
     public final static Integer HTTP_OPERATE_NOT_SUPPORT = 100001;
+    
+    public final static Integer HTTP_DRL_EMPTY = 100003;
 
     public final static String QUOTED_PRICE_URL = "http://localhost:8080/mock/quotedPrice";
 
@@ -27,4 +29,6 @@ public class ConstantCls {
     public final static String UNDERWRITING = "underwriting";
     
     public final static String QUOTE = "quote";
+    
+    public final static String VEHICLE_LOSS_INSUREANCE = "VEHICLELOSSINSUREANCE";
 }

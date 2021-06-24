@@ -34,6 +34,16 @@ public class PolicySchemeRemote {
      * 结束时间
      */
     private String endData;
+    
+    /**
+     * 送的次数
+     */
+    private String policyNumber;
+    
+    /**
+     * 挡位
+     */
+    private String policyGears;
 
 	public String getPremium() {
 		return premium;
@@ -82,6 +92,24 @@ public class PolicySchemeRemote {
 	public void setEndData(String endData) {
 		this.endData = endData;
 	}
+
+	public String getPolicyNumber() {
+		return policyNumber;
+	}
+
+	public void setPolicyNumber(String policyNumber) {
+		this.policyNumber = policyNumber;
+	}
+
+	public String getPolicyGears() {
+		return policyGears;
+	}
+
+	public void setPolicyGears(String policyGears) {
+		this.policyGears = policyGears;
+	}
+	
+	
     
     
 

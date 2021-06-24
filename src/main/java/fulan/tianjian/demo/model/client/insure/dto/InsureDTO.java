@@ -2,6 +2,7 @@ package fulan.tianjian.demo.model.client.insure.dto;
 
 import java.util.List;
 
+
 /**
  * 保险基础数据封装
  */
@@ -42,6 +43,11 @@ public class InsureDTO {
      * 是否全流程
      */
     private boolean isWholeProcess;
+    
+    /**
+     * 地区编码
+     */
+    private String regionCode;
 
 
     public InsureConfigDTO getInsureConfigDTO() {
@@ -99,7 +105,14 @@ public class InsureDTO {
 	public void setWholeProcess(boolean isWholeProcess) {
 		this.isWholeProcess = isWholeProcess;
 	}
-    
+
+	public String getRegionCode() {
+		return regionCode;
+	}
+
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
+	}
 	
     
 }

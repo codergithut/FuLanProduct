@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
+import fulan.tianjian.demo.model.client.insure.remote.PolicySchemeRemote;
 import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
 
 /**
@@ -152,6 +153,13 @@ public class PolicySchemeDTO {
     	BeanUtils.copyProperties(this, policyInstanceVo);
     	return policyInstanceVo;
     }
+	
+	public PolicySchemeRemote convertToRemote() {
+		PolicySchemeRemote policySchemeRemote = new PolicySchemeRemote();
+		BeanUtils.copyProperties(this, policySchemeRemote);
+		return policySchemeRemote;
+		
+	}
 
 
 }

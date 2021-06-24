@@ -1,5 +1,7 @@
 package fulan.tianjian.demo.model.client.insure.remote;
 
+import java.util.List;
+
 /**
  * 保险基础数据封装
  */
@@ -18,7 +20,7 @@ public class InsureRemote {
     /**
      * 当前订单保险方案
      */
-    private PolicySchemeRemote policySchemeRemote;
+    private List<PolicySchemeRemote> policySchemeRemotes;
 
     /**
      * 存风险保费
@@ -65,15 +67,16 @@ public class InsureRemote {
         this.insurePersonRemote = insurePersonRemote;
     }
 
-    public PolicySchemeRemote getPolicySchemeRemote() {
-        return policySchemeRemote;
-    }
+    
+    public List<PolicySchemeRemote> getPolicySchemeRemotes() {
+		return policySchemeRemotes;
+	}
 
-    public void setPolicySchemeRemote(PolicySchemeRemote policySchemeRemote) {
-        this.policySchemeRemote = policySchemeRemote;
-    }
+	public void setPolicySchemeRemotes(List<PolicySchemeRemote> policySchemeRemotes) {
+		this.policySchemeRemotes = policySchemeRemotes;
+	}
 
-    public VehicleRemote getVehicleRemote() {
+	public VehicleRemote getVehicleRemote() {
         return vehicleRemote;
     }
 
