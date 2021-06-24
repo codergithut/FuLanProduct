@@ -7,7 +7,6 @@ import fulan.tianjian.demo.model.client.insure.database.PremiumFloatingItemsEo;
 import fulan.tianjian.demo.model.client.insure.database.PureRiskEo;
 import fulan.tianjian.demo.model.client.insure.database.VehicleTaxEo;
 import fulan.tianjian.demo.model.client.insure.drools.GivingPolicy;
-import fulan.tianjian.demo.model.client.insure.drools.PolicyRuleEngine;
 import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;

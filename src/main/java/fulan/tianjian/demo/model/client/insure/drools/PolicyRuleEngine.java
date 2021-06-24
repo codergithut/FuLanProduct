@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 
 public class PolicyRuleEngine {

@@ -9,10 +9,13 @@ import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 
 public class PolicyRuleEngine {
 	
+	@SuppressWarnings("unused")
 	private int carAge;
 	
+	@SuppressWarnings("unused")
 	private boolean isNewEnergy;
 	
+	@SuppressWarnings("unused")
 	private int seat;
 	
 	private VehicleDTO vehicleDTO;
