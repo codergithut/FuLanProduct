@@ -10,8 +10,7 @@ public class ThirdPartyModelWarehouseClientImpl implements ThirdPartyModelWareho
 
 	@Override
 	public ThirdPartyVehicle getVehicleTemplateDTO(String vehicleCode) {
-		// TODO Auto-generated method stub
-		return null;
+		return ThirdPartyVehicle.mockThirdPartyVehicle(vehicleCode);
 	}
-
+	
 }

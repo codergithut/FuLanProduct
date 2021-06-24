@@ -44,6 +44,11 @@ public class ThirdPartyVehicle {
      * 燃料类型
      */
     private String fuelType;
+    
+    /**
+     * 车辆编码
+     */
+    private String vehicleCode;
 
 	public String getBrandName() {
 		return brandName;
@@ -108,7 +113,29 @@ public class ThirdPartyVehicle {
 	public void setFuelType(String fuelType) {
 		this.fuelType = fuelType;
 	}
-    
+	
+	public String getVehicleCode() {
+		return vehicleCode;
+	}
+
+	public void setVehicleCode(String vehicleCode) {
+		this.vehicleCode = vehicleCode;
+	}
+
+	public static ThirdPartyVehicle mockThirdPartyVehicle(String vehicleCode) {
+		ThirdPartyVehicle vehicle = new ThirdPartyVehicle();
+		vehicle.setVehicleCode(vehicleCode);
+		vehicle.setFuelType("A");
+		vehicle.setBrandName("上海大众");
+		vehicle.setAcquisitionPrice("150000");
+		vehicle.setFuelType("1.6");
+		vehicle.setManufacturer("DKF");
+		vehicle.setSeat("5");
+		vehicle.setTonnagePassengers("3");
+		vehicle.setVehicleModel("上海大众桑塔纳");
+		return vehicle;
+		
+	}
     
 
 }
