@@ -32,6 +32,30 @@ public class DrlResource {
 		this.drlName = drlName;
 	}
 	
+	public static DrlResource mockDrlResource() {
+		String drlString = "package fulan.tianjian.demo.drools\r\n"
+				+ "rule \"PolicyRuleEngine Rule\"\r\n"
+				+ "    when\r\n"
+				+ "        $p : PolicyRuleEngine(carAge == 3)\r\n"
+				+ "    then\r\n"
+				+ "        $p.saveGivingPolicy(\"1\", \"2\", \"3\", \"4\");\r\n"
+				+ "        System.out.println(\"PolicyRuleEngine Rule\");\r\n"
+				+ "end\r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "rule \"PolicyRuleEngine isNewEnergy\"\r\n"
+				+ "	when\r\n"
+				+ "	    $p : PolicyRuleEngine(seat == 3)\r\n"
+				+ "    then\r\n"
+				+ "        $p.saveGivingPolicy(\"1\", \"2\", \"3\", \"4\");\r\n"
+				+ "        System.out.println(\"PolicyRuleEngine Rule\");\r\n"
+				+ "end";
+		DrlResource drlResource = new DrlResource();
+		drlResource.setDrlFile(drlString);
+		drlResource.setDrlName("demo");
+		return drlResource;
+	}
+	
 	
 
 }

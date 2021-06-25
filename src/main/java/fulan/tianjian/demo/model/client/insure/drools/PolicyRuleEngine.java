@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 
@@ -19,6 +20,8 @@ public class PolicyRuleEngine {
 	
 	private List<GivingPolicy> givingPolicys = new ArrayList<GivingPolicy>();
 	
+	private List<String> productCodes = new ArrayList<String>();
+	
 	public void saveGivingPolicy(String policyName, String policyCode, String policyNumber, String policyGears) {
 		GivingPolicy givingPolicy = new GivingPolicy();
 		givingPolicy.setPolicyCode(policyCode);
@@ -28,11 +31,14 @@ public class PolicyRuleEngine {
 		givingPolicys.add(givingPolicy);
 	}
 	
-	public boolean initPolicyRuleData() {
+	public boolean initPolicyRuleData(VehicleRemote vehicleRemote, List<String> productCodes) {
 		
-		if(vehicleRemote == null) {
+		if(vehicleRemote == null || CollectionUtils.isEmpty(productCodes)) {
 			return false;
 		}
+		
+		this.setVehicleRemote(vehicleRemote);
+		this.setProductCodes(productCodes);
 		
 		carAge = 6;
 		String register = vehicleRemote.getRegisterDate();
@@ -52,6 +58,10 @@ public class PolicyRuleEngine {
 		
 		return true;
 		
+	}
+	
+	public Boolean containProductCode(String productCode) {
+		return productCodes.contains(productCode);
 	}
 
 
@@ -98,6 +108,16 @@ public class PolicyRuleEngine {
 	public int getSeat() {
 		return seat;
 	}
+
+	public List<String> getProductCodes() {
+		return productCodes;
+	}
+
+	public void setProductCodes(List<String> productCodes) {
+		this.productCodes = productCodes;
+	}
+	
+	
 	
 	
 	
