@@ -1,0 +1,12 @@
+package fulan.tianjian.demo.model.client.insure.drools
+
+rule "PolicyRuleEngine isNewEnergy"
+	when
+	    $p : PolicyRuleEngine(regionCode == 1010100)
+	    eval($p.containProductCode("traffic") && $p.containProductCode("business"))
+    then
+        $p.saveGivingPolicy("1", "2", "3", "4");
+        System.out.println("PolicyRuleEngine Rule");
+end
+	    
+

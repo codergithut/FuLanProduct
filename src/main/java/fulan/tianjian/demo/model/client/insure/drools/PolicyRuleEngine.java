@@ -10,11 +10,25 @@ import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 
 public class PolicyRuleEngine {
 	
+	/**
+	 * 车龄
+	 */
 	private int carAge;
 	
+	/**
+	 * 是否新能源车
+	 */
 	private boolean isNewEnergy;
 	
+	/**
+	 * 座位数
+	 */
 	private int seat;
+	
+	 /**
+     * 地区编码
+     */
+    private String regionCode;
 	
 	private VehicleRemote vehicleRemote;
 	
@@ -31,12 +45,13 @@ public class PolicyRuleEngine {
 		givingPolicys.add(givingPolicy);
 	}
 	
-	public boolean initPolicyRuleData(VehicleRemote vehicleRemote, List<String> productCodes) {
+	public boolean initPolicyRuleData(VehicleRemote vehicleRemote, List<String> productCodes, String regionCode) {
 		
 		if(vehicleRemote == null || CollectionUtils.isEmpty(productCodes)) {
 			return false;
 		}
 		
+		this.regionCode = regionCode;
 		this.setVehicleRemote(vehicleRemote);
 		this.setProductCodes(productCodes);
 		
@@ -116,11 +131,14 @@ public class PolicyRuleEngine {
 	public void setProductCodes(List<String> productCodes) {
 		this.productCodes = productCodes;
 	}
-	
-	
-	
-	
-	
+
+	public String getRegionCode() {
+		return regionCode;
+	}
+
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
+	}
 	
 	
 }

@@ -1,10 +1,7 @@
 package fulan.tianjian.demo.client.insure;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,19 +38,12 @@ public class DroolsService {
 	@Autowired
 	private DrlResourceCurd drlResourceCurd;
 	
-	String s = "package fulan.tianjian.demo.drools\r\n"
-			+ "rule \"PolicyRuleEngine Rule\"\r\n"
-			+ "    when\r\n"
-			+ "        $p : PolicyRuleEngine(carAge == 3)\r\n"
-			+ "    then\r\n"
-			+ "        $p.saveGivingPolicy(\"1\", \"2\", \"3\", \"4\");\r\n"
-			+ "        System.out.println(\"PolicyRuleEngine Rule\");\r\n"
-			+ "end\r\n"
-			+ "\r\n"
+	String s = "package fulan.tianjian.demo.model.client.insure.drools\r\n"
 			+ "\r\n"
 			+ "rule \"PolicyRuleEngine isNewEnergy\"\r\n"
 			+ "	when\r\n"
-			+ "	    $p : PolicyRuleEngine(seat == 3)\r\n"
+			+ "	    $p : PolicyRuleEngine(regionCode == 1010100)\r\n"
+			+ "	    eval($p.containProductCode(\"traffic\") && $p.containProductCode(\"business\"))\r\n"
 			+ "    then\r\n"
 			+ "        $p.saveGivingPolicy(\"1\", \"2\", \"3\", \"4\");\r\n"
 			+ "        System.out.println(\"PolicyRuleEngine Rule\");\r\n"
@@ -70,22 +60,13 @@ public class DroolsService {
 		
 		closeKieSession();
 		
-		DrlResourceEo drlResourceEo = drlResourceCurd.findResourceByDrlName("POLICYDRL");
-		
-		if(drlResourceEo == null) {
-			return ;
-		}
-		
-		List<DrlResource> drlResources = new ArrayList<DrlResource>();
-		
-		DrlResource drlResource = new DrlResource();
-		
-		BeanUtils.copyProperties(drlResourceEo, drlResource);
-		drlResources.add(drlResource);
-		
 		if(kieSession != null) {
 			return ;
 		}
+		
+//		List<DrlResource> drlResources = createDrlResource();
+		
+		List<DrlResource> drlResources = mockDrlResource();
 		
 		if(CollectionUtils.isEmpty(drlResources)) {
 			throw new DrlResourceEmptyException("模板文件为空");
@@ -102,6 +83,32 @@ public class DroolsService {
 		
 	}
 	
+	public List<DrlResource> createDrlResource() {
+		
+        DrlResourceEo drlResourceEo = drlResourceCurd.findResourceByDrlName("POLICYDRL");
+		
+		if(drlResourceEo == null) {
+			return null;
+		}
+		
+		List<DrlResource> drlResources = new ArrayList<DrlResource>();
+		
+		DrlResource drlResource = new DrlResource();
+		
+		BeanUtils.copyProperties(drlResourceEo, drlResource);
+		drlResources.add(drlResource);
+		return drlResources;
+	}
+	
+	public List<DrlResource> mockDrlResource() {
+		List<DrlResource> resources = new ArrayList<DrlResource>();
+		DrlResource drlResource = new DrlResource();
+		drlResource.setDrlFile(s);
+		drlResource.setDrlName("POLICY");
+		resources.add(drlResource);
+		return resources;
+	}
+	
 	
 	
 	
@@ -112,7 +119,7 @@ public class DroolsService {
 	 * @param vehicleRemote 车辆数据
 	 * @return 可以送的赠送险
 	 */
-	public List<GivingPolicy> getGivingPolicyByVehicle(VehicleRemote vehicleRemote, List<PolicySchemeRemote> policySchemeRemotes) {
+	public List<GivingPolicy> getGivingPolicyByVehicle(VehicleRemote vehicleRemote, List<PolicySchemeRemote> policySchemeRemotes, String regionCode) {
 		
 		if(CollectionUtils.isEmpty(policySchemeRemotes) || kieSession == null) {
 			return null;
@@ -120,7 +127,7 @@ public class DroolsService {
 		
 		List<String> policyStrings = policySchemeRemotes.stream().map(e -> e.getPolicyCode()).toList();
 		PolicyRuleEngine policyRuleEngine = new PolicyRuleEngine();
-	    policyRuleEngine.initPolicyRuleData(vehicleRemote,policyStrings);
+	    policyRuleEngine.initPolicyRuleData(vehicleRemote, policyStrings, regionCode);
 	    kieSession.insert(policyRuleEngine);
 	    kieSession.fireAllRules(1);
 		return policyRuleEngine.getGivingPolicys();
@@ -149,8 +156,26 @@ public class DroolsService {
 		
 	}
 	
-	public static void main(String[] args) throws IOException {
-		System.out.println(JSON.toJSONString(mockDrlString("C:\\drl\\PolicyRuleEngine.drl")));
+	public static String getDrlStringByPath(String path) throws IOException {
+		return JSON.toJSONString(mockDrlString("C:\\drl\\PolicyRuleEngine.drl"));
 	}
+	
+	
+	public static void main(String[] args) throws Exception {
+		DroolsService dr = new DroolsService();
+		PolicyRuleEngine policyRule = new PolicyRuleEngine();
+		List<String> policySet = new ArrayList<String>();
+		policySet.add("traffic");
+		policySet.add("business");
+		policyRule.setRegionCode("1010100");
+		policyRule.setProductCodes(policySet);
+		policyRule.setCarAge(3);
+		dr.initKieSession();
+		dr.kieSession.insert(policyRule);
+	    dr.kieSession.fireAllRules(1);
+	    System.out.println();
+	}
+	
+
 
 }

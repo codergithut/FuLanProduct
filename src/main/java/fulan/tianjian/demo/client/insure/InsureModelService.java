@@ -90,8 +90,9 @@ public class InsureModelService {
         	return e.convertToRemote();
         }).collect(Collectors.toList());
         
+        
         //获取规则引擎获取的赠送的险种信息
-        List<GivingPolicy> givingPolicys =  droolsService.getGivingPolicyByVehicle(vehicleRemote, policySchemeRemotes);
+        List<GivingPolicy> givingPolicys =  droolsService.getGivingPolicyByVehicle(vehicleRemote, policySchemeRemotes, insureDTO.getRegionCode());
         
         //重写部分险种信息比如车辆损失险要和车辆实际价值一致，添加赠送险种等
         overridePolicyRemote(policySchemeRemotes, givingPolicys, vehicleRemote);
