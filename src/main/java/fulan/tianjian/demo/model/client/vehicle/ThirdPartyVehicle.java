@@ -1,5 +1,7 @@
 package fulan.tianjian.demo.model.client.vehicle;
 
+
+
 /**
  * 第三方车型库
  */
@@ -128,7 +130,8 @@ public class ThirdPartyVehicle {
 		vehicle.setFuelType("A");
 		vehicle.setBrandName("上海大众");
 		vehicle.setAcquisitionPrice("150000");
-		vehicle.setFuelType("1.6");
+		vehicle.setFuelType("A");
+		vehicle.setDisplacement("1.6");
 		vehicle.setManufacturer("DKF");
 		vehicle.setSeat("5");
 		vehicle.setTonnagePassengers("3");

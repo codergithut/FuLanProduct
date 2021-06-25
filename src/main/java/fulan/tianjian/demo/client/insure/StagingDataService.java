@@ -3,10 +3,12 @@ package fulan.tianjian.demo.client.insure;
 import fulan.tianjian.demo.model.client.insure.database.InsuranceRiskInformationEo;
 import fulan.tianjian.demo.model.client.insure.database.PremiumFloatingItemsEo;
 import fulan.tianjian.demo.model.client.insure.database.PureRiskEo;
+import fulan.tianjian.demo.model.client.insure.database.VehicleDetailCurd;
 import fulan.tianjian.demo.model.client.insure.database.VehicleDetailEo;
 import fulan.tianjian.demo.model.client.insure.database.VehicleTaxEo;
 import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,10 @@ import java.util.List;
  */
 @Service
 public class StagingDataService {
+	
+	@Autowired
+	private VehicleDetailCurd vehicleDetailCurd;
+	
     /**
      * 根据车辆实际情况获取存风险保费
      * @param md5Value
@@ -55,11 +61,16 @@ public class StagingDataService {
     }
 
     public VehicleDetailEo getVehicleDetailByVehicleCode(String vehicleCode) {
+    	VehicleDetailEo vehicleDetailEo = vehicleDetailCurd.findByVehicleCode(vehicleCode);
+    	if(vehicleDetailEo != null) {
+    		return vehicleDetailEo;
+    	}
         return null;
     }
 
     public boolean saveVehicleDetail(VehicleDetailEo vehicleDetailEo) {
-        return true;
+    	
+        return vehicleDetailCurd.save(vehicleDetailEo) != null;
     }
 
     public VehicleDetailEo getVehicleDetailByMd5ValueAndSource(String md5ValuePart, String renewVehicleDetail) {

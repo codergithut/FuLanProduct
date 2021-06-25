@@ -33,6 +33,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     	
     	//cookie获取用户凭证
         Cookie[] cookies = request.getCookies();
+        
+        //测试环境放开登录
+        if(cookies == null) {
+        	return true;
+        }
+        
         String userCredential = getUserCredential(cookies);
         
         //如果用户凭证为null 或者缓存凭证为null都视为缓存失效需要重新登录

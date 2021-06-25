@@ -1,10 +1,22 @@
 package fulan.tianjian.demo.model.client.insure.database;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * Created by tianjian on 2021/6/20.
  */
+@Entity
+@Table(name = "vehicle_detail")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class VehicleDetailEo {
 
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
     private String id;
 
     /**
@@ -138,6 +150,11 @@ public class VehicleDetailEo {
      * md5
      */
     private String md5Value;
+    
+    /**
+     * 车辆来源
+     */
+    private String vehicleSource;
 
     public String getId() {
         return id;
@@ -354,6 +371,16 @@ public class VehicleDetailEo {
 	public void setMd5Value(String md5Value) {
 		this.md5Value = md5Value;
 	}
+
+	public String getVehicleSource() {
+		return vehicleSource;
+	}
+
+	public void setVehicleSource(String vehicleSource) {
+		this.vehicleSource = vehicleSource;
+	}
+	
+	
     
     
 }

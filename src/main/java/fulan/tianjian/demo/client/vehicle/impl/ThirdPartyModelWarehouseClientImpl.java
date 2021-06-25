@@ -7,6 +7,7 @@ import fulan.tianjian.demo.model.client.vehicle.ThirdPartyVehicle;
 
 @Service
 public class ThirdPartyModelWarehouseClientImpl implements ThirdPartyModelWarehouseClient{
+	
 
 	@Override
 	public ThirdPartyVehicle getVehicleTemplateDTO(String vehicleCode) {

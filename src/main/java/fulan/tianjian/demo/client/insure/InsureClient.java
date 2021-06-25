@@ -60,7 +60,7 @@ public class InsureClient {
      * @param engineNo
      * @return
      */
-    InsureResultDTO getRenewPolicy(String platNo, String vin, String engineNo) {
+    public InsureResultDTO getRenewPolicy(String platNo, String vin, String engineNo) {
         InsureRemote insureRemote = new InsureRemote();
         VehicleRemote vehicleRemote = new VehicleRemote();
         vehicleRemote.setPlateNo(platNo);
@@ -83,14 +83,14 @@ public class InsureClient {
      * @param vehicleCode 车型编码
      * @return 车辆模型数据
      */
-    boolean saveVehicleTemplate(String vehicleCode){
+    public VehicleDetailEo saveVehicleTemplate(String vehicleCode){
         VehicleDetailEo vehicleDetailEo = stagingDataService.getVehicleDetailByVehicleCode(vehicleCode);
         if(vehicleDetailEo == null) {
             ThirdPartyVehicle thirdPartyVehicle = thirdPartyModelWarehouseClient.getVehicleTemplateDTO(vehicleCode);
-            VehicleDetailEo saveVehicle = VehicleConvertUtil.convertThirdPartyVehicle(thirdPartyVehicle);
-            stagingDataService.saveVehicleDetail(saveVehicle);
+            vehicleDetailEo = VehicleConvertUtil.convertThirdPartyVehicle(thirdPartyVehicle);
+            stagingDataService.saveVehicleDetail(vehicleDetailEo);
         }
-        return true;
+        return vehicleDetailEo;
     }
 
     /**
@@ -100,7 +100,7 @@ public class InsureClient {
      * @param engineNo
      * @return
      */
-    boolean saveVehicleTrafficMangement(String plateNo, String vin, String engineNo){
+    public boolean saveVehicleTrafficMangement(String plateNo, String vin, String engineNo){
         InsureRemote insureRemote = new InsureRemote();
         VehicleRemote vehicleRemote = new VehicleRemote();
         vehicleRemote.setPlateNo(plateNo);
