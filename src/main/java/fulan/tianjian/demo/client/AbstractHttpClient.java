@@ -1,9 +1,12 @@
 package fulan.tianjian.demo.client;
 
+import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.exception.OperateNonSupportException;
+import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.notice.SendNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,6 +24,9 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
 
     @Autowired
     private SendNoticeService<MyRestValueModel<T>> sendNoticeService;
+    
+    @Value("${remote.mockTyp}")
+    private Boolean isMock;
 
     /**
      * 通用远程调用请求
@@ -31,35 +37,44 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
      * @return 返回的对象
      */
     private MyRestValueModel<T> customRestResult(String url, String params, Class<T> t, String type) {
+    	
+    	
 
         //请求结果返回封装
         MyRestValueModel<T> myRestValueModel = new MyRestValueModel<>(this, url, params);
 
         //restTemplate对象结果
-        ResponseEntity<T> resut = null;
+        ResponseEntity<T> result = null;
+        
+        
+        if(!isMock) {
+        	//根据get post 分别调用不同的方法
+            if("get".equals(type) && !isMock){
+                result = restTemplate.getForEntity(url, t, params);
+            }
 
-
-        //根据get post 分别调用不同的方法
-        if("get".equals(type)){
-            resut = restTemplate.getForEntity(url, t, params);
+            if("post".equals(type) && !isMock) {
+                result = restTemplate.postForEntity(url, params, t);
+            }
         }
-
-        if("post".equals(type)) {
-            resut = restTemplate.postForEntity(url, params, t);
-        }
-
-
+        
         //尝试获取数据值
         T data = null;
 
         //判断返回码是否正确错误返回异常无需解析
-        if(resut.getStatusCode() != OK) {
+        if(!isMock && result.getStatusCode() != OK) {
             return null;
         }
 
-        if(resut.getBody() != null) {
-            data = resut.getBody();
+        if(!isMock && result.getBody() != null) {
+            data = result.getBody();
             myRestValueModel.setData(data);
+        }
+        
+        if(isMock) {
+        	data = mockData(url, t);
+        	myRestValueModel.setData(data);
+        	
         }
 
         //根据返回对象判断该消息是否正确返回了
@@ -76,6 +91,8 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
 
         return myRestValueModel;
     }
+    
+    
 
     /**
      * post方法调用
@@ -99,5 +116,15 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
      */
     public MyRestValueModel<T> getRestResult(String url, String params, Class<T> t) {
         return customRestResult(url, params, t, "get");
+    }
+    
+    @SuppressWarnings("unchecked")
+	private T mockData(String url, Class<T> mockCls) {
+    	
+    	if(mockCls == InsureRemote.class && ConstantCls.TRAFFIC_VEHICLE_URL.equals(url)) {
+    		return (T) InsureRemote.mockTrafficInsureRemote();
+    	}
+    	
+    	return null;
     }
 }

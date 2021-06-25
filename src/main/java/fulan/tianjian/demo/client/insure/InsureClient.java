@@ -40,6 +40,8 @@ public class InsureClient {
 
     @Autowired
     private StagingDataService stagingDataService;
+    
+    
 
 
     /**
@@ -100,22 +102,23 @@ public class InsureClient {
      * @param engineNo
      * @return
      */
-    public boolean saveVehicleTrafficMangement(String plateNo, String vin, String engineNo){
+    public VehicleRemote saveVehicleTrafficMangement(String plateNo, String vin, String engineNo){
         InsureRemote insureRemote = new InsureRemote();
         VehicleRemote vehicleRemote = new VehicleRemote();
         vehicleRemote.setPlateNo(plateNo);
         vehicleRemote.setVinCode(vin);
         vehicleRemote.setEngineNo(engineNo);
         insureRemote.setVehicleRemote(vehicleRemote);
-        MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(RENEW_POLICY_URL,
+        MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(TRAFFIC_VEHICLE_URL,
                 JSON.toJSONString(insureRemote), InsureRemote.class);
         if("0000".equals(result.getStatus())) {
             VehicleRemote v = result.getData().getVehicleRemote();
             insureModelService.createInsureResultDTOByInsureRemote(result.getData());
             saveVehicleDetail(v, TRAFFIC_MANGEMENT_VEHICLE_DETAIL);
+            return v;
 
         }
-        return true;
+        return null;
     }
 
     /**
@@ -143,7 +146,7 @@ public class InsureClient {
      */
     private boolean saveVehicleDetail(VehicleRemote vehicleRemote, String dataSource) {
         VehicleDetailEo vehicleDetailEo = stagingDataService
-                .getVehicleDetailByMd5ValueAndSource(vehicleRemote.getMd5ValuePart(), dataSource);
+                .getVehicleDetailByMd5ValueAndSource(vehicleRemote.getMd5Value(), dataSource);
         if(vehicleDetailEo == null) {
             VehicleDetailEo saveData = VehicleConvertUtil.convertRemoteToEo(vehicleRemote, dataSource);
             stagingDataService.saveVehicleDetail(saveData);

@@ -131,4 +131,11 @@ public class InsureRemote {
     public void setInsuranceRiskInformationRemote(InsuranceRiskInformationRemote insuranceRiskInformationRemote) {
         this.insuranceRiskInformationRemote = insuranceRiskInformationRemote;
     }
+    
+    public static InsureRemote mockTrafficInsureRemote() {
+    	InsureRemote insureRemote = new InsureRemote();
+    	insureRemote.setVehicleRemote(VehicleRemote.mockTrafficVehicle());
+    	insureRemote.setResultCode("0000");
+    	return insureRemote;
+    }
 }

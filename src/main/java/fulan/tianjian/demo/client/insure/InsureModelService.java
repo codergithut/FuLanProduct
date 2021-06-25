@@ -38,7 +38,7 @@ public class InsureModelService {
     
     @Autowired
     private DroolsService droolsService;
-
+    
 
     /**
      * 创建送核心的保文

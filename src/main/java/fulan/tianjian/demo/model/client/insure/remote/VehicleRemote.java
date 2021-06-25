@@ -324,19 +324,21 @@ public class VehicleRemote {
         this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
     }
 
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
-
     public String getMd5Value() {
-        String value = this.toString();
-        return DigestUtils.md5DigestAsHex(value.getBytes());
-    }
-
-    public String getMd5ValuePart() {
-        String key = plateNo + vinCode + engineNo;
+    	String key = plateNo + vinCode + engineNo;
         return DigestUtils.md5DigestAsHex(key.getBytes());
-
+    }
+    
+    public static VehicleRemote mockTrafficVehicle() {
+    	VehicleRemote vehicleRemote = new VehicleRemote();
+    	vehicleRemote.setAcquisitionPrice("190000");
+    	vehicleRemote.setBrandName("东风日产");
+    	vehicleRemote.setDisplacement("1.75");
+    	vehicleRemote.setRegisterDate("20180912231325");
+    	vehicleRemote.setFuelType("A");
+    	vehicleRemote.setPmVehicleStyle("K31");
+    	vehicleRemote.setVehicleCode("k7eN9Q");
+    	return vehicleRemote;
+    	
     }
 }

@@ -100,6 +100,7 @@ public class InsureConfigRemote {
 	public void setInsureHandlePersonRemotes(List<InsureHandlePersonRemote> insureHandlePersonRemotes) {
 		this.insureHandlePersonRemotes = insureHandlePersonRemotes;
 	}
+
     
     
 
