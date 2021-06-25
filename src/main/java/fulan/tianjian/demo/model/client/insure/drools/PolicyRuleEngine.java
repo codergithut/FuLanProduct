@@ -1,9 +1,9 @@
 package fulan.tianjian.demo.model.client.insure.drools;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
@@ -56,8 +56,8 @@ public class PolicyRuleEngine {
 		this.setProductCodes(productCodes);
 		
 		carAge = 6;
-		String register = vehicleRemote.getRegisterDate();
-		if(StringUtils.isNoneBlank(register)) {
+		Date register = vehicleRemote.getRegisterDate();
+		if(register != null) {
 			carAge = 3;
 		}
 		
@@ -66,10 +66,7 @@ public class PolicyRuleEngine {
 			isNewEnergy = true;
 		}
 		
-		seat = 6;
-		if(StringUtils.isNoneBlank(vehicleRemote.getSeat())) {
-			seat = 3;
-		}
+		seat = vehicleRemote.getSeat();
 		
 		return true;
 		

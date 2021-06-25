@@ -75,7 +75,6 @@ public class InsureClient {
             insureModelService.createInsureResultDTOByInsureRemote(result.getData());
             InsureRemote v = result.getData();
             saveVehicleDetail(v.getVehicleRemote(), RENEW_VEHICLE_DETAIL);
-
         }
         return null;
     }

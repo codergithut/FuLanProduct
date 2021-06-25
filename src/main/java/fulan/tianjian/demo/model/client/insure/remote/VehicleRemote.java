@@ -1,6 +1,10 @@
 package fulan.tianjian.demo.model.client.insure.remote;
 
-import com.alibaba.fastjson.JSON;
+import java.math.BigDecimal;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.util.DigestUtils;
 
 /**
@@ -37,12 +41,12 @@ public class VehicleRemote {
     /**
      * 注册日期
      */
-    private String registerDate;
+    private Date registerDate;
 
     /**
      * 发证日期
      */
-    private String certificateDate;
+    private Date certificateDate;
 
     /**
      * 是否新能源车
@@ -52,12 +56,12 @@ public class VehicleRemote {
     /**
      * 车辆转移日期
      */
-    private String transferDate;
+    private Date transferDate;
 
     /**
      * 车辆实际价值
      */
-    private String currentPrice;
+    private BigDecimal currentPrice;
 
 
     /**
@@ -84,7 +88,7 @@ public class VehicleRemote {
     /**
      * 新车购置价格
      */
-    private String acquisitionPrice;
+    private BigDecimal acquisitionPrice;
 
     /**
      * 生产厂商
@@ -99,7 +103,7 @@ public class VehicleRemote {
     /**
      * 车辆座位数目
      */
-    private String seat;
+    private Integer seat;
 
     /**
      * 核定载客吨数
@@ -115,12 +119,12 @@ public class VehicleRemote {
     /**
      * 车船税开始时间
      */
-    private String vehicleTaxStartTime;
+    private Date vehicleTaxStartTime;
 
     /**
      * 车船税结速时间
      */
-    private String vehicleTaxEndTime;
+    private Date vehicleTaxEndTime;
 
     /**
      * 车船税纳税类型
@@ -130,7 +134,7 @@ public class VehicleRemote {
     /**
      * 历年拒缴金额
      */
-    private String vehicleTaxRefuseAmount;
+    private BigDecimal vehicleTaxRefuseAmount;
 
     public String getVinCode() {
         return vinCode;
@@ -171,24 +175,25 @@ public class VehicleRemote {
     public void setVehicleCode(String vehicleCode) {
         this.vehicleCode = vehicleCode;
     }
+    
 
-    public String getRegisterDate() {
-        return registerDate;
-    }
+    public Date getRegisterDate() {
+		return registerDate;
+	}
 
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
-    }
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
 
-    public String getCertificateDate() {
-        return certificateDate;
-    }
+	public Date getCertificateDate() {
+		return certificateDate;
+	}
 
-    public void setCertificateDate(String certificateDate) {
-        this.certificateDate = certificateDate;
-    }
+	public void setCertificateDate(Date certificateDate) {
+		this.certificateDate = certificateDate;
+	}
 
-    public String getIsNewEnergyResourcesVehicle() {
+	public String getIsNewEnergyResourcesVehicle() {
         return isNewEnergyResourcesVehicle;
     }
 
@@ -196,23 +201,16 @@ public class VehicleRemote {
         this.isNewEnergyResourcesVehicle = isNewEnergyResourcesVehicle;
     }
 
-    public String getTransferDate() {
-        return transferDate;
-    }
 
-    public void setTransferDate(String transferDate) {
-        this.transferDate = transferDate;
-    }
+    public Date getTransferDate() {
+		return transferDate;
+	}
 
-    public String getCurrentPrice() {
-        return currentPrice;
-    }
+	public void setTransferDate(Date transferDate) {
+		this.transferDate = transferDate;
+	}
 
-    public void setCurrentPrice(String currentPrice) {
-        this.currentPrice = currentPrice;
-    }
-
-    public String getVehicleStyle() {
+	public String getVehicleStyle() {
         return vehicleStyle;
     }
 
@@ -244,14 +242,6 @@ public class VehicleRemote {
         this.displacement = displacement;
     }
 
-    public String getAcquisitionPrice() {
-        return acquisitionPrice;
-    }
-
-    public void setAcquisitionPrice(String acquisitionPrice) {
-        this.acquisitionPrice = acquisitionPrice;
-    }
-
     public String getManufacturer() {
         return manufacturer;
     }
@@ -266,14 +256,6 @@ public class VehicleRemote {
 
     public void setVehicleModel(String vehicleModel) {
         this.vehicleModel = vehicleModel;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
     }
 
     public String getTonnagePassengers() {
@@ -292,21 +274,6 @@ public class VehicleRemote {
         this.fuelType = fuelType;
     }
 
-    public String getVehicleTaxStartTime() {
-        return vehicleTaxStartTime;
-    }
-
-    public void setVehicleTaxStartTime(String vehicleTaxStartTime) {
-        this.vehicleTaxStartTime = vehicleTaxStartTime;
-    }
-
-    public String getVehicleTaxEndTime() {
-        return vehicleTaxEndTime;
-    }
-
-    public void setVehicleTaxEndTime(String vehicleTaxEndTime) {
-        this.vehicleTaxEndTime = vehicleTaxEndTime;
-    }
 
     public String getVehicleTaxType() {
         return vehicleTaxType;
@@ -315,30 +282,117 @@ public class VehicleRemote {
     public void setVehicleTaxType(String vehicleTaxType) {
         this.vehicleTaxType = vehicleTaxType;
     }
+    
+    
 
-    public String getVehicleTaxRefuseAmount() {
-        return vehicleTaxRefuseAmount;
-    }
+    public BigDecimal getCurrentPrice() {
+		return currentPrice;
+	}
 
-    public void setVehicleTaxRefuseAmount(String vehicleTaxRefuseAmount) {
-        this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
-    }
+	public void setCurrentPrice(BigDecimal currentPrice) {
+		this.currentPrice = currentPrice;
+	}
 
-    public String getMd5Value() {
+	public BigDecimal getAcquisitionPrice() {
+		return acquisitionPrice;
+	}
+
+	public void setAcquisitionPrice(BigDecimal acquisitionPrice) {
+		this.acquisitionPrice = acquisitionPrice;
+	}
+
+	public Integer getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Integer seat) {
+		this.seat = seat;
+	}
+
+	public Date getVehicleTaxStartTime() {
+		return vehicleTaxStartTime;
+	}
+
+	public void setVehicleTaxStartTime(Date vehicleTaxStartTime) {
+		this.vehicleTaxStartTime = vehicleTaxStartTime;
+	}
+
+	public Date getVehicleTaxEndTime() {
+		return vehicleTaxEndTime;
+	}
+
+	public void setVehicleTaxEndTime(Date vehicleTaxEndTime) {
+		this.vehicleTaxEndTime = vehicleTaxEndTime;
+	}
+
+	public BigDecimal getVehicleTaxRefuseAmount() {
+		return vehicleTaxRefuseAmount;
+	}
+
+	public void setVehicleTaxRefuseAmount(BigDecimal vehicleTaxRefuseAmount) {
+		this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
+	}
+
+	public String getMd5Value() {
     	String key = plateNo + vinCode + engineNo;
         return DigestUtils.md5DigestAsHex(key.getBytes());
     }
     
     public static VehicleRemote mockTrafficVehicle() {
     	VehicleRemote vehicleRemote = new VehicleRemote();
-    	vehicleRemote.setAcquisitionPrice("190000");
+    	vehicleRemote.setAcquisitionPrice(new BigDecimal("190000"));
     	vehicleRemote.setBrandName("东风日产");
     	vehicleRemote.setDisplacement("1.75");
-    	vehicleRemote.setRegisterDate("20180912231325");
+    	vehicleRemote.setRegisterDate(strToDate("20180912231325"));
     	vehicleRemote.setFuelType("A");
     	vehicleRemote.setPmVehicleStyle("K31");
     	vehicleRemote.setVehicleCode("k7eN9Q");
     	return vehicleRemote;
     	
     }
+
+	public static VehicleRemote mockReNewVehicle() {
+		VehicleRemote vehicleRemote = new VehicleRemote();
+		vehicleRemote.setAcquisitionPrice(new BigDecimal("190000"));
+		vehicleRemote.setBrandName("东风日产");
+		vehicleRemote.setCertificateDate(strToDate("20180302000000"));
+		vehicleRemote.setCurrentPrice(new BigDecimal("150000"));
+		vehicleRemote.setDisplacement("1.75");
+		vehicleRemote.setEngineNo("SDL97SFG87S");
+		vehicleRemote.setFuelType("A");
+		vehicleRemote.setIsNewEnergyResourcesVehicle("N");
+		vehicleRemote.setManufacturer("东风日产产");
+		vehicleRemote.setPlateColor("01");
+		vehicleRemote.setPlateNo("苏A9371U");
+		vehicleRemote.setPmVehicleStyle("K33");
+		vehicleRemote.setRegisterDate(strToDate("20170402000000"));
+		vehicleRemote.setSeat(5);
+		vehicleRemote.setTonnagePassengers("1.45");
+		vehicleRemote.setTransferDate(strToDate("20150302000000"));
+		vehicleRemote.setVehicleCode("k7eN9Q");
+		vehicleRemote.setVehicleModel("车辆模型");
+		vehicleRemote.setVehicleStyle("K33");
+		vehicleRemote.setVehicleTaxEndTime(strToDate("20221231235959"));
+		vehicleRemote.setVehicleTaxStartTime(strToDate("20210000000000"));
+		vehicleRemote.setVehicleTaxType("K33");
+		vehicleRemote.setVinCode("58390387653892719");
+		return vehicleRemote;
+	}
+	
+	/**
+	   * 将长时间格式字符串转换为时间 yyyy-MM-dd HH:mm:ss
+	   * 
+	   * @param strDate
+	   * @return
+	   */
+	public static Date strToDate(String strDate) {
+		   SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		   ParsePosition pos = new ParsePosition(0);
+		   Date strtodate = formatter.parse(strDate, pos);
+		   return strtodate;
+		}
+	
+	public static void main(String[] args) {
+		System.out.println(strToDate("20102312000000"));
+	}
 }

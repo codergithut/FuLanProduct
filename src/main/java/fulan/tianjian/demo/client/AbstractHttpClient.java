@@ -125,6 +125,10 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     		return (T) InsureRemote.mockTrafficInsureRemote();
     	}
     	
+    	if(mockCls == InsureRemote.class && ConstantCls.RENEW_POLICY_URL.equals(url)) {
+    		return (T) InsureRemote.mockReNewPolicy();
+    	}
+    	
     	return null;
     }
 }

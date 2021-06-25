@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fulan.tianjian.demo.client.insure.InsureClient;
 import fulan.tianjian.demo.model.client.insure.database.VehicleDetailEo;
+import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 import fulan.tianjian.demo.model.web.ResponseValue;
 import fulan.tianjian.demo.model.web.server.vo.VehicleBaseVo;
@@ -38,6 +39,12 @@ public class VehicleModelController {
 	public ResponseValue<VehicleRemote> saveTrafficVehicle(@RequestBody VehicleBaseVo vehicleBase) {
 		VehicleRemote vehicleRemote = insureClient.saveVehicleTrafficMangement(vehicleBase.getPlateNo(), vehicleBase.getVinCode(), vehicleBase.getEngineNo());
 		return ResponseValue.successResponse(vehicleRemote);
+	}
+	
+	@PostMapping("getReNewPolicy")
+	public ResponseValue<InsureResultDTO> getReNewPolicy(@RequestBody VehicleBaseVo vehicleBase) {
+		return ResponseValue.successResponse(insureClient.getRenewPolicy(vehicleBase.getPlateNo(), 
+				vehicleBase.getVinCode(), vehicleBase.getEngineNo()));
 		
 	}
 	
