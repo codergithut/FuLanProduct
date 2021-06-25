@@ -5,7 +5,10 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.DigestUtils;
+
+import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
 
 /**
  * 车辆完整数据
@@ -376,6 +379,7 @@ public class VehicleRemote {
 		vehicleRemote.setVehicleTaxStartTime(strToDate("20210000000000"));
 		vehicleRemote.setVehicleTaxType("K33");
 		vehicleRemote.setVinCode("58390387653892719");
+		vehicleRemote.setVehicleTaxRefuseAmount(new BigDecimal("1000"));
 		return vehicleRemote;
 	}
 	
@@ -394,5 +398,11 @@ public class VehicleRemote {
 	
 	public static void main(String[] args) {
 		System.out.println(strToDate("20102312000000"));
+	}
+	
+	public VehicleDTO convertToDTO() {
+		VehicleDTO vehicleDTO = new VehicleDTO();
+		BeanUtils.copyProperties(this, vehicleDTO);
+		return vehicleDTO;
 	}
 }

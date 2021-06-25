@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
 import fulan.tianjian.demo.util.CommonUtil;
 
 /**
@@ -118,6 +121,12 @@ public class PolicySchemeRemote {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	public PolicySchemeDTO convertToDTO() {
+		PolicySchemeDTO policySchemeDTO = new PolicySchemeDTO();
+		BeanUtils.copyProperties(this, policySchemeDTO);
+		return policySchemeDTO;
+	}
 
 	public static List<PolicySchemeRemote> mockPolicy() {
 		List<PolicySchemeRemote> policySchemeRemotes = new ArrayList<PolicySchemeRemote>();
@@ -158,12 +167,7 @@ public class PolicySchemeRemote {
 		motorVehicleThirdPartyInsurance.setSumInsured(new BigDecimal("50000"));
 		policySchemeRemotes.add(motorVehicleThirdPartyInsurance);
 		
-		
 		return policySchemeRemotes;
-		
-		
-		
-		
 	}
 	
 	

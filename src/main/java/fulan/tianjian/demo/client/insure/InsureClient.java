@@ -72,9 +72,10 @@ public class InsureClient {
         MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(RENEW_POLICY_URL,
                 JSON.toJSONString(insureRemote), InsureRemote.class);
         if("0000".equals(result.getStatus())) {
-            insureModelService.createInsureResultDTOByInsureRemote(result.getData());
+        	InsureResultDTO inSureResutDTO = insureModelService.createInsureResultDTOByInsureRemote(result.getData());
             InsureRemote v = result.getData();
             saveVehicleDetail(v.getVehicleRemote(), RENEW_VEHICLE_DETAIL);
+            return inSureResutDTO;
         }
         return null;
     }

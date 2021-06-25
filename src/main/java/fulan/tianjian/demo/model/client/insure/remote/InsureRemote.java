@@ -142,7 +142,8 @@ public class InsureRemote {
 	public static InsureRemote mockReNewPolicy() {
 		InsureRemote insureRemote = new InsureRemote();
 		insureRemote.setVehicleRemote(VehicleRemote.mockReNewVehicle());
-		insureRemote.setPolicySchemeRemotes(null);
-		return null;
+		insureRemote.setPolicySchemeRemotes(PolicySchemeRemote.mockPolicy());
+		insureRemote.setResultCode("0000");
+		return insureRemote;
 	}
 }

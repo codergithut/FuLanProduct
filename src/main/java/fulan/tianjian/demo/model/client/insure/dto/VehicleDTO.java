@@ -1,6 +1,9 @@
 package fulan.tianjian.demo.model.client.insure.dto;
 
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import org.springframework.util.DigestUtils;
 
 /**
@@ -36,12 +39,12 @@ public class VehicleDTO {
     /**
      * 注册日期
      */
-    private String registerDate;
+    private Date registerDate;
 
     /**
      * 发证日期
      */
-    private String certificateDate;
+    private Date certificateDate;
 
     /**
      * 是否新能源车
@@ -51,12 +54,12 @@ public class VehicleDTO {
     /**
      * 车辆转移日期
      */
-    private String transferDate;
+    private Date transferDate;
 
     /**
      * 车辆实际价值
      */
-    private String currentPrice;
+    private BigDecimal currentPrice;
 
 
     /**
@@ -73,12 +76,12 @@ public class VehicleDTO {
     /**
      * 车船税开始时间
      */
-    private String vehicleTaxStartTime;
+    private Date vehicleTaxStartTime;
 
     /**
      * 车船税结速时间
      */
-    private String vehicleTaxEndTime;
+    private Date vehicleTaxEndTime;
 
     /**
      * 车船税纳税类型
@@ -88,7 +91,7 @@ public class VehicleDTO {
     /**
      * 历年拒缴金额
      */
-    private String vehicleTaxRefuseAmount;
+    private BigDecimal vehicleTaxRefuseAmount;
 
     /**
      * 车辆品牌名称
@@ -103,7 +106,7 @@ public class VehicleDTO {
     /**
      * 新车购置价格
      */
-    private String acquisitionPrice;
+    private BigDecimal acquisitionPrice;
 
     /**
      * 生产厂商
@@ -118,7 +121,7 @@ public class VehicleDTO {
     /**
      * 车辆座位数目
      */
-    private String seat;
+    private int seat;
 
     /**
      * 核定载客吨数
@@ -170,21 +173,6 @@ public class VehicleDTO {
         this.vehicleCode = vehicleCode;
     }
 
-    public String getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
-    }
-
-    public String getCertificateDate() {
-        return certificateDate;
-    }
-
-    public void setCertificateDate(String certificateDate) {
-        this.certificateDate = certificateDate;
-    }
 
     public String getIsNewEnergyResourcesVehicle() {
         return isNewEnergyResourcesVehicle;
@@ -194,21 +182,6 @@ public class VehicleDTO {
         this.isNewEnergyResourcesVehicle = isNewEnergyResourcesVehicle;
     }
 
-    public String getTransferDate() {
-        return transferDate;
-    }
-
-    public void setTransferDate(String transferDate) {
-        this.transferDate = transferDate;
-    }
-
-    public String getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public void setCurrentPrice(String currentPrice) {
-        this.currentPrice = currentPrice;
-    }
 
     public String getVehicleStyle() {
         return vehicleStyle;
@@ -225,23 +198,7 @@ public class VehicleDTO {
     public void setPmVehicleStyle(String pmVehicleStyle) {
         this.pmVehicleStyle = pmVehicleStyle;
     }
-
-    public String getVehicleTaxStartTime() {
-        return vehicleTaxStartTime;
-    }
-
-    public void setVehicleTaxStartTime(String vehicleTaxStartTime) {
-        this.vehicleTaxStartTime = vehicleTaxStartTime;
-    }
-
-    public String getVehicleTaxEndTime() {
-        return vehicleTaxEndTime;
-    }
-
-    public void setVehicleTaxEndTime(String vehicleTaxEndTime) {
-        this.vehicleTaxEndTime = vehicleTaxEndTime;
-    }
-
+    
     public String getVehicleTaxType() {
         return vehicleTaxType;
     }
@@ -250,13 +207,6 @@ public class VehicleDTO {
         this.vehicleTaxType = vehicleTaxType;
     }
 
-    public String getVehicleTaxRefuseAmount() {
-        return vehicleTaxRefuseAmount;
-    }
-
-    public void setVehicleTaxRefuseAmount(String vehicleTaxRefuseAmount) {
-        this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
-    }
 
     public String getBrandName() {
         return brandName;
@@ -274,13 +224,6 @@ public class VehicleDTO {
         this.displacement = displacement;
     }
 
-    public String getAcquisitionPrice() {
-        return acquisitionPrice;
-    }
-
-    public void setAcquisitionPrice(String acquisitionPrice) {
-        this.acquisitionPrice = acquisitionPrice;
-    }
 
     public String getManufacturer() {
         return manufacturer;
@@ -296,14 +239,6 @@ public class VehicleDTO {
 
     public void setVehicleModel(String vehicleModel) {
         this.vehicleModel = vehicleModel;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
     }
 
     public String getTonnagePassengers() {
@@ -322,7 +257,81 @@ public class VehicleDTO {
         this.fuelType = fuelType;
     }
 
-    public String getMd5Value() {
+    public Date getCertificateDate() {
+		return certificateDate;
+	}
+
+	public void setCertificateDate(Date certificateDate) {
+		this.certificateDate = certificateDate;
+	}
+
+	public Date getTransferDate() {
+		return transferDate;
+	}
+
+	public void setTransferDate(Date transferDate) {
+		this.transferDate = transferDate;
+	}
+
+	public BigDecimal getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(BigDecimal currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+
+	public Date getVehicleTaxStartTime() {
+		return vehicleTaxStartTime;
+	}
+
+	public void setVehicleTaxStartTime(Date vehicleTaxStartTime) {
+		this.vehicleTaxStartTime = vehicleTaxStartTime;
+	}
+
+	public Date getVehicleTaxEndTime() {
+		return vehicleTaxEndTime;
+	}
+
+	public void setVehicleTaxEndTime(Date vehicleTaxEndTime) {
+		this.vehicleTaxEndTime = vehicleTaxEndTime;
+	}
+
+	public BigDecimal getVehicleTaxRefuseAmount() {
+		return vehicleTaxRefuseAmount;
+	}
+
+	public void setVehicleTaxRefuseAmount(BigDecimal vehicleTaxRefuseAmount) {
+		this.vehicleTaxRefuseAmount = vehicleTaxRefuseAmount;
+	}
+
+	public BigDecimal getAcquisitionPrice() {
+		return acquisitionPrice;
+	}
+
+	public void setAcquisitionPrice(BigDecimal acquisitionPrice) {
+		this.acquisitionPrice = acquisitionPrice;
+	}
+
+	public int getSeat() {
+		return seat;
+	}
+
+	public void setSeat(int seat) {
+		this.seat = seat;
+	}
+	
+	
+
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+
+	public String getMd5Value() {
         String key = plateNo + vinCode + engineNo;
         return DigestUtils.md5DigestAsHex(key.getBytes());
 

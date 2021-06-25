@@ -9,6 +9,7 @@ import fulan.tianjian.demo.model.client.insure.database.VehicleTaxEo;
 import fulan.tianjian.demo.model.client.insure.drools.GivingPolicy;
 import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
+import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PolicySchemeRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PureRiskInfoRemote;
@@ -170,6 +171,17 @@ public class InsureModelService {
 
     public InsureResultDTO createInsureResultDTOByInsureRemote(InsureRemote insureRemote) {
         InsureResultDTO insureResultDTO = new InsureResultDTO();
+        
+        InsureDTO insureDTO = new InsureDTO();
+        
+        List<PolicySchemeDTO> policySchemes = insureRemote.getPolicySchemeRemotes().stream().map(e -> {
+        	return e.convertToDTO();
+        }).toList();
+        insureDTO.setPolicySchemes(policySchemes);
+        insureDTO.setVehicleDTO(insureRemote.getVehicleRemote().convertToDTO());
+        insureResultDTO.setInsureDTO(insureDTO);
+        insureResultDTO.setResultCode("0000");
+        
         BeanUtils.copyProperties(insureRemote, insureResultDTO);
         return insureResultDTO;
 
