@@ -44,17 +44,19 @@ public class DroolBeanConvert<S,T> implements BeanConvertByUserTemplateService<S
 	 * @param drlResources 模板信息资源
 	 * @throws DrlResourceEmptyException 模板数据获取失败
 	 */
-	public void initKieSession(String drlContent) {
+	private void initKieSession(String drlContent) {
 		
+		/**
+		 * 如果已有session关闭
+		 */
 		closeKieSession();
 		
 		if(kieSession != null) {
 			return ;
 		}
 		
-		//初始化知识库获取会话信息
+		//初始化知识库获并取会话信息
 		KnowledgeBuilder  kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
-		
 		Resource resource = ResourceFactory.newReaderResource(new StringReader(drlContent.replaceAll("\r", "")));
 		kb.add(resource, ResourceType.DRL);
 		KieBase kieBase = kb.newKieBase();
@@ -62,6 +64,8 @@ public class DroolBeanConvert<S,T> implements BeanConvertByUserTemplateService<S
 		
 	}
 	
+
+	//关闭模板引擎的会话记录
 	public void closeKieSession() {
 		if(kieSession == null) {
 			return ;
@@ -69,6 +73,9 @@ public class DroolBeanConvert<S,T> implements BeanConvertByUserTemplateService<S
 		kieSession.dispose();
 	}
 
+	/**
+	 * 转换工具是哦也能够
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public T beanConvertBySource(S s, Class<T> tc) {

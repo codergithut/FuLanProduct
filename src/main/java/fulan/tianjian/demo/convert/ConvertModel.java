@@ -1,5 +1,12 @@
 package fulan.tianjian.demo.convert;
 
+/**
+ * 转换模型类
+ * @author 14681
+ *
+ * @param <S> 源数据
+ * @param <T> 目标数据
+ */
 public class ConvertModel<S, T> {
 	
 	
