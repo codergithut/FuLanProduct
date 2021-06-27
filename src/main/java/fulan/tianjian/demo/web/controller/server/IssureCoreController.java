@@ -26,9 +26,9 @@ public class IssureCoreController {
 	 * @return
 	 * @throws PureRiskLossException 
 	 */
-	public ResponseValue<List<PolicyInstanceVo>> underwriting(String branchCode, String regionCode) throws PureRiskLossException {
+	public ResponseValue<List<PolicyInstanceVo>> underwriting(String orderNumber, String regionCode) throws PureRiskLossException {
 		
-		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.underwriting(branchCode, regionCode);
+		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.underwriting(orderNumber, regionCode);
 		
 		return ResponseValue.successResponse(policyInstanceVos);
 	}
@@ -41,9 +41,9 @@ public class IssureCoreController {
 	 * @return
 	 * @throws PureRiskLossException 
 	 */
-	public ResponseValue<List<PolicyInstanceVo>> quote(String branchCode, String regionCode) throws PureRiskLossException {
+	public ResponseValue<List<PolicyInstanceVo>> quote(String orderNumber, String regionCode) throws PureRiskLossException {
 		
-		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.quote(branchCode, regionCode);
+		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.quote(orderNumber, regionCode);
 		
 		return ResponseValue.successResponse(policyInstanceVos);
 		
