@@ -1,0 +1,17 @@
+package fulan.tianjian.demo.convert
+
+import fulan.tianjian.demo.convert.SourceValue
+import fulan.tianjian.demo.convert.TargetValue
+
+rule "convert Bean File"
+	when
+	    $model : ConvertModel()
+	    $source : SourceValue() from $model.source
+	    $target : TargetValue() from $model.target
+    then
+        System.out.println("OK");
+        $target.setTargetName($source.getSourceName());
+        $target.setTargetValue($source.getSourceValue());
+end
+	    
+
