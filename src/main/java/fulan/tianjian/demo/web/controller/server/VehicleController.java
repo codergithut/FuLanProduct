@@ -7,10 +7,18 @@ import fulan.tianjian.demo.web.service.server.VehicleService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by tianjian on 2021/6/20.
  */
+@RestController
+@RequestMapping("/vehicle")
 public class VehicleController {
 	
 	@Autowired
@@ -21,7 +29,8 @@ public class VehicleController {
 	 * @param identityCardNumber
 	 * @return
 	 */
-    public ResponseValue<List<VehicleVo>> getAllVehicle(String identityCardNumber) {
+	@RequestMapping("/getVehicleByUserId")
+    public ResponseValue<List<VehicleVo>> getAllVehicle(@RequestParam String identityCardNumber) {
     	List<VehicleVo> result = vehicleService.findVehicleByIdCarNum(identityCardNumber);
     	if(result == null) {
     		return ResponseValue.failResponse();
@@ -34,8 +43,10 @@ public class VehicleController {
      * @param orderNumber
      * @return
      */
-    public ResponseValue<Boolean> deleteVehicle(String orderNumber) {
-    	return ResponseValue.successResponse(vehicleService.deleteVehicleByOrderNumber(orderNumber));
+    @GetMapping("deleteVehicleByOrderNumber")
+    public ResponseValue<Void> deleteVehicle(String orderNumber) {
+    	vehicleService.deleteVehicleByOrderNumber(orderNumber);
+    	return ResponseValue.successResponse();
     }
     
     /**
@@ -43,14 +54,15 @@ public class VehicleController {
      * @param orderNumber 订单编号
      * @return
      */
-    public ResponseValue<VehicleVo> getVehicleByOrderNumber(String orderNumber) {
+    @GetMapping("getVehicleByOrderNumber")
+    public ResponseValue<VehicleVo> getVehicleByOrderNumber(@RequestParam String orderNumber) {
     	VehicleVo vehicleVo = vehicleService.findVehicleByOrderNumber(orderNumber);
     	return ResponseValue.successResponse(vehicleVo);
     }
     
-    
-    public ResponseValue<Boolean> saveVehicle(VehicleVo vehicleVo) {
-    	Boolean result = vehicleService.saveVehicle(vehicleVo);
+    @PostMapping("saveVehicle")
+    public ResponseValue<Boolean> saveVehicle(@RequestBody VehicleVo vehicleVo) {
+    	Boolean result = vehicleService.saveOrUpdateVehicle(vehicleVo);
     	return ResponseValue.successResponse(result);
     }
 

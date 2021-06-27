@@ -61,7 +61,7 @@ public class OrderCenterService {
 	
 		//保存信息入库为展示做准备
 		personService.savePersonData(persons);
-		vehicleService.saveVehicle(vehicleVo);
+		vehicleService.saveOrUpdateVehicle(vehicleVo);
 		policyService.savePolicyInstance(policyInstances);
 		
 		return null;

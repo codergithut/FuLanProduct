@@ -121,7 +121,7 @@ public class VehicleDTO {
     /**
      * 车辆座位数目
      */
-    private int seat;
+    private Integer seat;
 
     /**
      * 核定载客吨数
@@ -312,16 +312,15 @@ public class VehicleDTO {
 	public void setAcquisitionPrice(BigDecimal acquisitionPrice) {
 		this.acquisitionPrice = acquisitionPrice;
 	}
+	
 
-	public int getSeat() {
+	public Integer getSeat() {
 		return seat;
 	}
 
-	public void setSeat(int seat) {
+	public void setSeat(Integer seat) {
 		this.seat = seat;
 	}
-	
-	
 
 	public Date getRegisterDate() {
 		return registerDate;

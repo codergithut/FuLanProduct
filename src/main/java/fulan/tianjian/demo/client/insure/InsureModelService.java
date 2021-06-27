@@ -170,15 +170,22 @@ public class InsureModelService {
     }
 
     public InsureResultDTO createInsureResultDTOByInsureRemote(InsureRemote insureRemote) {
+    	
         InsureResultDTO insureResultDTO = new InsureResultDTO();
         
         InsureDTO insureDTO = new InsureDTO();
         
-        List<PolicySchemeDTO> policySchemes = insureRemote.getPolicySchemeRemotes().stream().map(e -> {
-        	return e.convertToDTO();
-        }).toList();
-        insureDTO.setPolicySchemes(policySchemes);
-        insureDTO.setVehicleDTO(insureRemote.getVehicleRemote().convertToDTO());
+        if(!CollectionUtils.isEmpty(insureRemote.getPolicySchemeRemotes())) {
+        	 List<PolicySchemeDTO> policySchemes = insureRemote.getPolicySchemeRemotes().stream().map(e -> {
+             	return e.convertToDTO();
+             }).toList();
+             insureDTO.setPolicySchemes(policySchemes);
+        }
+        
+        if(insureRemote.getVehicleRemote() != null) {
+        	insureDTO.setVehicleDTO(insureRemote.getVehicleRemote().convertToDTO());
+        }
+       
         insureResultDTO.setInsureDTO(insureDTO);
         insureResultDTO.setResultCode("0000");
         

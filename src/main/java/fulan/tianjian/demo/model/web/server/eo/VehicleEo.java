@@ -1,14 +1,31 @@
 package fulan.tianjian.demo.model.web.server.eo;
 
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.web.server.vo.VehicleVo;
+
 /**
  * 车辆视图模型
  * Created by tianjian on 2021/6/20.
  */
+@Entity
+@Table(name = "vehicle_base")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class VehicleEo {
 
     /**
      * id
      */
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
     private String id;
 
     /**
@@ -39,12 +56,12 @@ public class VehicleEo {
     /**
      * 注册日期
      */
-    private String registerDate;
+    private Date registerDate;
 
     /**
      * 发证日期
      */
-    private String certificateDate;
+    private Date certificateDate;
 
     /**
      * 是否新能源车
@@ -54,17 +71,14 @@ public class VehicleEo {
     /**
      * 车辆转移日期
      */
-    private String transferDate;
+    private Date transferDate;
 
     /**
      * 订单编码
      */
     private String orderNumber;
 
-    /**
-     * 用户编码
-     */
-    private String userId;
+    private String identityCardNumber;
     
     /**
      * 地区编码
@@ -119,36 +133,12 @@ public class VehicleEo {
 		this.vehicleCode = vehicleCode;
 	}
 
-	public String getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(String registerDate) {
-		this.registerDate = registerDate;
-	}
-
-	public String getCertificateDate() {
-		return certificateDate;
-	}
-
-	public void setCertificateDate(String certificateDate) {
-		this.certificateDate = certificateDate;
-	}
-
 	public String getIsNewEnergyResourcesVehicle() {
 		return isNewEnergyResourcesVehicle;
 	}
 
 	public void setIsNewEnergyResourcesVehicle(String isNewEnergyResourcesVehicle) {
 		this.isNewEnergyResourcesVehicle = isNewEnergyResourcesVehicle;
-	}
-
-	public String getTransferDate() {
-		return transferDate;
-	}
-
-	public void setTransferDate(String transferDate) {
-		this.transferDate = transferDate;
 	}
 
 	public String getOrderNumber() {
@@ -159,12 +149,14 @@ public class VehicleEo {
 		this.orderNumber = orderNumber;
 	}
 
-	public String getUserId() {
-		return userId;
+	
+
+	public String getIdentityCardNumber() {
+		return identityCardNumber;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setIdentityCardNumber(String identityCardNumber) {
+		this.identityCardNumber = identityCardNumber;
 	}
 
 	public String getRegionCode() {
@@ -173,6 +165,37 @@ public class VehicleEo {
 
 	public void setRegionCode(String regionCode) {
 		this.regionCode = regionCode;
+	}
+	
+	
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+
+	public Date getCertificateDate() {
+		return certificateDate;
+	}
+
+	public void setCertificateDate(Date certificateDate) {
+		this.certificateDate = certificateDate;
+	}
+
+	public Date getTransferDate() {
+		return transferDate;
+	}
+
+	public void setTransferDate(Date transferDate) {
+		this.transferDate = transferDate;
+	}
+
+	public VehicleVo convertToVo() {
+		VehicleVo vehicle = new VehicleVo();
+		BeanUtils.copyProperties(this, vehicle);
+		return vehicle;
 	}
     
     
