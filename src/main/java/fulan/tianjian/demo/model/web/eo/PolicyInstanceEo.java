@@ -1,18 +1,36 @@
 package fulan.tianjian.demo.model.web.eo;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
+
+@Entity
+@Table(name = "policy_instance")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class PolicyInstanceEo {
 	
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
 	private String id;
 	
 	/**
      * 保额
      */
-    private String premium;
+    private BigDecimal premium;
 
     /**
      * 保费
      */
-    private String sumInsured;
+    private BigDecimal sumInsured;
 
     /**
      * 保险代码
@@ -27,12 +45,12 @@ public class PolicyInstanceEo {
     /**
      * 起始时间
      */
-    private String startDate;
+    private Date startDate;
 
     /**
      * 结束时间
      */
-    private String endData;
+    private Date endDate;
     
 
     /**
@@ -53,21 +71,6 @@ public class PolicyInstanceEo {
 		this.id = id;
 	}
 
-	public String getPremium() {
-		return premium;
-	}
-
-	public void setPremium(String premium) {
-		this.premium = premium;
-	}
-
-	public String getSumInsured() {
-		return sumInsured;
-	}
-
-	public void setSumInsured(String sumInsured) {
-		this.sumInsured = sumInsured;
-	}
 
 	public String getPolicyCode() {
 		return policyCode;
@@ -85,21 +88,6 @@ public class PolicyInstanceEo {
 		this.policyName = policyName;
 	}
 
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getEndData() {
-		return endData;
-	}
-
-	public void setEndData(String endData) {
-		this.endData = endData;
-	}
 
 	public String getPolicyType() {
 		return policyType;
@@ -116,6 +104,43 @@ public class PolicyInstanceEo {
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-    
+
+	public BigDecimal getPremium() {
+		return premium;
+	}
+
+	public void setPremium(BigDecimal premium) {
+		this.premium = premium;
+	}
+
+	public BigDecimal getSumInsured() {
+		return sumInsured;
+	}
+
+	public void setSumInsured(BigDecimal sumInsured) {
+		this.sumInsured = sumInsured;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	
+	public PolicyInstanceVo convertToVo() {
+		PolicyInstanceVo policyInstanceVo = new PolicyInstanceVo();
+		BeanUtils.copyProperties(this, policyInstanceVo);
+		return policyInstanceVo;
+	}
 
 }

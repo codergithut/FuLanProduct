@@ -1,20 +1,33 @@
-package fulan.tianjian.demo.model.web.vo;
+package fulan.tianjian.demo.model.web.eo;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.web.vo.PolicySchemeConfigVo;
 
 /**
  * Created by tianjian on 2021/6/20.
  */
-public class PolicySchemeVo {
+@Entity
+@Table(name = "policy_scheme_config")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+public class PolicySchemeConfigEo {
 
-    /**
-     * 保额
-     */
-    private String premium;
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
+    private String id;
 
     /**
      * 保费
      */
-    private String sumInsured;
+    private BigDecimal sumInsured;
 
     /**
      * 保险代码
@@ -25,7 +38,7 @@ public class PolicySchemeVo {
      * 保险名称
      */
     private String policyName;
-
+    
 
     /**
      * 保险类型
@@ -38,23 +51,25 @@ public class PolicySchemeVo {
     private String regionCode;
     
     /**
-     * 是否某人选中
+     * 是否默认选中
      */
     private String isSelected;
 
-	public String getPremium() {
-		return premium;
+	public String getId() {
+		return id;
 	}
 
-	public void setPremium(String premium) {
-		this.premium = premium;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getSumInsured() {
+	
+
+	public BigDecimal getSumInsured() {
 		return sumInsured;
 	}
 
-	public void setSumInsured(String sumInsured) {
+	public void setSumInsured(BigDecimal sumInsured) {
 		this.sumInsured = sumInsured;
 	}
 
@@ -98,5 +113,9 @@ public class PolicySchemeVo {
 		this.isSelected = isSelected;
 	}
     
-    
+	public PolicySchemeConfigVo convertToVo() {
+		PolicySchemeConfigVo policySchemeConfigVo = new PolicySchemeConfigVo();
+		BeanUtils.copyProperties(this, policySchemeConfigVo);
+		return policySchemeConfigVo;
+	}
 }

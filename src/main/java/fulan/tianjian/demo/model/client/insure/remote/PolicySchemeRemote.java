@@ -162,7 +162,7 @@ public class PolicySchemeRemote {
 		
 		PolicySchemeRemote motorVehicleThirdPartyInsurance = new PolicySchemeRemote();
 		motorVehicleThirdPartyInsurance.setPolicyCode("MOTORVEHICLETHIRDPARTYINSURANCE");
-		motorVehicleThirdPartyInsurance.setPolicyName("车辆商业险");
+		motorVehicleThirdPartyInsurance.setPolicyName("车辆三责任险");
 		motorVehicleThirdPartyInsurance.setPremium(new BigDecimal("2000"));
 		motorVehicleThirdPartyInsurance.setSumInsured(new BigDecimal("50000"));
 		policySchemeRemotes.add(motorVehicleThirdPartyInsurance);
