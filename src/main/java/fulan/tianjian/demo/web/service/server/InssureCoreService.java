@@ -20,11 +20,11 @@ import fulan.tianjian.demo.model.client.insure.dto.InsurePersonDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
 import fulan.tianjian.demo.model.client.insure.dto.VehicleDTO;
-import fulan.tianjian.demo.model.web.server.vo.PayInfoVo;
-import fulan.tianjian.demo.model.web.server.vo.PersonVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
-import fulan.tianjian.demo.model.web.server.vo.UrlParamConfigVo;
-import fulan.tianjian.demo.model.web.server.vo.VehicleVo;
+import fulan.tianjian.demo.model.web.vo.PayInfoVo;
+import fulan.tianjian.demo.model.web.vo.PersonVo;
+import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
+import fulan.tianjian.demo.model.web.vo.UrlParamConfigVo;
+import fulan.tianjian.demo.model.web.vo.VehicleVo;
 
 @Service
 public class InssureCoreService {

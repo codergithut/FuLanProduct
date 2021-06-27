@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import fulan.tianjian.demo.model.client.insure.remote.PolicySchemeRemote;
-import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
+import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
 
 /**
  * 订单保险方案数据

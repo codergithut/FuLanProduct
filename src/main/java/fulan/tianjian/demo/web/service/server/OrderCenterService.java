@@ -10,9 +10,9 @@ import fulan.tianjian.demo.client.insure.InsureClient;
 import fulan.tianjian.demo.client.order.OrderCenterClient;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.order.OrderCenterVo;
-import fulan.tianjian.demo.model.web.server.vo.PersonVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
-import fulan.tianjian.demo.model.web.server.vo.VehicleVo;
+import fulan.tianjian.demo.model.web.vo.PersonVo;
+import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
+import fulan.tianjian.demo.model.web.vo.VehicleVo;
 
 public class OrderCenterService {
 	

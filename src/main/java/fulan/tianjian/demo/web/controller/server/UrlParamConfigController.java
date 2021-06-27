@@ -3,7 +3,7 @@ package fulan.tianjian.demo.web.controller.server;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fulan.tianjian.demo.model.web.ResponseValue;
-import fulan.tianjian.demo.model.web.server.vo.UrlParamConfigVo;
+import fulan.tianjian.demo.model.web.vo.UrlParamConfigVo;
 import fulan.tianjian.demo.web.service.server.UrlParamConfigService;
 
 public class UrlParamConfigController {

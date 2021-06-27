@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import fulan.tianjian.demo.model.web.server.vo.PolicyDescribeVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicySchemeVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicyValueViewVo;
+import fulan.tianjian.demo.model.web.vo.PolicyDescribeVo;
+import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
+import fulan.tianjian.demo.model.web.vo.PolicySchemeVo;
+import fulan.tianjian.demo.model.web.vo.PolicyValueViewVo;
 
 @Service
 public class PolicyService {

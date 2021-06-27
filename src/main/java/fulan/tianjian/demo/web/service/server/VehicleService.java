@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import fulan.tianjian.demo.model.web.server.eo.VehicleCurd;
-import fulan.tianjian.demo.model.web.server.eo.VehicleEo;
-import fulan.tianjian.demo.model.web.server.vo.VehicleVo;
+import fulan.tianjian.demo.model.web.eo.VehicleCurd;
+import fulan.tianjian.demo.model.web.eo.VehicleEo;
+import fulan.tianjian.demo.model.web.vo.VehicleVo;
 
 @Service
 public class VehicleService {

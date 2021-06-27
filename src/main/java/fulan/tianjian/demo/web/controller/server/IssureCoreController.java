@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.web.ResponseValue;
-import fulan.tianjian.demo.model.web.server.vo.PayInfoVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
+import fulan.tianjian.demo.model.web.vo.PayInfoVo;
+import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
 import fulan.tianjian.demo.web.service.server.InssureCoreService;
 
 /**

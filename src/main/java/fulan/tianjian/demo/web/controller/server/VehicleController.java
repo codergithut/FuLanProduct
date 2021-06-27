@@ -1,7 +1,7 @@
 package fulan.tianjian.demo.web.controller.server;
 
 import fulan.tianjian.demo.model.web.ResponseValue;
-import fulan.tianjian.demo.model.web.server.vo.VehicleVo;
+import fulan.tianjian.demo.model.web.vo.VehicleVo;
 import fulan.tianjian.demo.web.service.server.VehicleService;
 
 import java.util.List;
@@ -60,6 +60,11 @@ public class VehicleController {
     	return ResponseValue.successResponse(vehicleVo);
     }
     
+    /**
+     * 保存车辆数据
+     * @param vehicleVo 前端车辆数据模型
+     * @return 是否保存成功
+     */
     @PostMapping("saveVehicle")
     public ResponseValue<Boolean> saveVehicle(@RequestBody VehicleVo vehicleVo) {
     	Boolean result = vehicleService.saveOrUpdateVehicle(vehicleVo);

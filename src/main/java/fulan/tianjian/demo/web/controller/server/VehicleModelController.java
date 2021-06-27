@@ -13,7 +13,7 @@ import fulan.tianjian.demo.model.client.insure.database.VehicleDetailEo;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 import fulan.tianjian.demo.model.web.ResponseValue;
-import fulan.tianjian.demo.model.web.server.vo.VehicleBaseVo;
+import fulan.tianjian.demo.model.web.vo.VehicleBaseVo;
 
 @RestController
 @RequestMapping("/third")

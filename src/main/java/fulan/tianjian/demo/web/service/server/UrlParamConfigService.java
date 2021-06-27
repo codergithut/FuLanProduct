@@ -2,7 +2,7 @@ package fulan.tianjian.demo.web.service.server;
 
 import org.springframework.stereotype.Service;
 
-import fulan.tianjian.demo.model.web.server.vo.UrlParamConfigVo;
+import fulan.tianjian.demo.model.web.vo.UrlParamConfigVo;
 
 @Service
 public class UrlParamConfigService {

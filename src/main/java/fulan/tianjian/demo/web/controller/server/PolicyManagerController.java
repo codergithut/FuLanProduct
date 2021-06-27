@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fulan.tianjian.demo.model.web.ResponseValue;
-import fulan.tianjian.demo.model.web.server.vo.PolicyDescribeVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicyInstanceVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicySchemeVo;
-import fulan.tianjian.demo.model.web.server.vo.PolicyValueViewVo;
+import fulan.tianjian.demo.model.web.vo.PolicyDescribeVo;
+import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
+import fulan.tianjian.demo.model.web.vo.PolicySchemeVo;
+import fulan.tianjian.demo.model.web.vo.PolicyValueViewVo;
 import fulan.tianjian.demo.web.service.server.PolicyService;
 
 /**

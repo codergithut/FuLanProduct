@@ -1,7 +1,7 @@
 package fulan.tianjian.demo.web.service.server;
 
-import fulan.tianjian.demo.model.web.server.eo.UserEo;
-import fulan.tianjian.demo.model.web.server.vo.UserVo;
+import fulan.tianjian.demo.model.web.eo.UserEo;
+import fulan.tianjian.demo.model.web.vo.UserVo;
 
 import java.util.UUID;
 

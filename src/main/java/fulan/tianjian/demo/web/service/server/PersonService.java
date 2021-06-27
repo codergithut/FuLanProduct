@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import fulan.tianjian.demo.model.web.server.vo.PersonVo;
+import fulan.tianjian.demo.model.web.vo.PersonVo;
 
 @Service
 public class PersonService {
