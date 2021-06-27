@@ -69,6 +69,7 @@ public class DroolBeanConvert<S,T> implements BeanConvert<S, T>{
 		kieSession.dispose();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public T beanConvertBySource(S s, Class<T> tc) {
 		
