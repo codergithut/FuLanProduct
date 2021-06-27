@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import fulan.tianjian.demo.exception.DrlResourceEmptyException;
 
-public class DroolBeanConvert<S,T> implements BeanConvert<S, T>{
+public class DroolBeanConvert<S,T> implements BeanConvertByUserTemplateService<S, T>{
 	
 	@Autowired
 	private KieSession kieSession;

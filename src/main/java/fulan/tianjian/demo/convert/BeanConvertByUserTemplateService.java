@@ -1,6 +1,6 @@
 package fulan.tianjian.demo.convert;
 
-public interface BeanConvert<S, T>  {
+public interface BeanConvertByUserTemplateService<S, T>  {
 	
 	String getTemplateContent();
 	
