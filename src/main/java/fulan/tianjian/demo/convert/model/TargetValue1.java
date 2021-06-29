@@ -1,9 +1,9 @@
-package fulan.tianjian.demo.convert;
+package fulan.tianjian.demo.convert.model;
 
-public class TargetValue {
-	
+public class TargetValue1 {
+
 	private String targetName;
-	
+
 	private String targetValue;
 
 	public String getTargetName() {
@@ -21,7 +21,4 @@ public class TargetValue {
 	public void setTargetValue(String targetValue) {
 		this.targetValue = targetValue;
 	}
-	
-	
-
 }

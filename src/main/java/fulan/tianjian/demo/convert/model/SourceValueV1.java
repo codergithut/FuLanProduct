@@ -1,33 +1,25 @@
-package fulan.tianjian.demo.convert;
+package fulan.tianjian.demo.convert.model;
 
-public class SourceValue {
+public class SourceValueV1 {
 	
 	private String sourceName;
-	
-	
-	private String sourceValue;
 
+	private String sourceValue;
 
 	public String getSourceName() {
 		return sourceName;
 	}
 
-
 	public void setSourceName(String sourceName) {
 		this.sourceName = sourceName;
 	}
-
 
 	public String getSourceValue() {
 		return sourceValue;
 	}
 
-
 	public void setSourceValue(String sourceValue) {
 		this.sourceValue = sourceValue;
 	}
-
-
-	
 
 }
