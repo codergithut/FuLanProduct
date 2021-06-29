@@ -1,10 +1,22 @@
 package fulan.tianjian.demo.model.web.eo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "url_param_config")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class UrlParamConfigEo {
 	
 	/**
 	 * 数据库id
 	 */
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
 	private String id;
 	
 	 /**

@@ -1,6 +1,26 @@
 package fulan.tianjian.demo.model.web.eo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "pay_info")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class PayInfoEo {
+	
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
+	private String id;
+	
+	/**
+	 * 订单id
+	 */
+	private String orderNumber;
+	
 	/**
      * 支付号
      */
@@ -52,6 +72,24 @@ public class PayInfoEo {
 	public void setPayWay(String payWay) {
 		this.payWay = payWay;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	
+	
     
     
 

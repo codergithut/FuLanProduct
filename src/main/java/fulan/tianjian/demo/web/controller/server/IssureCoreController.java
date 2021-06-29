@@ -3,6 +3,9 @@ package fulan.tianjian.demo.web.controller.server;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.web.ResponseValue;
@@ -13,6 +16,8 @@ import fulan.tianjian.demo.web.service.server.InssureCoreService;
 /**
  * Created by tianjian on 2021/6/20.
  */
+@RestController
+@RequestMapping("/insureCore")
 public class IssureCoreController {
 	
 	@Autowired
@@ -26,6 +31,7 @@ public class IssureCoreController {
 	 * @return
 	 * @throws PureRiskLossException 
 	 */
+	@GetMapping("underwriting")
 	public ResponseValue<List<PolicyInstanceVo>> underwriting(String orderNumber, String regionCode) throws PureRiskLossException {
 		
 		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.underwriting(orderNumber, regionCode);
@@ -41,6 +47,7 @@ public class IssureCoreController {
 	 * @return
 	 * @throws PureRiskLossException 
 	 */
+	@GetMapping("quote")
 	public ResponseValue<List<PolicyInstanceVo>> quote(String orderNumber, String regionCode) throws PureRiskLossException {
 		
 		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.quote(orderNumber, regionCode);

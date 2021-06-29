@@ -1,10 +1,22 @@
 package fulan.tianjian.demo.model.web.eo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * Created by tianjian on 2021/6/20.
  */
+@Entity
+@Table(name = "user")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class UserEo {
 	
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
 	private String id;
 	
     /**

@@ -10,10 +10,8 @@ import org.springframework.util.CollectionUtils;
 
 import fulan.tianjian.demo.model.web.eo.PolicyInstanceCurd;
 import fulan.tianjian.demo.model.web.eo.PolicyInstanceEo;
-import fulan.tianjian.demo.model.web.vo.PolicyDescribeVo;
 import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
-import fulan.tianjian.demo.model.web.vo.PolicySchemeConfigVo;
-import fulan.tianjian.demo.model.web.vo.PolicyValueViewVo;
+
 
 @Service
 public class PolicyService {
@@ -21,20 +19,6 @@ public class PolicyService {
 	@Autowired
 	private PolicyInstanceCurd policyInstanceCurd;
 
-	public List<PolicyDescribeVo> findPolicyDescribe() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<PolicyValueViewVo> findPolicyValueView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<PolicySchemeConfigVo> findPolicySchemeByRegionCode(String regionCode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public Boolean savePolicyInstance(List<PolicyInstanceVo> policyInstances) {
 		if(CollectionUtils.isEmpty(policyInstances)) {

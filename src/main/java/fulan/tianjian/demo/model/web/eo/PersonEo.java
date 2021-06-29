@@ -1,13 +1,29 @@
 package fulan.tianjian.demo.model.web.eo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.web.vo.PersonVo;
+
 /**
  * Created by tianjian on 2021/6/20.
  */
+
+@Entity
+@Table(name = "person")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class PersonEo {
 
     /**
      * 人员id
      */
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
     private String id;
 
     /**
@@ -94,6 +110,12 @@ public class PersonEo {
 
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
+	}
+	
+	public PersonVo convertToVo() {
+		PersonVo personVo = new PersonVo();
+		BeanUtils.copyProperties(this, personVo);
+		return personVo;
 	}
     
     

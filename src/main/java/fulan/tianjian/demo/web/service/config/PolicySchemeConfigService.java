@@ -10,7 +10,9 @@ import org.springframework.util.CollectionUtils;
 
 import fulan.tianjian.demo.model.web.eo.PolicySchemeConfigCurd;
 import fulan.tianjian.demo.model.web.eo.PolicySchemeConfigEo;
+import fulan.tianjian.demo.model.web.vo.PolicyDescribeVo;
 import fulan.tianjian.demo.model.web.vo.PolicySchemeConfigVo;
+import fulan.tianjian.demo.model.web.vo.PolicyValueViewVo;
 
 //todo 添加中间层做缓存 VO -> DTO -> EO
 @Service
@@ -44,6 +46,16 @@ public class PolicySchemeConfigService {
 		return policySchemeConfigs.stream().map(e -> {
 			return e.convertToVo();
 		}).collect(Collectors.toList());
+	}
+
+	public List<PolicyDescribeVo> findPolicyDescribe() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PolicyValueViewVo> findPolicyValueView() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

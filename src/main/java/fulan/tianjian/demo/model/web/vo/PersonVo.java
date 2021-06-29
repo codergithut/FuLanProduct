@@ -1,8 +1,12 @@
 package fulan.tianjian.demo.model.web.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 
 import fulan.tianjian.demo.model.client.insure.dto.InsurePersonDTO;
+import fulan.tianjian.demo.model.web.eo.PersonEo;
 
 /**
  * Created by tianjian on 2021/6/20.
@@ -117,4 +121,27 @@ public class PersonVo {
     	BeanUtils.copyProperties(this, insurePersonDTO);
     	return insurePersonDTO;
     }
+	
+	public PersonEo convertToEo() {
+		PersonEo personEo = new PersonEo();
+    	BeanUtils.copyProperties(this, personEo);
+    	return personEo;
+    }
+	
+	public static List<PersonVo> mockPersonVo(String orderNumber) {
+		List<PersonVo> personVos = new ArrayList<PersonVo>();
+		
+		for(int i = 0; i < 3; i++) {
+			PersonVo personVo = new PersonVo();
+			personVo.setAddress("天堂之门");
+			personVo.setIdentityCardNumber("392493778229174529");
+			personVo.setName("无神");
+			personVo.setOrderNumber(orderNumber);
+			personVo.setSex("1");
+			personVo.setType(i + "");
+			personVos.add(personVo);
+		}
+		
+		return personVos;
+	}
 }
