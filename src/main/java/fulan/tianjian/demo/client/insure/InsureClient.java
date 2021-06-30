@@ -13,12 +13,18 @@ import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 import fulan.tianjian.demo.model.client.order.OrderCenterVo;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.vehicle.ThirdPartyVehicle;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static fulan.tianjian.demo.constant.ConstantCls.*;
@@ -132,8 +138,9 @@ public class InsureClient {
         List<VehicleDetailEo> vehicleDatas = vehicleDetailEos.stream().sorted(Comparator.comparing(VehicleDetailEo::getDataSource))
                 .collect(Collectors.toList());
         for(VehicleDetailEo vehicleDetailEo : vehicleDatas) {
-            BeanUtils.copyProperties(vehicleDetailEo, vehicleDTO);
+            BeanUtils.copyProperties(vehicleDetailEo, vehicleDTO, getNullPropertyNames(vehicleDetailEo));
         }
+   
         return vehicleDTO;
 
     }
@@ -181,6 +188,22 @@ public class InsureClient {
 
 	        return null;
 	}
+	
+	
+	public static String[] getNullPropertyNames (Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<String>();
+        for(java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null || StringUtils.isBlank(srcValue.toString())) {
+            	emptyNames.add(pd.getName());
+            }
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
+    }
 
 
 }

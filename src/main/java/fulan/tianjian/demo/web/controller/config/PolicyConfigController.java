@@ -14,14 +14,14 @@ import fulan.tianjian.demo.model.web.ResponseValue;
 import fulan.tianjian.demo.model.web.vo.PolicyDescribeVo;
 import fulan.tianjian.demo.model.web.vo.PolicySchemeConfigVo;
 import fulan.tianjian.demo.model.web.vo.PolicyValueViewVo;
-import fulan.tianjian.demo.web.service.config.PolicySchemeConfigService;
+import fulan.tianjian.demo.web.service.config.ServiceBaseConfigService;
 
 @RestController
 @RequestMapping("/config/policy")
 public class PolicyConfigController {
 
 	@Autowired
-	private PolicySchemeConfigService policySchemeConfigService;
+	private ServiceBaseConfigService policySchemeConfigService;
 
 	@PostMapping("add")
 	public ResponseValue<Boolean> savePolicyConfig(@RequestBody List<PolicySchemeConfigVo> policySchemeVos) {

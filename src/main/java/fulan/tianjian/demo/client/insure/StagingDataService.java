@@ -108,9 +108,7 @@ public class StagingDataService {
     		allVehicleDetail.add(trafficVehicle);
     	}
     	
-    	
-
-        return null;
+        return allVehicleDetail;
     }
     
    

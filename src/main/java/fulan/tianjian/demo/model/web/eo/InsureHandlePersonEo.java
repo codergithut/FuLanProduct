@@ -1,16 +1,24 @@
-package fulan.tianjian.demo.model.client.insure.dto;
+package fulan.tianjian.demo.model.web.eo;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
 
-import fulan.tianjian.demo.model.web.eo.InsureHandlePersonEo;
+import fulan.tianjian.demo.model.client.insure.dto.InsureHandlePersonDTO;
 import fulan.tianjian.demo.model.web.vo.InsureHandlePersonVo;
 
-/**
- * 保单经办人等基础信息
- */
-public class InsureHandlePersonDTO {
-
-    /**
+@Entity
+@Table(name = "insure_handle_person")
+public class InsureHandlePersonEo {
+	
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
+	private String id;
+	
+	 /**
      * 操作人姓名
      */
     private String name;
@@ -34,6 +42,14 @@ public class InsureHandlePersonDTO {
      * 地区编码
      */
     private String regionCode;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -75,17 +91,17 @@ public class InsureHandlePersonDTO {
 		this.regionCode = regionCode;
 	}
 	
-	public InsureHandlePersonEo convertToEo() {
-		InsureHandlePersonEo insureHandlePersonEo = new InsureHandlePersonEo();
-		BeanUtils.copyProperties(this, insureHandlePersonEo);
-		return insureHandlePersonEo;
+	public InsureHandlePersonVo convertToVo() {
+		InsureHandlePersonVo insureHandlePersonVo = new InsureHandlePersonVo();
+		BeanUtils.copyProperties(this, insureHandlePersonVo);
+		return insureHandlePersonVo;
 	}
 	
-	public InsureHandlePersonVo convertToVo() {
-		InsureHandlePersonVo insureHandlePerson = new InsureHandlePersonVo();
-		BeanUtils.copyProperties(this, insureHandlePerson);
-		return insureHandlePerson;
+	public InsureHandlePersonDTO convertToDTO() {
+		InsureHandlePersonDTO insureHandlePersonDTO = new InsureHandlePersonDTO();
+		BeanUtils.copyProperties(this, insureHandlePersonDTO);
+		return insureHandlePersonDTO;
 	}
     
-    
+
 }

@@ -1,17 +1,12 @@
-package fulan.tianjian.demo.model.client.insure.dto;
-
-import java.util.List;
+package fulan.tianjian.demo.model.web.vo;
 
 import org.springframework.beans.BeanUtils;
 
-import fulan.tianjian.demo.model.web.eo.InsureConfigEo;
-import fulan.tianjian.demo.model.web.vo.InsureConfigVo;
+import fulan.tianjian.demo.model.client.insure.dto.InsureConfigDTO;
 
-/**
- * 保单的基础配置信息
- */
-public class InsureConfigDTO {
-    /**
+public class InsureConfigVo {
+	
+	/**
      * 报价模式
      */
     private String quotationMode;
@@ -49,11 +44,6 @@ public class InsureConfigDTO {
      * 省份编码
      */
     private String provinceCode;
-
-    /**
-     * 保险操作人信息
-     */
-    private List<InsureHandlePersonDTO> insureHandlePersonDTOS;
 
 	public String getQuotationMode() {
 		return quotationMode;
@@ -103,16 +93,6 @@ public class InsureConfigDTO {
 		this.agentPointCode = agentPointCode;
 	}
 
-	public List<InsureHandlePersonDTO> getInsureHandlePersonDTOS() {
-		return insureHandlePersonDTOS;
-	}
-
-	public void setInsureHandlePersonDTOS(List<InsureHandlePersonDTO> insureHandlePersonDTOS) {
-		this.insureHandlePersonDTOS = insureHandlePersonDTOS;
-	}
-	
-	
-	
 	public String getProvinceCode() {
 		return provinceCode;
 	}
@@ -120,20 +100,13 @@ public class InsureConfigDTO {
 	public void setProvinceCode(String provinceCode) {
 		this.provinceCode = provinceCode;
 	}
-
-	public InsureConfigEo convertToEo() {
-		InsureConfigEo insureConfigEo = new InsureConfigEo();
-		BeanUtils.copyProperties(this, insureConfigEo);
-		return insureConfigEo;
-		
-	}
 	
-	
-	public InsureConfigVo convertToVo() {
-		InsureConfigVo insureConfigVo = new InsureConfigVo();
-		BeanUtils.copyProperties(this, insureConfigVo);
-		return insureConfigVo;
+	public InsureConfigDTO convertToDTO() {
+		InsureConfigDTO insureConfigDTO = new InsureConfigDTO();
+		BeanUtils.copyProperties(this, insureConfigDTO);
+		return insureConfigDTO;
 	}
+    
     
 
 }

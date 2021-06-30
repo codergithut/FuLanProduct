@@ -1,17 +1,25 @@
-package fulan.tianjian.demo.model.client.insure.dto;
+package fulan.tianjian.demo.model.web.eo;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.BeanUtils;
 
-import fulan.tianjian.demo.model.web.eo.InsureConfigEo;
-import fulan.tianjian.demo.model.web.vo.InsureConfigVo;
+import fulan.tianjian.demo.model.client.insure.dto.InsureConfigDTO;
 
-/**
- * 保单的基础配置信息
- */
-public class InsureConfigDTO {
-    /**
+@Entity
+@Table(name = "insure_config")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+public class InsureConfigEo {
+	
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
+	private String id;
+	
+	/**
      * 报价模式
      */
     private String quotationMode;
@@ -50,90 +58,91 @@ public class InsureConfigDTO {
      */
     private String provinceCode;
 
-    /**
-     * 保险操作人信息
-     */
-    private List<InsureHandlePersonDTO> insureHandlePersonDTOS;
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 
 	public String getQuotationMode() {
 		return quotationMode;
 	}
 
+
 	public void setQuotationMode(String quotationMode) {
 		this.quotationMode = quotationMode;
 	}
+
 
 	public String getIsElectronicApplicationForm() {
 		return isElectronicApplicationForm;
 	}
 
+
 	public void setIsElectronicApplicationForm(String isElectronicApplicationForm) {
 		this.isElectronicApplicationForm = isElectronicApplicationForm;
 	}
+
 
 	public String getIsFaceRecognition() {
 		return isFaceRecognition;
 	}
 
+
 	public void setIsFaceRecognition(String isFaceRecognition) {
 		this.isFaceRecognition = isFaceRecognition;
 	}
+
 
 	public String getDistributionChannel() {
 		return distributionChannel;
 	}
 
+
 	public void setDistributionChannel(String distributionChannel) {
 		this.distributionChannel = distributionChannel;
 	}
+
 
 	public String getAgentPointName() {
 		return agentPointName;
 	}
 
+
 	public void setAgentPointName(String agentPointName) {
 		this.agentPointName = agentPointName;
 	}
+
 
 	public String getAgentPointCode() {
 		return agentPointCode;
 	}
 
+
 	public void setAgentPointCode(String agentPointCode) {
 		this.agentPointCode = agentPointCode;
 	}
 
-	public List<InsureHandlePersonDTO> getInsureHandlePersonDTOS() {
-		return insureHandlePersonDTOS;
-	}
 
-	public void setInsureHandlePersonDTOS(List<InsureHandlePersonDTO> insureHandlePersonDTOS) {
-		this.insureHandlePersonDTOS = insureHandlePersonDTOS;
-	}
-	
-	
-	
 	public String getProvinceCode() {
 		return provinceCode;
 	}
 
+
 	public void setProvinceCode(String provinceCode) {
 		this.provinceCode = provinceCode;
 	}
-
-	public InsureConfigEo convertToEo() {
-		InsureConfigEo insureConfigEo = new InsureConfigEo();
-		BeanUtils.copyProperties(this, insureConfigEo);
-		return insureConfigEo;
-		
+	
+	public InsureConfigDTO convertToDTO() {
+		InsureConfigDTO insureConfigDTO = new InsureConfigDTO();
+		BeanUtils.copyProperties(this, insureConfigDTO);
+		return insureConfigDTO;
 	}
 	
-	
-	public InsureConfigVo convertToVo() {
-		InsureConfigVo insureConfigVo = new InsureConfigVo();
-		BeanUtils.copyProperties(this, insureConfigVo);
-		return insureConfigVo;
-	}
     
-
 }

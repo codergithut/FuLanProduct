@@ -11,7 +11,6 @@ import org.springframework.beans.BeanUtils;
 import com.alibaba.fastjson.JSON;
 
 import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
-import fulan.tianjian.demo.model.client.insure.remote.PolicySchemeRemote;
 import fulan.tianjian.demo.model.web.eo.PolicyInstanceEo;
 import fulan.tianjian.demo.util.CommonUtil;
 

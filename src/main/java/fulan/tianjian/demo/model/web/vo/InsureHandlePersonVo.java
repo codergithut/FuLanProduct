@@ -1,16 +1,13 @@
-package fulan.tianjian.demo.model.client.insure.dto;
+package fulan.tianjian.demo.model.web.vo;
 
 import org.springframework.beans.BeanUtils;
 
+import fulan.tianjian.demo.model.client.insure.dto.InsureHandlePersonDTO;
 import fulan.tianjian.demo.model.web.eo.InsureHandlePersonEo;
-import fulan.tianjian.demo.model.web.vo.InsureHandlePersonVo;
 
-/**
- * 保单经办人等基础信息
- */
-public class InsureHandlePersonDTO {
-
-    /**
+public class InsureHandlePersonVo {
+	
+	 /**
      * 操作人姓名
      */
     private String name;
@@ -80,12 +77,13 @@ public class InsureHandlePersonDTO {
 		BeanUtils.copyProperties(this, insureHandlePersonEo);
 		return insureHandlePersonEo;
 	}
+    
 	
-	public InsureHandlePersonVo convertToVo() {
-		InsureHandlePersonVo insureHandlePerson = new InsureHandlePersonVo();
-		BeanUtils.copyProperties(this, insureHandlePerson);
-		return insureHandlePerson;
+	public InsureHandlePersonDTO convertToDTO() {
+		InsureHandlePersonDTO insureHandlePersonDTO = new InsureHandlePersonDTO();
+		BeanUtils.copyProperties(this, insureHandlePersonDTO);
+		return insureHandlePersonDTO;
 	}
     
-    
+
 }
