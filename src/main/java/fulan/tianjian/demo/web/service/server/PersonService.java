@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -18,6 +20,8 @@ public class PersonService {
 	@Autowired
 	private PersonCurd personCurd;
 
+	
+	@Transactional
 	public Boolean savePersonData(List<PersonVo> persons) {
 
 		if(CollectionUtils.isEmpty(persons)) {

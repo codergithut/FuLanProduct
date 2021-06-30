@@ -15,7 +15,7 @@ public class InsureRemote {
     /**
      * 当前投保人受益人车主信息
      */
-    private InsurePersonRemote insurePersonRemote;
+    private List<InsurePersonRemote> insurePersonRemotes;
 
     /**
      * 当前订单保险方案
@@ -59,16 +59,16 @@ public class InsureRemote {
         this.insureConfigRemote = insureConfigRemote;
     }
 
-    public InsurePersonRemote getInsurePersonRemote() {
-        return insurePersonRemote;
-    }
+   
+    public List<InsurePersonRemote> getInsurePersonRemotes() {
+		return insurePersonRemotes;
+	}
 
-    public void setInsurePersonRemote(InsurePersonRemote insurePersonRemote) {
-        this.insurePersonRemote = insurePersonRemote;
-    }
+	public void setInsurePersonRemotes(List<InsurePersonRemote> insurePersonRemotes) {
+		this.insurePersonRemotes = insurePersonRemotes;
+	}
 
-    
-    public List<PolicySchemeRemote> getPolicySchemeRemotes() {
+	public List<PolicySchemeRemote> getPolicySchemeRemotes() {
 		return policySchemeRemotes;
 	}
 
@@ -143,6 +143,15 @@ public class InsureRemote {
 		InsureRemote insureRemote = new InsureRemote();
 		insureRemote.setVehicleRemote(VehicleRemote.mockReNewVehicle());
 		insureRemote.setPolicySchemeRemotes(PolicySchemeRemote.mockPolicy());
+		insureRemote.setResultCode("0000");
+		return insureRemote;
+	}
+
+	public static InsureRemote mockPureRiskInfo() {
+		InsureRemote insureRemote = new InsureRemote();
+		PureRiskInfoRemote pureRiskInfo = new PureRiskInfoRemote();
+		pureRiskInfo.setPureRiskInfo("pureRiskInfo");
+		insureRemote.setPureRiskInfoRemote(pureRiskInfo);
 		insureRemote.setResultCode("0000");
 		return insureRemote;
 	}

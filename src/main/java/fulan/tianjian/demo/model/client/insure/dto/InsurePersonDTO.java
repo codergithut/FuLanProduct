@@ -1,5 +1,9 @@
 package fulan.tianjian.demo.model.client.insure.dto;
 
+import org.springframework.beans.BeanUtils;
+
+import fulan.tianjian.demo.model.client.insure.remote.InsurePersonRemote;
+
 /**
  * 投保人 被保人 受益人 信息
  */
@@ -68,6 +72,12 @@ public class InsurePersonDTO {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public InsurePersonRemote convertToRemote() {
+		InsurePersonRemote insurePersonRemote = new InsurePersonRemote();
+		BeanUtils.copyProperties(this, insurePersonRemote);
+		return insurePersonRemote;
 	}
     
     

@@ -1,6 +1,8 @@
 package fulan.tianjian.demo.client.insure;
 
 import com.alibaba.fastjson.JSON;
+
+import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.client.insure.database.InsuranceRiskInformationEo;
 import fulan.tianjian.demo.model.client.insure.database.PremiumFloatingItemsEo;
@@ -10,6 +12,7 @@ import fulan.tianjian.demo.model.client.insure.drools.GivingPolicy;
 import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
+import fulan.tianjian.demo.model.client.insure.remote.InsurePersonRemote;
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PolicySchemeRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PureRiskInfoRemote;
@@ -22,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import static fulan.tianjian.demo.constant.ConstantCls.VEHICLE_LOSS_INSUREANCE;
-import static fulan.tianjian.demo.constant.ConstantCls.QUOTED_PRICE_URL;
 import static fulan.tianjian.demo.model.client.convert.VehicleConvertUtil.convertVehicleRemoteByDTO;
 
 import java.util.List;
@@ -57,8 +59,8 @@ public class InsureModelService {
         //将改单车船税节点数据合并
         VehicleTaxEo vehicleTaxEo = stagingDataService.getVehicleTaxEoByOrderNumber(insureDTO.getOrderNumber());
         if(vehicleTaxEo == null) {
-            VehicleTaxEo initVehicleTaxEo = initVehicleTaxRemote(insureDTO);
-            stagingDataService.saveVehicleTaxEo(initVehicleTaxEo);
+        	vehicleTaxEo = initVehicleTaxRemote(insureDTO);
+            stagingDataService.saveVehicleTaxEo(vehicleTaxEo);
         }
         vehicleRemote = vehicleTaxEo.coverVehicleRemote(vehicleRemote);
         insureRemote.setVehicleRemote(vehicleRemote);
@@ -85,6 +87,15 @@ public class InsureModelService {
             insureRemote.setPremiumFloatingItemsRemote(premiumFloatingItemsEo.convertEoToRemote());
 
         }
+        
+        insureRemote.setInsureConfigRemote(insureDTO.getInsureConfigDTO().convertToRemote());
+        
+        List<InsurePersonRemote> insurePresonRemotes = insureDTO.getInsurePersons().stream().map(e -> {
+        	return e.convertToRemote();
+        }).collect(Collectors.toList());
+        
+        insureRemote.setInsurePersonRemotes(insurePresonRemotes);
+        
         
         //正常保费处理
         List<PolicySchemeRemote> policySchemeRemotes = insureDTO.getPolicySchemes().stream().map(e -> {
@@ -139,7 +150,11 @@ public class InsureModelService {
 	}
 
 	private VehicleTaxEo initVehicleTaxRemote(InsureDTO insureDTO) {
-        return null;
+		VehicleTaxEo vehicleTaxEo = new VehicleTaxEo();
+		vehicleTaxEo.setVehicleTaxEndTime("20210630");
+		vehicleTaxEo.setVehicleTaxEndTime("20220630");
+		vehicleTaxEo.setOrderNumber(insureDTO.getOrderNumber());
+        return vehicleTaxEo;
     }
 
     /**
@@ -157,7 +172,7 @@ public class InsureModelService {
         }
 
         //本地无该纯风险保费，请求三方根据返回入库，并返回给调用方
-        MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(QUOTED_PRICE_URL,
+        MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(ConstantCls.PURE_RISK_INFO,
                 JSON.toJSONString(vehicleRemote), InsureRemote.class);
         if("0000".equals(result.getStatus())) {
             PureRiskEo savePureRiskEo = result.getData()

@@ -1,5 +1,8 @@
 package fulan.tianjian.demo.model.web.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 
 import fulan.tianjian.demo.model.client.insure.dto.InsureHandlePersonDTO;
@@ -83,6 +86,20 @@ public class InsureHandlePersonVo {
 		InsureHandlePersonDTO insureHandlePersonDTO = new InsureHandlePersonDTO();
 		BeanUtils.copyProperties(this, insureHandlePersonDTO);
 		return insureHandlePersonDTO;
+	}
+	
+	public static List<InsureHandlePersonVo> mockData() {
+		List<InsureHandlePersonVo> insureHandlePersonVos = new ArrayList<InsureHandlePersonVo>();
+		for(int i = 0; i < 3; i++) {
+			InsureHandlePersonVo insureHandlePerson = new InsureHandlePersonVo();
+			insureHandlePerson.setCode("code" + i);
+			insureHandlePerson.setDepartmentCode("departMentCode" + i);
+			insureHandlePerson.setRegionCode("215000");
+			insureHandlePerson.setType(i + "");
+			insureHandlePerson.setName("name" + i);
+			insureHandlePersonVos.add(insureHandlePerson);
+		}
+		return insureHandlePersonVos;
 	}
     
 

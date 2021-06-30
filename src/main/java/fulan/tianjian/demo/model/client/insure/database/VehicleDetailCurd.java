@@ -12,8 +12,13 @@ public interface VehicleDetailCurd extends JpaRepository<VehicleDetailEo, String
 	 * @param vehicleSource 来源
 	 * @return
 	 */
-	VehicleDetailEo findByVehicleCode(String vehicleCode);
-
 	VehicleDetailEo findByMd5ValueAndVehicleSource(String md5ValuePart, String vehicleSource);
+
+	VehicleDetailEo findByVehicleCodeAndVehicleSource(String vehicleCode, String thirdVehicleDetail);
+
+	VehicleDetailEo findByMd5ValueAndDataSource(String md5ValuePart, String vehicleSource);
+
+	VehicleDetailEo findByVehicleCodeAndDataSource(String vehicleCode, String thirdVehicleDetail);
+
 
 }

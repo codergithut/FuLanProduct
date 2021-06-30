@@ -2,6 +2,7 @@ package fulan.tianjian.demo.model.client.insure.dto;
 
 import org.springframework.beans.BeanUtils;
 
+import fulan.tianjian.demo.model.client.insure.remote.InsureHandlePersonRemote;
 import fulan.tianjian.demo.model.web.eo.InsureHandlePersonEo;
 import fulan.tianjian.demo.model.web.vo.InsureHandlePersonVo;
 
@@ -85,6 +86,12 @@ public class InsureHandlePersonDTO {
 		InsureHandlePersonVo insureHandlePerson = new InsureHandlePersonVo();
 		BeanUtils.copyProperties(this, insureHandlePerson);
 		return insureHandlePerson;
+	}
+	
+	public InsureHandlePersonRemote convertToRemote() {
+		InsureHandlePersonRemote insureHandlePersonRemote = new InsureHandlePersonRemote();
+		BeanUtils.copyProperties(this, insureHandlePersonRemote);
+		return insureHandlePersonRemote;
 	}
     
     

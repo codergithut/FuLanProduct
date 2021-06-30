@@ -340,6 +340,9 @@ public class VehicleRemote {
 		vehicleRemote.setRegisterDate(strToDate("20180912231325"));
 		vehicleRemote.setFuelType("A");
 		vehicleRemote.setPmVehicleStyle("K31");
+		vehicleRemote.setPlateNo("苏A921083");
+		vehicleRemote.setVinCode("38299093827819287");
+		vehicleRemote.setEngineNo("593208654");
 		vehicleRemote.setVehicleCode("k7eN9Q");
 		return vehicleRemote;
 
@@ -370,6 +373,9 @@ public class VehicleRemote {
 		vehicleRemote.setVehicleTaxStartTime(strToDate("20210000000000"));
 		vehicleRemote.setVehicleTaxType("K33");
 		vehicleRemote.setVinCode("58390387653892719");
+		vehicleRemote.setPlateNo("苏A921083");
+		vehicleRemote.setVinCode("38299093827819287");
+		vehicleRemote.setEngineNo("593208654");
 		vehicleRemote.setVehicleTaxRefuseAmount(new BigDecimal("1000"));
 		return vehicleRemote;
 	}

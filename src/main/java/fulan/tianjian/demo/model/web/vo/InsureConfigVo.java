@@ -106,6 +106,18 @@ public class InsureConfigVo {
 		BeanUtils.copyProperties(this, insureConfigDTO);
 		return insureConfigDTO;
 	}
+	
+	public static InsureConfigVo mockData() {
+		InsureConfigVo insureConfigVo = new InsureConfigVo();
+		insureConfigVo.setAgentPointCode("agentCode");
+		insureConfigVo.setAgentPointName("testAgentName");
+		insureConfigVo.setDistributionChannel("14");
+		insureConfigVo.setIsElectronicApplicationForm("Y");
+		insureConfigVo.setIsFaceRecognition("Y");
+		insureConfigVo.setProvinceCode("32");
+		insureConfigVo.setQuotationMode("1");
+		return insureConfigVo;
+	}
     
     
 

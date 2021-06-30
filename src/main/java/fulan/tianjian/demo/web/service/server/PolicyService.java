@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -20,6 +22,7 @@ public class PolicyService {
 	private PolicyInstanceCurd policyInstanceCurd;
 
 
+	@Transactional
 	public Boolean savePolicyInstance(List<PolicyInstanceVo> policyInstances) {
 		if(CollectionUtils.isEmpty(policyInstances)) {
 			return false;

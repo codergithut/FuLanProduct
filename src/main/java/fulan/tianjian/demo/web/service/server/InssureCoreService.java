@@ -16,6 +16,7 @@ import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.client.insure.dto.InsureConfigDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
+import fulan.tianjian.demo.model.client.insure.dto.InsureHandlePersonDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsurePersonDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.insure.dto.PolicySchemeDTO;
@@ -32,6 +33,10 @@ public class InssureCoreService {
 	@Autowired
     @Qualifier("insureConfig") 
 	private GuavaCahceService<String, InsureConfigDTO> insureConfigService;
+	
+	@Autowired
+	@Qualifier("inusreConfigPerson")
+	private GuavaCahceService<String, List<InsureHandlePersonDTO>> inssureHandlePersonService;
 
 	/**
 	 * 核保请求
@@ -40,8 +45,8 @@ public class InssureCoreService {
 	 * @return
 	 * @throws PureRiskLossException 纯风险异常
 	 */
-	public List<PolicyInstanceVo> underwriting(String orderNumber, String regionCode) throws PureRiskLossException {
-		return generalBehavior(orderNumber, regionCode, ConstantCls.UNDERWRITING);
+	public List<PolicyInstanceVo> underwriting(String orderNumber, String regionCode, String provinceCode) throws PureRiskLossException {
+		return generalBehavior(orderNumber, regionCode, provinceCode, ConstantCls.UNDERWRITING);
 	}
 
 	
@@ -52,8 +57,8 @@ public class InssureCoreService {
 	 * @return
 	 * @throws PureRiskLossException 纯风险异常
 	 */
-	public List<PolicyInstanceVo> quote(String orderNumber, String regionCode) throws PureRiskLossException {
-		return generalBehavior(orderNumber, regionCode, ConstantCls.QUOTE);
+	public List<PolicyInstanceVo> quote(String orderNumber, String regionCode, String provinceCode) throws PureRiskLossException {
+		return generalBehavior(orderNumber, regionCode, provinceCode, ConstantCls.QUOTE);
 	}
 
 	/**
@@ -81,8 +86,9 @@ public class InssureCoreService {
 	@Autowired
 	private UrlParamConfigService urlParamConfigService;
 	
+	
 
-	private List<PolicyInstanceVo> generalBehavior(String orderNumber, String regionCode, String type) throws PureRiskLossException {
+	private List<PolicyInstanceVo> generalBehavior(String orderNumber, String regionCode, String provinceCode, String type) throws PureRiskLossException {
 		
 		//获取人员信息并转换
         List<PersonVo> persons = personService.findPersonByOrderNumber(orderNumber);
@@ -99,10 +105,17 @@ public class InssureCoreService {
 		
 		
 		//获取配置信息
-		InsureConfigDTO insureConfigDTO = insureConfigService.getValueByKey(regionCode);
+		InsureConfigDTO insureConfigDTO = insureConfigService.getValueByKey(provinceCode);
 		if(StringUtils.isNoneBlank(vehicleVo.getConfigId())) {
 			UrlParamConfigVo urlParamConfigVo = urlParamConfigService.getUrlParamConfigVo(vehicleVo.getConfigId());
 			insureConfigDTO = overrideInsureConfig(insureConfigDTO, urlParamConfigVo);
+		}
+		
+		List<InsureHandlePersonDTO> insureHandlePersonDTOs = inssureHandlePersonService.getValueByKey(regionCode);
+		insureConfigDTO.setInsureHandlePersonDTOS(insureHandlePersonDTOs);
+		
+		if(CollectionUtils.isEmpty(insureHandlePersonDTOs)) {
+			return null;
 		}
 		
 		//获取保单信息
@@ -120,7 +133,6 @@ public class InssureCoreService {
 		insureDTO.setPolicySchemes(policySchemes);
 		insureDTO.setInsureConfigDTO(insureConfigDTO);
 		insureDTO.setInsurePersons(issurePersons);
-		insureDTO.setInsureConfigDTO(insureConfigDTO);
 		insureDTO.setInsureType(type);
 		insureDTO.setVehicleDTO(vehicleDTO);
 		

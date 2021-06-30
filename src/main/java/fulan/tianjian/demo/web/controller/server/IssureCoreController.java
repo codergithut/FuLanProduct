@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fulan.tianjian.demo.exception.PureRiskLossException;
@@ -32,9 +33,9 @@ public class IssureCoreController {
 	 * @throws PureRiskLossException 
 	 */
 	@GetMapping("underwriting")
-	public ResponseValue<List<PolicyInstanceVo>> underwriting(String orderNumber, String regionCode) throws PureRiskLossException {
+	public ResponseValue<List<PolicyInstanceVo>> underwriting(@RequestParam String orderNumber, @RequestParam String regionCode, @RequestParam String provinceCode) throws PureRiskLossException {
 		
-		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.underwriting(orderNumber, regionCode);
+		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.underwriting(orderNumber, regionCode, provinceCode);
 		
 		return ResponseValue.successResponse(policyInstanceVos);
 	}
@@ -48,9 +49,9 @@ public class IssureCoreController {
 	 * @throws PureRiskLossException 
 	 */
 	@GetMapping("quote")
-	public ResponseValue<List<PolicyInstanceVo>> quote(String orderNumber, String regionCode) throws PureRiskLossException {
+	public ResponseValue<List<PolicyInstanceVo>> quote(@RequestParam String orderNumber, @RequestParam String regionCode, @RequestParam String provinceCode) throws PureRiskLossException {
 		
-		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.quote(orderNumber, regionCode);
+		List<PolicyInstanceVo> policyInstanceVos = inssureCoreService.quote(orderNumber, regionCode, provinceCode);
 		
 		return ResponseValue.successResponse(policyInstanceVos);
 		

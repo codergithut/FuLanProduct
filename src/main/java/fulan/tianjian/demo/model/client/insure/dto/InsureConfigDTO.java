@@ -1,9 +1,12 @@
 package fulan.tianjian.demo.model.client.insure.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
+import fulan.tianjian.demo.model.client.insure.remote.InsureConfigRemote;
+import fulan.tianjian.demo.model.client.insure.remote.InsureHandlePersonRemote;
 import fulan.tianjian.demo.model.web.eo.InsureConfigEo;
 import fulan.tianjian.demo.model.web.vo.InsureConfigVo;
 
@@ -133,6 +136,16 @@ public class InsureConfigDTO {
 		InsureConfigVo insureConfigVo = new InsureConfigVo();
 		BeanUtils.copyProperties(this, insureConfigVo);
 		return insureConfigVo;
+	}
+	
+	public InsureConfigRemote convertToRemote() {
+		InsureConfigRemote insureConfigRemote = new InsureConfigRemote();
+		BeanUtils.copyProperties(this, insureConfigRemote);
+		List<InsureHandlePersonRemote> persons = insureHandlePersonDTOS.stream().map(e -> {
+			return e.convertToRemote();
+		}).collect(Collectors.toList());
+		insureConfigRemote.setInsureHandlePersonRemotes(persons);
+		return insureConfigRemote;
 	}
     
 

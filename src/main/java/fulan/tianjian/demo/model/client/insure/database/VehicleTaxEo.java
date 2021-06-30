@@ -1,5 +1,11 @@
 package fulan.tianjian.demo.model.client.insure.database;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.BeanUtils;
 
 import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
@@ -7,7 +13,14 @@ import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 /**
  * Created by tianjian on 2021/6/20.
  */
+@Entity
+@Table(name = "vehicle_tax")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class VehicleTaxEo {
+	
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
+	private String id;
     /**
      * 车船税开始时间
      */
@@ -102,4 +115,5 @@ public class VehicleTaxEo {
         BeanUtils.copyProperties(this, vehicleRemote);
         return vehicleRemote;
     }
+	
 }

@@ -3,10 +3,14 @@ package fulan.tianjian.demo.web.service.config;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import com.alibaba.fastjson.JSON;
 
 import fulan.tianjian.demo.cache.GuavaCahceService;
 import fulan.tianjian.demo.model.client.insure.dto.InsureConfigDTO;
@@ -19,7 +23,7 @@ import fulan.tianjian.demo.model.web.vo.PolicyValueViewVo;
 
 //todo 添加中间层做缓存 VO -> DTO -> EO
 @Service
-public class ServiceBaseConfigService {
+public class BaseConfigService {
 
 	@Autowired
 	@Qualifier("policyConfig")
@@ -31,35 +35,33 @@ public class ServiceBaseConfigService {
 
 	@Autowired
 	@Qualifier("insureConfig")
-	private GuavaCahceService<String, List<InsureConfigDTO>> isureConfigCache;
+	private GuavaCahceService<String, InsureConfigDTO> isureConfigCache;
 	
-	public void saveInsureConfig(List<InsureConfigVo> issureConfigVos) {
-		if(CollectionUtils.isEmpty(issureConfigVos)) {
+	@Transactional
+	public void saveInsureConfig(InsureConfigVo issureConfigVo) {
+		if(issureConfigVo == null) {
 			return ;
 		}
 		
-		List<InsureConfigDTO> insureConfigDTOs = issureConfigVos.stream().map(e -> {
-			return e.convertToDTO();
-		}).collect(Collectors.toList());
+		InsureConfigDTO insureConfigDTO = issureConfigVo.convertToDTO();
 		
-		isureConfigCache.saveCacheData(issureConfigVos.get(0).getProvinceCode(), insureConfigDTOs);
+		isureConfigCache.saveKeyAndValue(issureConfigVo.getProvinceCode(), insureConfigDTO);
 	}
 	
-	public List<InsureConfigVo> getInsureConfig(String provinceCode) {
+	public InsureConfigVo getInsureConfig(String provinceCode) {
 		
-		List<InsureConfigDTO> insureConfigDTOs = isureConfigCache.findCacheData(provinceCode);
-		if(CollectionUtils.isEmpty(insureConfigDTOs)) {
+		InsureConfigDTO insureConfigDTO = isureConfigCache.getValueByKey(provinceCode);
+		if(insureConfigDTO == null ) {
 			return null;
 		}
 		
-		List<InsureConfigVo> insureConfigVos = insureConfigDTOs.stream().map(e -> {
-			return e.convertToVo();
-		}).collect(Collectors.toList());
+		InsureConfigVo insureConfigVo = insureConfigDTO.convertToVo();
 		
-		return insureConfigVos;
+		return insureConfigVo;
 	}
 	
 	
+	@Transactional
 	public void saveInsurePerson(List<InsureHandlePersonVo> insureHandlePersonVos) {
 		
 		if(CollectionUtils.isEmpty(insureHandlePersonVos)) {
@@ -70,13 +72,13 @@ public class ServiceBaseConfigService {
 			return e.convertToDTO();
 		}).collect(Collectors.toList());
 		
-		inssureHandlePersonService.saveCacheData(insureHandlePersonVos.get(0).getRegionCode(), insureHandlePersonDTOs);
+		inssureHandlePersonService.saveKeyAndValue(insureHandlePersonVos.get(0).getRegionCode(), insureHandlePersonDTOs);
 		
 	}
 	
 	public List<InsureHandlePersonVo> getInsureHandlePerson(String regionCode) {
 		
-		List<InsureHandlePersonDTO> insureHandlePersons = inssureHandlePersonService.findCacheData(regionCode);
+		List<InsureHandlePersonDTO> insureHandlePersons = inssureHandlePersonService.getValueByKey(regionCode);
 		
 		if(CollectionUtils.isEmpty(insureHandlePersons)) {
 			return null;
@@ -98,7 +100,7 @@ public class ServiceBaseConfigService {
 			return;
 		}
 
-		policyConfigCacheService.saveCacheData(policySchemeConfigVos.get(0).getRegionCode(), policySchemeConfigVos);
+		policyConfigCacheService.saveKeyAndValue(policySchemeConfigVos.get(0).getRegionCode(), policySchemeConfigVos);
 
 	}
 
@@ -114,6 +116,11 @@ public class ServiceBaseConfigService {
 	public List<PolicyValueViewVo> findPolicyValueView() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		List<InsureHandlePersonVo> insureHanlePersonVos = InsureHandlePersonVo.mockData();
+		System.out.println(JSON.toJSONString(insureHanlePersonVos));
 	}
 
 }

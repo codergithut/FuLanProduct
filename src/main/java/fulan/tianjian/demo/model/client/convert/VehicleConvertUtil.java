@@ -21,7 +21,7 @@ public class VehicleConvertUtil {
 
     public static VehicleRemote convertVehicleRemoteByDTO(VehicleDTO vehicleDTO){
         VehicleRemote vehicleRemote = new VehicleRemote();
-        BeanUtils.copyProperties(vehicleRemote, vehicleDTO);
+        BeanUtils.copyProperties(vehicleDTO, vehicleRemote);
         return vehicleRemote;
     }
 

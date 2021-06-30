@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import fulan.tianjian.demo.client.vehicle.ThirdPartyModelWarehouseClient;
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.client.convert.VehicleConvertUtil;
+import fulan.tianjian.demo.model.client.insure.database.InsuranceRiskInformationEo;
+import fulan.tianjian.demo.model.client.insure.database.PremiumFloatingItemsEo;
 import fulan.tianjian.demo.model.client.insure.database.VehicleDetailEo;
 import fulan.tianjian.demo.model.client.insure.dto.InsureDTO;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
@@ -57,7 +59,7 @@ public class InsureClient {
      */
     public InsureResultDTO quotedPrice(InsureDTO insureDTO) throws PureRiskLossException {
         InsureRemote insureRemote = insureModelService.createInsureRemoteByInsureDTO(insureDTO, "quotePrice");
-        return getRemoteValue(insureRemote);
+        return getRemoteValue(insureRemote, insureDTO.getOrderNumber());
     }
 
 
@@ -165,10 +167,10 @@ public class InsureClient {
 
 	public InsureResultDTO underwritingByOrderCenter(OrderCenterVo orderCenterVo) {
 		InsureRemote insureRemote = insureModelService.createInsureRemoteByOrderCenterVo(orderCenterVo, "quotePrice");
-		return getRemoteValue(insureRemote);
+		return getRemoteValue(insureRemote, orderCenterVo.getCode());
 	}
 	
-	private InsureResultDTO getRemoteValue(InsureRemote insureRemote) {
+	private InsureResultDTO getRemoteValue(InsureRemote insureRemote, String orderNumber) {
 		 MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(QUOTED_PRICE_URL,
 	                JSON.toJSONString(insureRemote), InsureRemote.class);
 
@@ -178,7 +180,20 @@ public class InsureClient {
 	        }
 
 	        if("0000".equals(result.getStatus())) {
-	            return insureModelService.createInsureResultDTOByInsureRemote(backData);
+	        	
+	        	PremiumFloatingItemsEo premiumFloatingItemsEo = backData.getPremiumFloatingItemsRemote().convertToEo(orderNumber);
+	        	
+	        	if(premiumFloatingItemsEo != null) {
+	        		stagingDataService.savePremiumFloatingItemsEo(premiumFloatingItemsEo);
+	        	}
+	        	
+	        	InsuranceRiskInformationEo insuranceRiskInformationEo = backData.getInsuranceRiskInformationRemote().convertToEo(orderNumber);
+	        	if(insuranceRiskInformationEo != null) {
+	        		stagingDataService.saveInsureRiskInformationEo(insuranceRiskInformationEo);
+	        	}
+	        	
+	        	InsureResultDTO insureReult = insureModelService.createInsureResultDTOByInsureRemote(backData);
+	            return insureReult;
 	        }
 
 	        //核保或报价失败，按照返回数据封装数据给前端使用

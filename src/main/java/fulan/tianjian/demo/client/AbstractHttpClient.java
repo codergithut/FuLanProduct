@@ -2,7 +2,9 @@ package fulan.tianjian.demo.client;
 
 import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.exception.OperateNonSupportException;
+import fulan.tianjian.demo.model.client.insure.remote.InsuranceRiskInformationRemote;
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
+import fulan.tianjian.demo.model.client.insure.remote.PremiumFloatingItemsRemote;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.notice.SendNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.alibaba.fastjson.JSONObject;
 
 import static org.springframework.http.HttpStatus.OK;
+
+import java.util.UUID;
 
 /**
  * 抽象的HttpClient封装方法
@@ -72,7 +77,7 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
         }
         
         if(isMock) {
-        	data = mockData(url, t);
+        	data = mockData(url, t, params);
         	myRestValueModel.setData(data);
         	
         }
@@ -119,7 +124,7 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     }
     
     @SuppressWarnings("unchecked")
-	private T mockData(String url, Class<T> mockCls) {
+	private T mockData(String url, Class<T> mockCls, String requestMsg) {
     	
     	if(mockCls == InsureRemote.class && ConstantCls.TRAFFIC_VEHICLE_URL.equals(url)) {
     		return (T) InsureRemote.mockTrafficInsureRemote();
@@ -129,6 +134,31 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     		return (T) InsureRemote.mockReNewPolicy();
     	}
     	
+    	if(mockCls == InsureRemote.class && ConstantCls.PURE_RISK_INFO.equals(url)) {
+    		return (T) InsureRemote.mockPureRiskInfo();
+    	}
+    	
+    	if(mockCls == InsureRemote.class && ConstantCls.QUOTED_PRICE_URL.equals(url)) {
+    		InsureRemote insureRemote = JSONObject.parseObject(requestMsg, InsureRemote.class);
+    		insureRemote = mockInsureRemote(insureRemote);
+    		insureRemote.setResultCode("0000");
+    		return (T)insureRemote;
+    	}
+    	
     	return null;
+    }
+    
+    public InsureRemote mockInsureRemote(InsureRemote insureRemote) {
+    	
+    	PremiumFloatingItemsRemote premiumFloatingItemsRemote = new PremiumFloatingItemsRemote();
+    	premiumFloatingItemsRemote.setPremiumFloatingItemInfo(UUID.randomUUID().toString());
+    	insureRemote.setPremiumFloatingItemsRemote(premiumFloatingItemsRemote);
+    	
+    	InsuranceRiskInformationRemote insuranceRiskInformationRemote = new InsuranceRiskInformationRemote();
+    	insuranceRiskInformationRemote.setSimpleInsuranceInfo(UUID.randomUUID().toString());
+    	insureRemote.setInsuranceRiskInformationRemote(insuranceRiskInformationRemote);
+    	
+		return insureRemote;
+    	
     }
 }

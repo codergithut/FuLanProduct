@@ -1,5 +1,7 @@
 package fulan.tianjian.demo.cache;
 
+import javax.transaction.Transactional;
+
 /**
  * 缓存数据库操作
  * @author 14681

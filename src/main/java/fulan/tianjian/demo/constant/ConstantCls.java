@@ -10,6 +10,8 @@ public class ConstantCls {
     public final static Integer HTTP_DRL_EMPTY = 100003;
 
     public final static String QUOTED_PRICE_URL = "http://localhost:8080/mock/quotedPrice";
+    
+    public final static String PURE_RISK_INFO = "http://localhost:8080/mock/pureRiskInfo";
 
     public final static String RENEW_POLICY_URL = "http://localhost:8080/mock/renewPolicy";
     
