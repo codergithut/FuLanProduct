@@ -12,7 +12,6 @@ import org.kie.internal.builder.KnowledgeBuilder;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.kie.internal.io.ResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 
 import fulan.tianjian.demo.convert.model.SourceValue;
 import fulan.tianjian.demo.convert.model.TargetValue;
@@ -20,8 +19,6 @@ import fulan.tianjian.demo.exception.DrlResourceEmptyException;
 
 public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<S, T> {
 
-	@Autowired
-	private KieSession kieSession;
 	
 	List<DefaultDroolsValue> defaultDroolsValues = new ArrayList<DefaultDroolsValue>();
 	
@@ -36,54 +33,49 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 		
 	}
 
-	@Override
-	public String getTemplateContent(Class<S> s, Class<T> t) {
-		
-		if(CollectionUtils.isEmpty(defaultDroolsValues)) {
-			return null;
-		}
-		
-		
-		for(DefaultDroolsValue defaultValue : defaultDroolsValues) {
-			if(defaultValue.getSource() == s && defaultValue.getTarget() == t) {
-				return defaultValue.getDroolsContent();
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * 初始化模板引擎会话信息
 	 * 
 	 * @param drlResources 模板信息资源
 	 * @throws DrlResourceEmptyException 模板数据获取失败
 	 */
-	private void initKieSession(String drlContent) {
+	private KieSession initKieSession(Class<S> s, Class<T> t) {
+		
+		KieSession kieSession = null;
 
 		/**
 		 * 如果已有session关闭
 		 */
-		closeKieSession();
-
-		if (kieSession != null) {
-			return;
+		for(DefaultDroolsValue defaultValue : defaultDroolsValues) {
+			if(defaultValue.getSource() == s && defaultValue.getTarget() == t) {
+				
+				if(defaultValue.getKieSession() != null) {
+					kieSession = defaultValue.getKieSession();
+				}
+				
+				String drlContent = defaultValue.getDroolsContent();
+				// 初始化知识库获并取会话信息
+				KnowledgeBuilder kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
+				Resource resource = ResourceFactory.newReaderResource(new StringReader(drlContent.replaceAll("\r", "")));
+				kb.add(resource, ResourceType.DRL);
+				KieBase kieBase = kb.newKieBase();
+				kieSession = kieBase.newKieSession();
+			}
 		}
-
-		// 初始化知识库获并取会话信息
-		KnowledgeBuilder kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
-		Resource resource = ResourceFactory.newReaderResource(new StringReader(drlContent.replaceAll("\r", "")));
-		kb.add(resource, ResourceType.DRL);
-		KieBase kieBase = kb.newKieBase();
-		kieSession = kieBase.newKieSession();
+		
+		return kieSession;
+		
 
 	}
 
 	// 关闭模板引擎的会话记录
-	public void closeKieSession() {
-		if (kieSession == null) {
-			return;
-		}
-		kieSession.dispose();
+	public void closeKieSession(Class<S> sc, Class<T> tc) {
+		defaultDroolsValues.stream().forEach(e -> {
+			if(e.getSource() == sc && e.getTarget() == tc) {
+				e.getKieSession().dispose();
+				e.setKieSession(null);
+			}
+		});
 	}
 
 	/**
@@ -93,7 +85,7 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 	@Override
 	public T beanConvertBySource(S s, Class<S> sc, Class<T> tc) {
 
-		initKieSession(getTemplateContent(sc, tc));
+		KieSession kieSession = initKieSession(sc, tc);
 
 		T tv = null;
 
@@ -150,6 +142,9 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 		public Class getSource() {
 			return source;
 		}
+		
+		@Autowired
+		private KieSession kieSession;
 
 		@SuppressWarnings("rawtypes")
 		public void setSource(Class source) {
@@ -173,6 +168,16 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 		public void setDroolsContent(String droolsContent) {
 			this.droolsContent = droolsContent;
 		}
+
+		public KieSession getKieSession() {
+			return kieSession;
+		}
+
+		public void setKieSession(KieSession kieSession) {
+			this.kieSession = kieSession;
+		}
+		
+		
 		
 		
 

@@ -12,7 +12,7 @@ import com.google.common.cache.CacheBuilder;
  * @param <KEY>
  * @param <VALUE>
  */
-public abstract class GuavaCahceService<KEY, VALUE> implements CacheDataService<KEY, VALUE>, CacheService<KEY, VALUE>{
+public abstract class GuavaCahceService<KEY, VALUE> extends CacheDataService<KEY, VALUE> implements CacheService<KEY, VALUE>{
 	
 	private Cache<KEY, VALUE> cache = CacheBuilder.newBuilder()
             .maximumSize(100) // 设置缓存的最大容量

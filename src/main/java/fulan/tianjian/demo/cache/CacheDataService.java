@@ -1,7 +1,5 @@
 package fulan.tianjian.demo.cache;
 
-import javax.transaction.Transactional;
-
 /**
  * 缓存数据库操作
  * @author 14681
@@ -9,26 +7,26 @@ import javax.transaction.Transactional;
  * @param <KEY>
  * @param <VALUE>
  */
-public interface CacheDataService<KEY, VALUE> {
+public abstract class CacheDataService<KEY, VALUE> {
 	
 	/**
 	 * 保存缓存数据到数据库
 	 * @param key
 	 * @param value 
 	 */
-	void saveCacheData(KEY key, VALUE value);
+	protected abstract void saveCacheData(KEY key, VALUE value);
 	
 	/**
 	 * 删除数据库中的缓存数据
 	 * @param key
 	 */
-	void deleteCacheData(KEY key);
+	protected abstract void deleteCacheData(KEY key);
 	
 	/**
 	 * 根据key 获取数据库的缓存数据
 	 * @param key
 	 * @return
 	 */
-	VALUE findCacheData(KEY key);
+	protected abstract VALUE findCacheData(KEY key);
 
 }

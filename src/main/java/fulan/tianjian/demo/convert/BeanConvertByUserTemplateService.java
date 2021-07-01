@@ -8,9 +8,7 @@ package fulan.tianjian.demo.convert;
  * @param <T> 转换数据
  */
 public interface BeanConvertByUserTemplateService<S, T>  {
-	
-	String getTemplateContent(Class<S> s, Class<T> t);
-	
+
 	T beanConvertBySource(S s, Class<S> sc, Class<T> tc);
 	
 }
