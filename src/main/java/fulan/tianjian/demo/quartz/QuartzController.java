@@ -5,14 +5,12 @@ import java.util.concurrent.ExecutionException;
 
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSON;
 
 import fulan.tianjian.demo.exception.DrlResourceEmptyException;
 import fulan.tianjian.demo.exception.PureRiskLossException;
@@ -56,7 +54,7 @@ public class QuartzController {
 		//实际任务处理
 		System.out.println("我已经在执行任务拉"); 
 		
-		TaskExecute taskExecute = getTaskExecuteByCronNameAndCronGroup(quartzClientRequest.getCronName(), 
+		TaskExecute taskExecute = quartzManage.getTaskExecuteByCronNameAndCronGroup(quartzClientRequest.getCronName(), 
 				quartzClientRequest.getCronGroup());
 		QuartzServerResponse quartzServerResponse = quartzTaskServiceProxy.execute(taskExecute, quartzClientRequest);
 		
