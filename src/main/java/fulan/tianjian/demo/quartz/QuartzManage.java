@@ -82,6 +82,9 @@ public class QuartzManage {
         JobDetail job = JobBuilder.newJob(RestClient.class)
                     .usingJobData("url", cronMetadataEo.getUrl())
                     .usingJobData("parmas", cronMetadataEo.getParams())
+                    .usingJobData("jobId", cronMetadataEo.getCronMetadataId())
+                    .usingJobData("cronName", cronMetadataEo.getCronName())
+                    .usingJobData("cronGroup", cronMetadataEo.getCronGroup())
                     .withIdentity(cronMetadataEo.getCronName(), cronMetadataEo.getCronGroup())
                     .build();
         return job;
