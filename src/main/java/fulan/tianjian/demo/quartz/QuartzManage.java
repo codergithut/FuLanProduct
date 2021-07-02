@@ -22,12 +22,25 @@ public class QuartzManage {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	/**
+	 * 注入spring对象到静态属性中
+	 */
 	@PostConstruct
 	public void init() {
 		RestClient.setRestTemplate(restTemplate);
 	}
+	
+	/**
+	 * 获取项目所有实现了TaskExecute的接口
+	 */
+	@Autowired
+	private List<TaskExecute> taskExecutes;
 
 	
+	/**
+	 * 初始化当前定时任务
+	 * @throws SchedulerException
+	 */
 	public void initQuatzJob() throws SchedulerException {
 		
 		if(scheduler != null) {
@@ -37,6 +50,7 @@ public class QuartzManage {
 	        scheduler = StdSchedulerFactory.getDefaultScheduler();
 		}
         
+		//获取所有可以执行的任务
         List<CronMetadataEo> cronMetadataEos = cronMetadataCurd.findAll();
         
         if(CollectionUtils.isEmpty(cronMetadataEos)) {
@@ -49,18 +63,35 @@ public class QuartzManage {
         scheduler.start();
 	}
 	
+	
+	/**
+	 * 根据元数据刷新已有的定时任务
+	 * @param cronMetadataEo 元数据对象
+	 * @throws SchedulerException
+	 */
 	public void refreshQuatzJob(CronMetadataEo cronMetadataEo) throws SchedulerException {
 		JobKey jobKey = new JobKey(cronMetadataEo.getCronName(), cronMetadataEo.getCronGroup());
 		scheduler.deleteJob(jobKey);
 		addQuatzJob(cronMetadataEo);
 	}
 	
+	/**
+	 * 添加定时任务
+	 * @param cronMetadata 元数据对象
+	 * @throws SchedulerException
+	 */
 	private void addQuatzJob(CronMetadataEo cronMetadata) throws SchedulerException {
 		Trigger trigger = createTriggerByCoronMetadata(cronMetadata);
     	JobDetail job = createJobDetailByCoronMetadata(cronMetadata);
     	scheduler.scheduleJob(job,trigger);
 	}
 	
+	
+	/**
+	 * 添加时间任务对象
+	 * @param cronMetadataEo 元数据
+	 * @return
+	 */
 	private Trigger createTriggerByCoronMetadata(CronMetadataEo cronMetadataEo) {
 		
 		TriggerBuilder<CronTrigger> trb = TriggerBuilder.newTrigger()
@@ -77,6 +108,12 @@ public class QuartzManage {
 		
 	}
 	
+	
+	/**
+	 * 添加任务对象
+	 * @param cronMetadataEo 元数据
+	 * @return
+	 */
 	private JobDetail createJobDetailByCoronMetadata(CronMetadataEo cronMetadataEo) {
 		//创建一个job
         JobDetail job = JobBuilder.newJob(RestClient.class)
@@ -85,10 +122,33 @@ public class QuartzManage {
                     .usingJobData("jobId", cronMetadataEo.getCronMetadataId())
                     .usingJobData("cronName", cronMetadataEo.getCronName())
                     .usingJobData("cronGroup", cronMetadataEo.getCronGroup())
+                    .usingJobData("cronMetadataId", cronMetadataEo.getCronMetadataId())
                     .withIdentity(cronMetadataEo.getCronName(), cronMetadataEo.getCronGroup())
                     .build();
         return job;
 		
+	}
+	
+	
+	/**
+	 * 获取可以执行的task对象
+	 * @param cronName 任务名
+	 * @param cronGroup 组名
+	 * @return
+	 */
+	public TaskExecute getTaskExecuteByCronNameAndCronGroup(String cronName, String cronGroup) {
+		if(CollectionUtils.isEmpty(taskExecutes)) {
+			return null;
+		}
+		
+		String key = cronName + ":" + cronGroup;
+		
+		for(TaskExecute detail : taskExecutes) {
+			if(key.equals(detail.getQuartzTaskKey())) {
+				return detail;
+			}
+		}
+		return null;
 	}
 
 }

@@ -1,6 +1,5 @@
 package fulan.tianjian.demo.quartz;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,16 +12,8 @@ public class TestQuartzTaskService implements TaskExecute{
 	}
 
 	@Override
-	@Async
-	public Boolean quartzTask(String params) {
+	public Boolean quartzTask(QuartzClientRequest quartzClientRequest) {
 		System.out.println("我又回来了啊哈哈");
-		try {
-			Thread.sleep(1000000L);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TODO Auto-generated method stub
 		return true;
 	}
 

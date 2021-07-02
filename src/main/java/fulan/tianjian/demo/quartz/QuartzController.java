@@ -1,6 +1,7 @@
 package fulan.tianjian.demo.quartz;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,6 @@ public class QuartzController {
 	@Autowired
 	private QuartzTaskServiceProxy quartzTaskServiceProxy;
 	
-	@Autowired
-	private List<TaskExecute> taskExecutes;
-	
-	
-	
-	
 	
 	@PostMapping("addQuartz")
 	public ResponseValue<Boolean> saveDrlResource(@RequestBody CronMetadataEo cronMetadata) throws PureRiskLossException, DrlResourceEmptyException {
@@ -57,40 +52,16 @@ public class QuartzController {
 	}
 	
 	@PostMapping("task")
-	public ResponseValue<QuartzServerResponse> startTask(@RequestBody QuartzClientRequest quartzClientRequest) throws SchedulerException {
+	public ResponseValue<QuartzServerResponse> startTask(@RequestBody QuartzClientRequest quartzClientRequest) throws SchedulerException, InterruptedException, ExecutionException {
 		//实际任务处理
 		System.out.println("我已经在执行任务拉"); 
 		
 		TaskExecute taskExecute = getTaskExecuteByCronNameAndCronGroup(quartzClientRequest.getCronName(), 
 				quartzClientRequest.getCronGroup());
-		QuartzServerResponse quartzServerResponse = quartzTaskServiceProxy.execute(quartzClientRequest.getParams(), taskExecute);
+		QuartzServerResponse quartzServerResponse = quartzTaskServiceProxy.execute(taskExecute, quartzClientRequest);
 		
 		return ResponseValue.successResponse(quartzServerResponse);
 	}
-	
-	public static void main(String[] args) {
-		CronMetadataEo cronMetadataEo = new CronMetadataEo();
-		cronMetadataEo.setCron("*/5 * * * * ?");
-		cronMetadataEo.setCronGroup("test_group_cron");
-		cronMetadataEo.setCronName("test_name_cron");
-		cronMetadataEo.setParams("ss");
-		cronMetadataEo.setUrl("www.baidu.com");
-		System.out.println(JSON.toJSONString(cronMetadataEo));
-	}
-	
-	private TaskExecute getTaskExecuteByCronNameAndCronGroup(String cronName, String cronGroup) {
-		if(CollectionUtils.isEmpty(taskExecutes)) {
-			return null;
-		}
-		
-		String key = cronName + ":" + cronGroup;
-		
-		for(TaskExecute detail : taskExecutes) {
-			if(key.equals(detail.getQuartzTaskKey())) {
-				return detail;
-			}
-		}
-		return null;
-	}
+
 
 }

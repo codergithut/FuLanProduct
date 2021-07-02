@@ -14,22 +14,47 @@ import org.hibernate.annotations.GenericGenerator;
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class CronMetadataEo {
 	
+	/**
+	 * 元数据id
+	 */
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
 	private String cronMetadataId;
 	
+	/**
+	 * 任务名称
+	 */
 	private String cronName;
 	
+	/**
+	 * 任务组
+	 */
 	private String cronGroup;
 	
+	/**
+	 * cron表达式
+	 */
 	private String cron;
 	
+	/**
+	 * 请求url
+	 */
 	private String url;
 	
+	/**
+	 * 任务参数
+	 */
 	private String params;
 	
+	/**
+	 * 开始时间
+	 */
 	private Date startTime;
 	
+	
+	/**
+	 * 结束时间
+	 */
 	private Date endTime;
 
 	public String getCron() {

@@ -1,12 +1,24 @@
 package fulan.tianjian.demo.quartz;
 
-import org.springframework.scheduling.annotation.Async;
 
+/**
+ * 定时任务执行器
+ * @author 14681
+ *
+ */
 public interface TaskExecute {
 	
+	/**
+	 * 获取任务key 
+	 * @return
+	 */
     String getQuartzTaskKey();
 	
-    @Async
-	Boolean quartzTask(String params);
+    /**
+     * 获取任务返回结果
+     * @param quartzClientRequest 定时任务请求数据
+     * @return
+     */
+    Boolean quartzTask(QuartzClientRequest quartzClientRequest);
 
 }

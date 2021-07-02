@@ -11,6 +11,8 @@ public class QuartzClientRequest {
 	private String cronGroup;
 	
 	private String params;
+	
+	private String cronMetadataId;
 
 	public String getJobId() {
 		return jobId;
@@ -51,6 +53,16 @@ public class QuartzClientRequest {
 	public void setCronGroup(String cronGroup) {
 		this.cronGroup = cronGroup;
 	}
+
+	public String getCronMetadataId() {
+		return cronMetadataId;
+	}
+
+	public void setCronMetadataId(String cronMetadataId) {
+		this.cronMetadataId = cronMetadataId;
+	}
+	
+	
 	
 	
 	

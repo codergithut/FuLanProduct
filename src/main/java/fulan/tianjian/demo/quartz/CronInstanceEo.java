@@ -12,14 +12,29 @@ import org.hibernate.annotations.GenericGenerator;
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class CronInstanceEo {
 	
+	/**
+	 * 任务id
+	 */
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
 	private String id;
 	
+	
+	/**
+	 * 任务元数据id
+	 */
 	private String cronMetadataId;
 	
+	
+	/**
+	 * 是否ok
+	 */
 	private Boolean isSuccess;
 	
+	
+	/**
+	 * 任务阶段
+	 */
 	private String stage;
 
 	public String getId() {
