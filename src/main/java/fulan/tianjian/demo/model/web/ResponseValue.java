@@ -38,6 +38,7 @@ public class ResponseValue<T> {
         ResponseValue<Void> responseValue = new ResponseValue<Void>("成功", REST_COMMON_SUCCESS_CODE);
         return responseValue;
     }
+    
 
 	public static ResponseValue<String> failResponse(String message) {
 		return new ResponseValue<String>(message, REST_COMMON_FAIL_CODE);

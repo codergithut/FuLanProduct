@@ -29,6 +29,9 @@ public class QuartzController {
 	@Autowired
 	private QuartzTaskServiceProxy quartzTaskServiceProxy;
 	
+	@Autowired
+	private TaskExecuteFactory taskExecuteFactory;
+	
 	
 	@PostMapping("addQuartz")
 	public ResponseValue<Boolean> saveDrlResource(@RequestBody CronMetadataEo cronMetadata) throws PureRiskLossException, DrlResourceEmptyException {
@@ -53,12 +56,13 @@ public class QuartzController {
 	public ResponseValue<QuartzServerResponse> startTask(@RequestBody QuartzClientRequest quartzClientRequest) throws SchedulerException, InterruptedException, ExecutionException {
 		//实际任务处理
 		System.out.println("我已经在执行任务拉"); 
+		TaskExecute taskExecute = taskExecuteFactory.createTaskExecuteByKey(quartzClientRequest.getCronName() + ":" +quartzClientRequest.getCronGroup());
+		Boolean result = taskExecute.quartzTask(quartzClientRequest);
+		if(!result) {
+			return ResponseValue.failResponse();
+		}
 		
-		TaskExecute taskExecute = quartzManage.getTaskExecuteByCronNameAndCronGroup(quartzClientRequest.getCronName(), 
-				quartzClientRequest.getCronGroup());
-		QuartzServerResponse quartzServerResponse = quartzTaskServiceProxy.execute(taskExecute, quartzClientRequest);
-		
-		return ResponseValue.successResponse(quartzServerResponse);
+		return ResponseValue.successResponse(QuartzServerResponse.sucessResponse());
 	}
 
 

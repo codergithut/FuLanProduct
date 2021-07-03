@@ -8,6 +8,7 @@ import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class RestClient implements Job{
 	private static RestTemplate restTemplate;
 	
 
+	private static CronInstanceCurd cronInstanceCurd;
+	
+
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		
@@ -31,6 +35,7 @@ public class RestClient implements Job{
 		String jobInsId = UUID.randomUUID().toString();
 		String cronName = dataMap.getString("cronName");
 		String cronGroup = dataMap.getString("cronGroup");
+		String cronMetadataId = dataMap.getString("cronMetadataId");
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("jobId", jobId);
@@ -44,6 +49,7 @@ public class RestClient implements Job{
 		quartzClientRequest.setParams(params);
 		quartzClientRequest.setCronGroup(cronGroup);
 		quartzClientRequest.setCronName(cronName);
+		quartzClientRequest.setCronMetadataId(cronMetadataId);
 		
 		HttpEntity<QuartzClientRequest> httpEntity = new HttpEntity<>(quartzClientRequest, headers);
 		
@@ -52,6 +58,16 @@ public class RestClient implements Job{
 		}
 
 		ResponseEntity<QuartzServerResponse> s = restTemplate.postForEntity(url, httpEntity, QuartzServerResponse.class);
+		
+		CronInstanceEo cronInstanceEo = new CronInstanceEo();
+		cronInstanceEo.setCronMetadataId(cronMetadataId);
+		if(s.getBody().isSuccess()) {
+			cronInstanceEo.setCronMetadataId(cronGroup);
+			cronInstanceEo.setStage("send");
+		} else {
+			cronInstanceEo.setStage("unSend");
+		}
+		cronInstanceCurd.save(cronInstanceEo);
 		System.out.println(s);
 		
 	}
@@ -59,6 +75,12 @@ public class RestClient implements Job{
 	public static void setRestTemplate(RestTemplate restTemplate) {
 		RestClient.restTemplate = restTemplate;
 	}
+
+	public static void setCronInstanceCurd(CronInstanceCurd cronInstanceCurd) {
+		RestClient.cronInstanceCurd = cronInstanceCurd;
+	}
+	
+	
 	
 	
 

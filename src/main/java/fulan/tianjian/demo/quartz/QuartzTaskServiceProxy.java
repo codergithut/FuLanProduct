@@ -12,6 +12,7 @@ public class QuartzTaskServiceProxy{
 	@Autowired
 	private CronInstanceCurd cronInstanceCurd;
 	
+	
 	/**
 	 * 代理执行定时任务主要实现异步请求防止线程过多导致程序崩溃
 	 * @param taskExecute 定时任务执行器

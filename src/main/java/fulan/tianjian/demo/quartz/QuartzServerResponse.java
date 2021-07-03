@@ -40,6 +40,14 @@ public class QuartzServerResponse {
 		return quartzServerResponse;
 	}
 	
+	public static QuartzServerResponse failResponse() {
+		QuartzServerResponse quartzServerResponse = new QuartzServerResponse();
+		quartzServerResponse.setMessage("FAIL");
+		quartzServerResponse.setResultCode("FAIL");
+		quartzServerResponse.setSuccess(false);
+		return quartzServerResponse;
+	}
+	
 	
 
 }

@@ -20,6 +20,9 @@ public class QuartzManage {
 	Scheduler scheduler = null;
 	
 	@Autowired
+	private CronInstanceCurd cronInstanceCurd;
+	
+	@Autowired
 	private RestTemplate restTemplate;
 	
 	/**
@@ -28,13 +31,10 @@ public class QuartzManage {
 	@PostConstruct
 	public void init() {
 		RestClient.setRestTemplate(restTemplate);
+		RestClient.setCronInstanceCurd(cronInstanceCurd);
 	}
 	
-	/**
-	 * 获取项目所有实现了TaskExecute的接口
-	 */
-	@Autowired
-	private List<TaskExecute> taskExecutes;
+	
 
 	
 	/**
@@ -129,26 +129,5 @@ public class QuartzManage {
 		
 	}
 	
-	
-	/**
-	 * 获取可以执行的task对象
-	 * @param cronName 任务名
-	 * @param cronGroup 组名
-	 * @return
-	 */
-	public TaskExecute getTaskExecuteByCronNameAndCronGroup(String cronName, String cronGroup) {
-		if(CollectionUtils.isEmpty(taskExecutes)) {
-			return null;
-		}
-		
-		String key = cronName + ":" + cronGroup;
-		
-		for(TaskExecute detail : taskExecutes) {
-			if(key.equals(detail.getQuartzTaskKey())) {
-				return detail;
-			}
-		}
-		return null;
-	}
 
 }

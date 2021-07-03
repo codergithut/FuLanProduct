@@ -14,6 +14,12 @@ public class TestQuartzTaskService implements TaskExecute{
 	@Override
 	public Boolean quartzTask(QuartzClientRequest quartzClientRequest) {
 		System.out.println("我又回来了啊哈哈");
+		try {
+			Thread.sleep(60000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 
