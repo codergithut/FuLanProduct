@@ -50,12 +50,14 @@ public class CglibProxyFactory implements MethodInterceptor {
 				return false;
 			}
 		}).thenAccept((result) -> {
-			CronInstanceEo v = new CronInstanceEo();
-			v.setCronMetadataId(quartzClientRequest.getCronMetadataId());
-			if (result) {
+			CronInstanceEo v = cronInstanceCurd.findByCronMetadataIdAndJobInsCode(quartzClientRequest.getCronMetadataId(),
+					quartzClientRequest.getJobInsId());
+			if (result && v != null) {
 				v.setStage("finished");
+				v.setIsSuccess(true);
 			} else {
 				v.setStage("unFinished");
+				v.setIsSuccess(false);
 			}
 			cronInstanceCurd.save(v);
 		});

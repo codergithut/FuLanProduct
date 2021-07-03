@@ -60,10 +60,12 @@ public class RestClient implements Job{
 		ResponseEntity<QuartzServerResponse> s = restTemplate.postForEntity(url, httpEntity, QuartzServerResponse.class);
 		
 		CronInstanceEo cronInstanceEo = new CronInstanceEo();
+		cronInstanceEo.setJobInsCode(jobInsId);
+		cronInstanceEo.setCronMetadataId(cronMetadataId);
 		cronInstanceEo.setCronMetadataId(cronMetadataId);
 		if(s.getBody().isSuccess()) {
-			cronInstanceEo.setCronMetadataId(cronGroup);
 			cronInstanceEo.setStage("send");
+			
 		} else {
 			cronInstanceEo.setStage("unSend");
 		}

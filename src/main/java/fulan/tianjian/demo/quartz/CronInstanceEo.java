@@ -32,6 +32,9 @@ public class CronInstanceEo {
 	private Boolean isSuccess;
 	
 	
+	private String jobInsCode;
+	
+	
 	/**
 	 * 任务阶段
 	 */
@@ -68,6 +71,16 @@ public class CronInstanceEo {
 	public void setStage(String stage) {
 		this.stage = stage;
 	}
+
+	public String getJobInsCode() {
+		return jobInsCode;
+	}
+
+	public void setJobInsCode(String jobInsCode) {
+		this.jobInsCode = jobInsCode;
+	}
+	
+	
 	
 	
 	

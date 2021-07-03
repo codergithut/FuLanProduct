@@ -53,16 +53,16 @@ public class QuartzController {
 	}
 	
 	@PostMapping("task")
-	public ResponseValue<QuartzServerResponse> startTask(@RequestBody QuartzClientRequest quartzClientRequest) throws SchedulerException, InterruptedException, ExecutionException {
+	public QuartzServerResponse startTask(@RequestBody QuartzClientRequest quartzClientRequest) throws SchedulerException, InterruptedException, ExecutionException {
 		//实际任务处理
 		System.out.println("我已经在执行任务拉"); 
 		TaskExecute taskExecute = taskExecuteFactory.createTaskExecuteByKey(quartzClientRequest.getCronName() + ":" +quartzClientRequest.getCronGroup());
 		Boolean result = taskExecute.quartzTask(quartzClientRequest);
 		if(!result) {
-			return ResponseValue.failResponse();
+			return QuartzServerResponse.failResponse();
 		}
 		
-		return ResponseValue.successResponse(QuartzServerResponse.sucessResponse());
+		return QuartzServerResponse.sucessResponse();
 	}
 
 
