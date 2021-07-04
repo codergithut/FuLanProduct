@@ -1,5 +1,6 @@
 package fulan.tianjian.demo.model.client;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ public class RemoteRecordEo {
 	/**
 	 * 请求参数
 	 */
+	@Column(nullable = false,columnDefinition="varchar(2048) COMMENT '用户id'")
 	private String params;
 	
 	/**

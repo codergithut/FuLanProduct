@@ -6,6 +6,7 @@ import fulan.tianjian.demo.model.client.insure.remote.InsuranceRiskInformationRe
 import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PremiumFloatingItemsRemote;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
+import fulan.tianjian.demo.model.client.synchro.SynchroModel;
 import fulan.tianjian.demo.notice.SendNoticeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import static org.springframework.http.HttpStatus.OK;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -107,7 +109,7 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
      * @param t class
      * @return 请求返回值
      */
-    public MyRestValueModel<T> postRestResult(String url, String params, Class<T> t){
+    protected MyRestValueModel<T> postRestResult(String url, String params, Class<T> t){
         return customRestResult(url, params, t, "post");
 
     }
@@ -120,7 +122,7 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
      * @return 请求返回值
      * @throws OperateNonSupportException
      */
-    public MyRestValueModel<T> getRestResult(String url, String params, Class<T> t) {
+    protected MyRestValueModel<T> getRestResult(String url, String params, Class<T> t) {
         return customRestResult(url, params, t, "get");
     }
     
@@ -144,6 +146,17 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     		insureRemote = mockInsureRemote(insureRemote);
     		insureRemote.setResultCode("0000");
     		return (T)insureRemote;
+    	}
+    	
+    	if(mockCls == SynchroModel.class && ConstantCls.SYSNCHRO_URL.equals(url)) {
+    		SynchroModel synchroModel = new SynchroModel();
+    		synchroModel.setCode("0000");
+    		Integer randomValue = new Random().nextInt(8);
+    		System.out.println((randomValue % 2 == 0) + "----------------");
+    		if(randomValue % 2 == 0) {
+    			synchroModel.setCode("0001");
+    		}
+    		return (T) synchroModel;
     	}
     	
     	return null;

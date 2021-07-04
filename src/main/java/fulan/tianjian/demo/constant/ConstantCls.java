@@ -18,6 +18,8 @@ public class ConstantCls {
     public final static String TRAFFIC_VEHICLE_URL = "http://localhost:8080/mock/trafficVehicle";
 
     public final static String SMS_URL = "http://localhost:8080/mock/smsUrl";
+    
+    public final static String SYSNCHRO_URL = "http://localhost:8080/mock/sysnchro";
 
 
     public final static String RENEW_VEHICLE_DETAIL = "renewVehicle";

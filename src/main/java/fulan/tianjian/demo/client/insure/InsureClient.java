@@ -82,7 +82,7 @@ public class InsureClient {
 		vehicleRemote.setEngineNo(engineNo);
 		insureRemote.setVehicleRemote(vehicleRemote);
 		MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(RENEW_POLICY_URL,
-				JSON.toJSONString(insureRemote), InsureRemote.class);
+				JSON.toJSONString(insureRemote));
 		if ("0000".equals(result.getStatus())) {
 			InsureResultDTO inSureResutDTO = insureModelService.createInsureResultDTOByInsureRemote(result.getData());
 			InsureRemote v = result.getData();
@@ -123,7 +123,7 @@ public class InsureClient {
 		vehicleRemote.setEngineNo(engineNo);
 		insureRemote.setVehicleRemote(vehicleRemote);
 		MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(TRAFFIC_VEHICLE_URL,
-				JSON.toJSONString(insureRemote), InsureRemote.class);
+				JSON.toJSONString(insureRemote));
 		if ("0000".equals(result.getStatus())) {
 			VehicleRemote v = result.getData().getVehicleRemote();
 			insureModelService.createInsureResultDTOByInsureRemote(result.getData());
@@ -180,7 +180,7 @@ public class InsureClient {
 		InsureResultDTO insureReult = null;
 		
 		MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(QUOTED_PRICE_URL,
-				JSON.toJSONString(insureRemote), InsureRemote.class);
+				JSON.toJSONString(insureRemote));
 		
 		NoticeMessage noticeMessage = createNotcieMessage(insureRemote);
 		noticeMessage.setOrderCenterCode(orderNumber);
@@ -213,11 +213,11 @@ public class InsureClient {
 			insureReult = insureModelService.createInsureResultDTOByInsureRemote(backData);
 			noticeMessage.setIsSuccess("Y");
 			
-		}
-
-		// 核保或报价失败，按照返回数据封装数据给前端使用
-		if (backData != null) {
-			noticeMessage.setIsSuccess("N");
+		} else {
+			// 核保或报价失败，按照返回数据封装数据给前端使用
+			if (backData != null) {
+				noticeMessage.setIsSuccess("N");
+			}
 		}
 		
 		sendNoticeService.publish(noticeMessage);
@@ -248,9 +248,11 @@ public class InsureClient {
 		noticeMessage.setPlateNo(insureRemote.getVehicleRemote().getPlateNo());
 		noticeMessage.setVinCode(insureRemote.getVehicleRemote().getVinCode());
 		
-		InsurePersonRemote insurePerson = insureRemote.getInsurePersonRemotes().stream().filter(e -> "0".equals(e.getType())).findAny().get();
+		//地区信息
+		noticeMessage.setRegionCode(insureRemote.getRegionCode());
 		
 		//设置投保人数据
+		InsurePersonRemote insurePerson = insureRemote.getInsurePersonRemotes().stream().filter(e -> "0".equals(e.getType())).findAny().get();
 		noticeMessage.setInsurantName(insurePerson.getName());
 		noticeMessage.setInsurantIdentityCardNumber(insurePerson.getIdentityCardNumber());
 		noticeMessage.setInsurantMobileNumber(insurePerson.getMobileNumber());

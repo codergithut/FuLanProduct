@@ -173,7 +173,7 @@ public class InsureModelService {
 
         //本地无该纯风险保费，请求三方根据返回入库，并返回给调用方
         MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(ConstantCls.PURE_RISK_INFO,
-                JSON.toJSONString(vehicleRemote), InsureRemote.class);
+                JSON.toJSONString(vehicleRemote));
         if("0000".equals(result.getStatus())) {
             PureRiskEo savePureRiskEo = result.getData()
                     .getPureRiskInfoRemote().createPureRiskEoByPureRiskInfoRemote();

@@ -2,24 +2,16 @@ package fulan.tianjian.demo.model.client.insure.notice;
 
 import java.util.Date;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationEvent;
+import javax.persistence.Id;
 
-import fulan.tianjian.demo.model.client.sms.SynchroRequestModel;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-public class NoticeMessage extends ApplicationEvent{
+@Document(indexName = "insure_record_log")
+public class NoticeEsMessage {
 	
+	@Id
+	private String id;
 	
-	public NoticeMessage(Object source) {
-		super(source);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * 订单id
 	 */
@@ -87,6 +79,18 @@ public class NoticeMessage extends ApplicationEvent{
 	 */
 	private String isSuccess;
 	
+	/**
+	 * 创建时间
+	 */
+	private Date createDate;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getOrderNumber() {
 		return orderNumber;
@@ -120,14 +124,6 @@ public class NoticeMessage extends ApplicationEvent{
 		this.remoteMessage = remoteMessage;
 	}
 
-	public String getPayUrl() {
-		return payUrl;
-	}
-
-	public void setPayUrl(String payUrl) {
-		this.payUrl = payUrl;
-	}
-
 	public String getPlateNo() {
 		return plateNo;
 	}
@@ -144,7 +140,6 @@ public class NoticeMessage extends ApplicationEvent{
 		this.engineNo = engineNo;
 	}
 
-	
 	public String getVinCode() {
 		return vinCode;
 	}
@@ -152,8 +147,6 @@ public class NoticeMessage extends ApplicationEvent{
 	public void setVinCode(String vinCode) {
 		this.vinCode = vinCode;
 	}
-	
-	
 
 	public String getInsurantName() {
 		return insurantName;
@@ -171,16 +164,28 @@ public class NoticeMessage extends ApplicationEvent{
 		this.insurantIdentityCardNumber = insurantIdentityCardNumber;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public String getInsurantMobileNumber() {
 		return insurantMobileNumber;
 	}
 
 	public void setInsurantMobileNumber(String insurantMobileNumber) {
 		this.insurantMobileNumber = insurantMobileNumber;
+	}
+
+	public String getPayUrl() {
+		return payUrl;
+	}
+
+	public void setPayUrl(String payUrl) {
+		this.payUrl = payUrl;
+	}
+
+	public String getRegionCode() {
+		return regionCode;
+	}
+
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
 	}
 
 	public String getIsSuccess() {
@@ -191,27 +196,13 @@ public class NoticeMessage extends ApplicationEvent{
 		this.isSuccess = isSuccess;
 	}
 
-	public String getRegionCode() {
-		return regionCode;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setRegionCode(String regionCode) {
-		this.regionCode = regionCode;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
-	
-	public NoticeEsMessage convertToEs() {
-		NoticeEsMessage noticeEsMessage = new NoticeEsMessage();
-		BeanUtils.copyProperties(this, noticeEsMessage);
-		noticeEsMessage.setCreateDate(new Date());
-		return noticeEsMessage;
-	}
-	
-	public SynchroRequestModel mockToSynchroRequest() {
-		SynchroRequestModel synchroModel = new SynchroRequestModel();
-		BeanUtils.copyProperties(this, synchroModel);
-		return synchroModel;
-	}
-	
 	
 
 }

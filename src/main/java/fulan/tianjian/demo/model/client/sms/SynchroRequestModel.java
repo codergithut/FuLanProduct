@@ -1,25 +1,6 @@
-package fulan.tianjian.demo.model.client.insure.notice;
+package fulan.tianjian.demo.model.client.sms;
 
-import java.util.Date;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationEvent;
-
-import fulan.tianjian.demo.model.client.sms.SynchroRequestModel;
-
-public class NoticeMessage extends ApplicationEvent{
-	
-	
-	public NoticeMessage(Object source) {
-		super(source);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+public class SynchroRequestModel {
 	/**
 	 * 订单id
 	 */
@@ -86,130 +67,135 @@ public class NoticeMessage extends ApplicationEvent{
 	 * 是否成功
 	 */
 	private String isSuccess;
-	
+
 
 	public String getOrderNumber() {
 		return orderNumber;
 	}
 
+
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
+
 
 	public String getOrderCenterCode() {
 		return orderCenterCode;
 	}
 
+
 	public void setOrderCenterCode(String orderCenterCode) {
 		this.orderCenterCode = orderCenterCode;
 	}
+
 
 	public String getStatus() {
 		return status;
 	}
 
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 
 	public String getRemoteMessage() {
 		return remoteMessage;
 	}
 
+
 	public void setRemoteMessage(String remoteMessage) {
 		this.remoteMessage = remoteMessage;
 	}
 
-	public String getPayUrl() {
-		return payUrl;
-	}
-
-	public void setPayUrl(String payUrl) {
-		this.payUrl = payUrl;
-	}
 
 	public String getPlateNo() {
 		return plateNo;
 	}
 
+
 	public void setPlateNo(String plateNo) {
 		this.plateNo = plateNo;
 	}
+
 
 	public String getEngineNo() {
 		return engineNo;
 	}
 
+
 	public void setEngineNo(String engineNo) {
 		this.engineNo = engineNo;
 	}
 
-	
+
 	public String getVinCode() {
 		return vinCode;
 	}
 
+
 	public void setVinCode(String vinCode) {
 		this.vinCode = vinCode;
 	}
-	
-	
+
 
 	public String getInsurantName() {
 		return insurantName;
 	}
 
+
 	public void setInsurantName(String insurantName) {
 		this.insurantName = insurantName;
 	}
+
 
 	public String getInsurantIdentityCardNumber() {
 		return insurantIdentityCardNumber;
 	}
 
+
 	public void setInsurantIdentityCardNumber(String insurantIdentityCardNumber) {
 		this.insurantIdentityCardNumber = insurantIdentityCardNumber;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	public String getInsurantMobileNumber() {
 		return insurantMobileNumber;
 	}
 
+
 	public void setInsurantMobileNumber(String insurantMobileNumber) {
 		this.insurantMobileNumber = insurantMobileNumber;
 	}
 
-	public String getIsSuccess() {
-		return isSuccess;
+
+	public String getPayUrl() {
+		return payUrl;
 	}
 
-	public void setIsSuccess(String isSuccess) {
-		this.isSuccess = isSuccess;
+
+	public void setPayUrl(String payUrl) {
+		this.payUrl = payUrl;
 	}
+
 
 	public String getRegionCode() {
 		return regionCode;
 	}
 
+
 	public void setRegionCode(String regionCode) {
 		this.regionCode = regionCode;
 	}
-	
-	public NoticeEsMessage convertToEs() {
-		NoticeEsMessage noticeEsMessage = new NoticeEsMessage();
-		BeanUtils.copyProperties(this, noticeEsMessage);
-		noticeEsMessage.setCreateDate(new Date());
-		return noticeEsMessage;
+
+
+	public String getIsSuccess() {
+		return isSuccess;
 	}
-	
-	public SynchroRequestModel mockToSynchroRequest() {
-		SynchroRequestModel synchroModel = new SynchroRequestModel();
-		BeanUtils.copyProperties(this, synchroModel);
-		return synchroModel;
+
+
+	public void setIsSuccess(String isSuccess) {
+		this.isSuccess = isSuccess;
 	}
 	
 	

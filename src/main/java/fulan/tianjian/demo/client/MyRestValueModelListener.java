@@ -27,7 +27,7 @@ public class MyRestValueModelListener<T> implements ApplicationListener<MyRestVa
 	
 	static {
 		retryUrls = new ArrayList<String>();
-		retryUrls.add(ConstantCls.QUOTED_PRICE_URL);
+		retryUrls.add(ConstantCls.SYSNCHRO_URL);
 	}
 	
 
@@ -41,9 +41,6 @@ public class MyRestValueModelListener<T> implements ApplicationListener<MyRestVa
     	//需要重试请求的url并且请求未能成功入重试请求库以便重试请求
     	if(retryUrls.contains(myRestValueModel.getUrl())) {
     		if(!"0000".equals(myRestValueModel.getStatus())) {
-    			remoteRecordCurd.save(myRestValueModel.convertToRemoteRecordEo());
-    		} else {
-    			//实际不要入库
     			remoteRecordCurd.save(myRestValueModel.convertToRemoteRecordEo());
     		}
     	} 

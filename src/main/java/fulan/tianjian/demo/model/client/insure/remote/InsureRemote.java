@@ -41,6 +41,12 @@ public class InsureRemote {
      * 返回消息
      */
     private String message;
+    
+    
+    /**
+     * 地区信息
+     */
+    private String regionCode;
 
     /**
      * 支付信息
@@ -132,7 +138,17 @@ public class InsureRemote {
         this.insuranceRiskInformationRemote = insuranceRiskInformationRemote;
     }
     
-    public static InsureRemote mockTrafficInsureRemote() {
+    
+    
+    public String getRegionCode() {
+		return regionCode;
+	}
+
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
+	}
+
+	public static InsureRemote mockTrafficInsureRemote() {
     	InsureRemote insureRemote = new InsureRemote();
     	insureRemote.setVehicleRemote(VehicleRemote.mockTrafficVehicle());
     	insureRemote.setResultCode("0000");
