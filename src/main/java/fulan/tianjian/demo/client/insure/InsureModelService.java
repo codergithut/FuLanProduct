@@ -64,6 +64,7 @@ public class InsureModelService {
         }
         vehicleRemote = vehicleTaxEo.coverVehicleRemote(vehicleRemote);
         insureRemote.setVehicleRemote(vehicleRemote);
+        insureRemote.setRegionCode(insureDTO.getRegionCode());
 
         //获取纯风险保费
         PureRiskInfoRemote pureRiskInfoRemote = getPureRiskInfoByVehicle(vehicleRemote);

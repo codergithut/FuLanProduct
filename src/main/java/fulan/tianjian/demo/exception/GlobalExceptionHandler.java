@@ -31,6 +31,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value =NullPointerException.class)
 	@ResponseBody
 	public ResponseValue<String> exceptionHandler(HttpServletRequest req, NullPointerException e){
+		e.printStackTrace();
 		return ResponseValue.failResponse("空指针异常");
 	}
 
@@ -44,6 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value =Exception.class)
 	@ResponseBody
 	public ResponseValue<String> exceptionHandler(HttpServletRequest req, Exception e){
+    	e.printStackTrace();
        	return ResponseValue.failResponse(e.getMessage());
     }
 

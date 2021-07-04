@@ -38,6 +38,7 @@ public class MyRestValueModelListener<T> implements ApplicationListener<MyRestVa
     	//三方请求录入mongo数据库
     	restValueLogCurd.save(myRestValueModel.convertToLog());
     	
+    	
     	//需要重试请求的url并且请求未能成功入重试请求库以便重试请求
     	if(retryUrls.contains(myRestValueModel.getUrl())) {
     		if(!"0000".equals(myRestValueModel.getStatus())) {

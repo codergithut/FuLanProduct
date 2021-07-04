@@ -25,6 +25,7 @@ public class NoticeListener implements ApplicationListener<NoticeMessage>{
 		
 		//记录订单信息到搜索引擎便于分析订单行为
 		NoticeEsMessage noticeEsMessage = event.convertToEs();
+		
 		noticeEsMessageCurd.save(noticeEsMessage);
 		//同步给第三方需要知道的系统
 		sysnchroService.sysnchroData(JSON.toJSONString(event.mockToSynchroRequest()));

@@ -26,8 +26,8 @@ public class QuartzController {
 	@Autowired 
 	private QuartzManage quartzManage;
 	
-	@Autowired
-	private QuartzTaskServiceProxy quartzTaskServiceProxy;
+//	@Autowired
+//	private QuartzTaskServiceProxy quartzTaskServiceProxy;
 	
 	@Autowired
 	private TaskExecuteFactory taskExecuteFactory;

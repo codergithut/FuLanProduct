@@ -42,6 +42,11 @@ public class OrderCenterVo {
      * 订单中心id
      */
     private String orderCenterCode;
+    
+    /**
+     * 地区编码
+     */
+    private String regionCode;
 
 	public InsureConfigRemote getInsureConfigRemote() {
 		return insureConfigRemote;
@@ -98,6 +103,16 @@ public class OrderCenterVo {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	public String getRegionCode() {
+		return regionCode;
+	}
+
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
+	}
+	
+	
     
 	
     

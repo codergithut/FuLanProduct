@@ -192,6 +192,7 @@ public class InsureClient {
 		if (result.getData() != null) {
 			backData = result.getData();
 			noticeMessage.setRemoteMessage(backData.getMessage());
+			insureReult = insureModelService.createInsureResultDTOByInsureRemote(backData);
 		}
 		
 		
@@ -210,7 +211,6 @@ public class InsureClient {
 			if (insuranceRiskInformationEo != null) {
 				stagingDataService.saveInsureRiskInformationEo(insuranceRiskInformationEo);
 			}
-			insureReult = insureModelService.createInsureResultDTOByInsureRemote(backData);
 			noticeMessage.setIsSuccess("Y");
 			
 		} else {

@@ -18,6 +18,8 @@ import com.alibaba.fastjson.JSONObject;
 
 import static org.springframework.http.HttpStatus.OK;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -113,6 +115,17 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
         return customRestResult(url, params, t, "post");
 
     }
+    
+    private static List<String> mockMessage;
+    
+    static {
+    	mockMessage = new ArrayList<>();
+    	mockMessage.add("报价规则拦截");
+    	mockMessage.add("车辆数据有误");
+    	mockMessage.add("人员信息校验失败");
+    	mockMessage.add("保险方案有误");
+    	mockMessage.add("不支持临牌网销投保");
+    }
 
     /**
      * get方法调用
@@ -144,7 +157,13 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     	if(mockCls == InsureRemote.class && ConstantCls.QUOTED_PRICE_URL.equals(url)) {
     		InsureRemote insureRemote = JSONObject.parseObject(requestMsg, InsureRemote.class);
     		insureRemote = mockInsureRemote(insureRemote);
-    		insureRemote.setResultCode("0000");
+    		Integer randomValue = new Random().nextInt(8);
+    		if(randomValue % 2 == 0) {
+    			insureRemote.setMessage(mockMessage.get(new Random().nextInt(5)));
+    			insureRemote.setResultCode("0001");
+    		} else {
+    			insureRemote.setResultCode("0000");
+    		}
     		return (T)insureRemote;
     	}
     	
@@ -152,7 +171,6 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     		SynchroModel synchroModel = new SynchroModel();
     		synchroModel.setCode("0000");
     		Integer randomValue = new Random().nextInt(8);
-    		System.out.println((randomValue % 2 == 0) + "----------------");
     		if(randomValue % 2 == 0) {
     			synchroModel.setCode("0001");
     		}
