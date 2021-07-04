@@ -43,6 +43,12 @@ public class PersonVo {
      */
     private String orderNumber;
     
+    /**
+     * 手机号码
+     */
+    private String mobileNumber;
+
+    
     
     
     public String getName() {
@@ -114,6 +120,16 @@ public class PersonVo {
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
+	
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
 
 
 	public InsurePersonDTO convertToDTO() {
@@ -122,6 +138,7 @@ public class PersonVo {
     	return insurePersonDTO;
     }
 	
+
 	public PersonEo convertToEo() {
 		PersonEo personEo = new PersonEo();
     	BeanUtils.copyProperties(this, personEo);

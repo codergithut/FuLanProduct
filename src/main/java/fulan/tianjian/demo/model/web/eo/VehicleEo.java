@@ -38,16 +38,16 @@ public class VehicleEo {
      * 车牌号
      */
     private String plateNo;
+    
+    /**
+     * 发动机号
+     */
+    private String engineNo;
 
     /**
      * 车牌颜色
      */
     private String plateColor;
-
-    /**
-     * 发动机号
-     */
-    private String engineNo;
 
     /**
      * 三方车型编码

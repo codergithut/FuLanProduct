@@ -24,6 +24,12 @@ public class InsurePersonRemote {
      * 地址
      */
     private String address;
+    
+    
+    /**
+     * 手机号码
+     */
+    private String mobileNumber;
 
     /**
      * 人员类型 0 投保人 1 受益人 2 车主
@@ -69,6 +75,16 @@ public class InsurePersonRemote {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+	
+	
     
     
 

@@ -1,10 +1,23 @@
 package fulan.tianjian.demo.model.client;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+
+@Entity
+@Table(name = "remote_record")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class RemoteRecordEo {
 	
 	/**
 	 * id
 	 */
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
 	private String id;
 	
 	/**
@@ -23,9 +36,9 @@ public class RemoteRecordEo {
 	private String md5Value;
 	
 	/**
-	 * 是否删除
+	 * 是否成功
 	 */
-	private String isDelete;
+	private String isSuccess;
 
 	public String getId() {
 		return id;
@@ -59,13 +72,15 @@ public class RemoteRecordEo {
 		this.md5Value = md5Value;
 	}
 
-	public String getIsDelete() {
-		return isDelete;
+	public String getIsSuccess() {
+		return isSuccess;
 	}
 
-	public void setIsDelete(String isDelete) {
-		this.isDelete = isDelete;
+	public void setIsSuccess(String isSuccess) {
+		this.isSuccess = isSuccess;
 	}
+
+	
 	
 	
 

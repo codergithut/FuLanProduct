@@ -50,6 +50,12 @@ public class PersonEo {
      * 人员类型 0 投保人 1 受益人 2 车主
      */
     private String type;
+    
+    /**
+     * 手机号码
+     */
+    private String mobileNumber;
+
 
     /**
      * 对应的订单编码
@@ -106,6 +112,16 @@ public class PersonEo {
 
 	public String getOrderNumber() {
 		return orderNumber;
+	}
+	
+	
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 
 	public void setOrderNumber(String orderNumber) {

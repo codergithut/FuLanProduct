@@ -7,6 +7,7 @@ import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PremiumFloatingItemsRemote;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.notice.SendNoticeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

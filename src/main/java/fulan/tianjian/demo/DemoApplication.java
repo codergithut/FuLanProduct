@@ -25,7 +25,8 @@ public class DemoApplication {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    
+ 
     @GetMapping("/testRestTemplate")
     public String testRestTemplate(Model model) {
         ResponseEntity<String> responseEntity =
@@ -38,4 +39,8 @@ public class DemoApplication {
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
         return String.format("Hello %s!", name);
     }
+    
+ 
+    
+    
 }

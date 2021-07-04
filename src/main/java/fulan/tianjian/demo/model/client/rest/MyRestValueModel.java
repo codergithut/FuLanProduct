@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 
 import fulan.tianjian.demo.model.client.RemoteRecordEo;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.DigestUtils;
 
@@ -97,9 +98,17 @@ public class MyRestValueModel<T> extends ApplicationEvent {
     	remoteRecord.setMd5Value(this.getMd5Value());
     	remoteRecord.setParams(params);
     	remoteRecord.setUrl(url);
-    	remoteRecord.setIsDelete("N");
+    	remoteRecord.setIsSuccess("N");
     	return remoteRecord;
-    	
-    	
+    }
+    
+    public RestValueLog convertToLog() {
+    	RestValueLog restValueLog = new RestValueLog();
+    	BeanUtils.copyProperties(this, restValueLog);
+    	if(data != null) {
+    		String responseData = JSON.toJSONString(data);
+    		restValueLog.setResponseData(responseData);
+    	}
+    	return restValueLog;
     }
 }
