@@ -134,6 +134,7 @@ public class InssureCoreService {
 		insureDTO.setInsureConfigDTO(insureConfigDTO);
 		insureDTO.setInsurePersons(issurePersons);
 		insureDTO.setInsureType(type);
+		insureDTO.setRegionCode(regionCode);
 		insureDTO.setVehicleDTO(vehicleDTO);
 		
 		//核保或报价
