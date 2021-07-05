@@ -17,7 +17,8 @@ import fulan.tianjian.demo.model.client.insure.remote.VehicleRemote;
 import fulan.tianjian.demo.model.client.order.OrderCenterVo;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.vehicle.ThirdPartyVehicle;
-import fulan.tianjian.demo.notice.SendNoticeService;
+import fulan.tianjian.demo.rabbitmq.MessageProducer;
+import fulan.tianjian.demo.rabbitmq.QueueConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -39,9 +40,9 @@ import static fulan.tianjian.demo.constant.ConstantCls.*;
  */
 @Service
 public class InsureClient {
-
+	
 	@Autowired
-	private SendNoticeService<NoticeMessage> sendNoticeService;
+	private MessageProducer messageProducer;
 
 	@Autowired
 	private ThirdPartyModelWarehouseClient thirdPartyModelWarehouseClient;
@@ -220,8 +221,9 @@ public class InsureClient {
 			}
 		}
 		
-		sendNoticeService.publish(noticeMessage);
-
+		messageProducer.sendMessage(QueueConstants.MESSAGE_EXCHANGE_RECORD,
+				QueueConstants.MESSAGE_ROUTE_KEY_REMOTE, noticeMessage);
+//		sendNoticeService.publish(noticeMessage);
 		return insureReult;
 	}
 
@@ -241,7 +243,7 @@ public class InsureClient {
 	}
 	
 	private NoticeMessage createNotcieMessage(InsureRemote insureRemote) {
-		NoticeMessage noticeMessage = new NoticeMessage(this);
+		NoticeMessage noticeMessage = new NoticeMessage();
 	    
 		//设置车辆基础数据
 		noticeMessage.setEngineNo(insureRemote.getVehicleRemote().getEngineNo());

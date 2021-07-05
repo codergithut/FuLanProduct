@@ -3,6 +3,11 @@ package fulan.tianjian.demo;
 
 import java.util.Date;
 
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import fulan.tianjian.demo.rabbitmq.MessageProducer;
+import fulan.tianjian.demo.rabbitmq.QueueConstants;
 
 
 @SpringBootApplication
@@ -28,6 +36,9 @@ public class DemoApplication {
 
     @Autowired
     private RestTemplate restTemplate;
+    
+    @Autowired
+    private MessageProducer messageProducer;
    
     
  
@@ -41,6 +52,9 @@ public class DemoApplication {
 
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+    	
+    	messageProducer.sendDelayMessage("SS", 10000L);
+    	
         return String.format("Hello %s!", name);
     }
     

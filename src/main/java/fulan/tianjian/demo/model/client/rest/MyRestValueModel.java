@@ -8,9 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.DigestUtils;
 
-public class MyRestValueModel<T> extends ApplicationEvent {
-
-	private static final long serialVersionUID = 1L;
+public class MyRestValueModel<T> {
 
 	/**
 	 * 请求url
@@ -36,12 +34,7 @@ public class MyRestValueModel<T> extends ApplicationEvent {
      * 响应代码
      */
     private String status;
-
-    public MyRestValueModel(Object source, String url, String params) {
-        super(source);
-        this.url = url;
-        this.params = params;
-    }
+   
 
     public String getUrl() {
         return url;

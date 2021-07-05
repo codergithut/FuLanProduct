@@ -3,17 +3,11 @@ package fulan.tianjian.demo.model.client.insure.notice;
 import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationEvent;
 
 import fulan.tianjian.demo.model.client.sms.SynchroRequestModel;
 
-public class NoticeMessage extends ApplicationEvent{
+public class NoticeMessage {
 	
-	
-	public NoticeMessage(Object source) {
-		super(source);
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * 

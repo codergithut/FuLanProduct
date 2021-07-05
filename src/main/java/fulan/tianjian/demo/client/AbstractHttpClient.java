@@ -7,7 +7,8 @@ import fulan.tianjian.demo.model.client.insure.remote.InsureRemote;
 import fulan.tianjian.demo.model.client.insure.remote.PremiumFloatingItemsRemote;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.synchro.SynchroModel;
-import fulan.tianjian.demo.notice.SendNoticeService;
+import fulan.tianjian.demo.rabbitmq.MessageProducer;
+import fulan.tianjian.demo.rabbitmq.QueueConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +33,11 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     @Autowired
     private RestTemplate restTemplate;
 
+//    @Autowired
+//    private SendNoticeService<MyRestValueModel<T>> sendNoticeService;
+    
     @Autowired
-    private SendNoticeService<MyRestValueModel<T>> sendNoticeService;
+    private MessageProducer messageProducer;
     
     @Value("${remote.mockTyp}")
     private Boolean isMock;
@@ -51,7 +55,7 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
     	
 
         //请求结果返回封装
-        MyRestValueModel<T> myRestValueModel = new MyRestValueModel<>(this, url, params);
+        MyRestValueModel<T> myRestValueModel = new MyRestValueModel<>();
 
         //restTemplate对象结果
         ResponseEntity<T> result = null;
@@ -97,8 +101,10 @@ public abstract class AbstractHttpClient<T> implements AnalyseRestResult<T>{
         }
 
         //整个请求响应消息异步发送消息
-        sendNoticeService.publish(myRestValueModel);
-
+//        sendNoticeService.publish(myRestValueModel);
+        
+        messageProducer.sendMessage(QueueConstants.MESSAGE_EXCHANGE_REMOTE,
+        		QueueConstants.MESSAGE_ROUTE_KEY_REMOTE, myRestValueModel);
         return myRestValueModel;
     }
     
