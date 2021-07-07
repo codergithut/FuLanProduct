@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -26,17 +27,15 @@ public class QuartzController {
 	@Autowired 
 	private QuartzManage quartzManage;
 	
-//	@Autowired
-//	private QuartzTaskServiceProxy quartzTaskServiceProxy;
 	
 	@Autowired
 	private TaskExecuteFactory taskExecuteFactory;
 	
 	
-	@PostMapping("addQuartz")
-	public ResponseValue<Boolean> saveDrlResource(@RequestBody CronMetadataEo cronMetadata) throws PureRiskLossException, DrlResourceEmptyException {
+	@PostMapping("refreshQuartz")
+	public ResponseValue<Boolean> addQuartz(@RequestBody CronMetadataEo cronMetadata) throws PureRiskLossException, DrlResourceEmptyException, SchedulerException {
 		cronMetadata.setCronMetadataId(null);
-		quartzDataService.saveQuartzData(cronMetadata);
+		quartzManage.refreshQuatzJob(cronMetadata);
 		return ResponseValue.successResponse(true);
 	}
 	
@@ -46,11 +45,33 @@ public class QuartzController {
 		return ResponseValue.successResponse(quartzDatas);
 	}
 	
+	
+	
 	@GetMapping("startQuartz")
 	public ResponseValue<Boolean> startAllQuartz() throws SchedulerException {
 		quartzManage.initQuatzJob();
 		return ResponseValue.successResponse(true);
 	}
+	
+	@GetMapping("pauseJob")
+	public ResponseValue<Boolean> pauseJob(@RequestParam String cronName, @RequestParam String cronGroup) throws SchedulerException {
+		quartzManage.pauseJob(cronName, cronGroup);
+		return ResponseValue.successResponse(true);
+	}
+	
+	@GetMapping("resumeJob")
+	public ResponseValue<Boolean> resumeJob(@RequestParam String cronName, @RequestParam String cronGroup) throws SchedulerException {
+		quartzManage.resumeJob(cronName, cronGroup);
+		return ResponseValue.successResponse(true);
+	}
+	
+	@GetMapping("removeJob")
+	public ResponseValue<Boolean> removeJob(@RequestParam String cronName, @RequestParam String cronGroup) throws SchedulerException {
+		quartzManage.removeJob(cronName, cronGroup);
+		return ResponseValue.successResponse(true);
+	}
+	
+	
 	
 	@PostMapping("task")
 	public QuartzServerResponse startTask(@RequestBody QuartzClientRequest quartzClientRequest) throws SchedulerException, InterruptedException, ExecutionException {

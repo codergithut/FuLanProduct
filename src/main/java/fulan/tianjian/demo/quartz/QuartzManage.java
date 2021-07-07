@@ -3,6 +3,7 @@ package fulan.tianjian.demo.quartz;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -63,14 +64,56 @@ public class QuartzManage {
         scheduler.start();
 	}
 	
+	public void pauseJob(String cronName, String cronGroup) throws SchedulerException {
+		if(scheduler == null) {
+			return ;
+		}
+		List<CronMetadataEo> crons = cronMetadataCurd.findByCronNameAndCronGroup(cronName, cronGroup);
+		scheduler.pauseJob(new JobKey(cronName, cronGroup));
+		crons.stream().forEach(e -> {
+			e.setStatus("2");
+		});
+		cronMetadataCurd.saveAll(crons);
+		
+	}
+	
+	public void resumeJob(String cronName, String cronGroup) throws SchedulerException {
+		if(scheduler == null) {
+			return ;
+		}
+		
+		scheduler.resumeJob(new JobKey(cronName, cronGroup));
+		List<CronMetadataEo> crons = cronMetadataCurd.findByCronNameAndCronGroup(cronName, cronGroup);
+		crons.stream().forEach(e -> {
+			e.setStatus("1");
+		});
+		
+	}
+	
+	@Transactional
+	public void removeJob(String cronName, String cronGroup) throws SchedulerException {
+		if(scheduler == null) {
+			return ;
+		}
+		scheduler.deleteJob(new JobKey(cronName, cronGroup));
+		cronMetadataCurd.deleteByCronNameAndCronGroup(cronName, cronGroup);
+	}
+	
 	
 	/**
 	 * 根据元数据刷新已有的定时任务
 	 * @param cronMetadataEo 元数据对象
 	 * @throws SchedulerException
 	 */
+	@Transactional
 	public void refreshQuatzJob(CronMetadataEo cronMetadataEo) throws SchedulerException {
+		cronMetadataCurd.deleteByCronNameAndCronGroup(cronMetadataEo.getCronName(), cronMetadataEo.getCronGroup());
+		cronMetadataEo.setCronMetadataId(null);
+		cronMetadataCurd.save(cronMetadataEo);
 		JobKey jobKey = new JobKey(cronMetadataEo.getCronName(), cronMetadataEo.getCronGroup());
+		if(scheduler == null) {
+			initQuatzJob();
+		}
 		scheduler.deleteJob(jobKey);
 		addQuatzJob(cronMetadataEo);
 	}
@@ -84,6 +127,9 @@ public class QuartzManage {
 		Trigger trigger = createTriggerByCoronMetadata(cronMetadata);
     	JobDetail job = createJobDetailByCoronMetadata(cronMetadata);
     	scheduler.scheduleJob(job,trigger);
+    	if("2".equals(cronMetadata.getStatus())) {
+    		scheduler.pauseJob(new JobKey(cronMetadata.getCronName(), cronMetadata.getCronGroup()));
+    	}
 	}
 	
 	

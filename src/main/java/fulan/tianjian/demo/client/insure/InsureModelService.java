@@ -2,6 +2,7 @@ package fulan.tianjian.demo.client.insure;
 
 import com.alibaba.fastjson.JSON;
 
+import fulan.tianjian.demo.client.HttpClient;
 import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.client.insure.database.InsuranceRiskInformationEo;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 public class InsureModelService {
 
     @Autowired
-    private InsureRemoteService insureRemoteService;
+    private HttpClient httpClient;
 
     @Autowired
     private StagingDataService stagingDataService;
@@ -173,8 +174,8 @@ public class InsureModelService {
         }
 
         //本地无该纯风险保费，请求三方根据返回入库，并返回给调用方
-        MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(ConstantCls.PURE_RISK_INFO,
-                JSON.toJSONString(vehicleRemote));
+        MyRestValueModel<InsureRemote> result = httpClient.postRestResult(ConstantCls.PURE_RISK_INFO,
+                JSON.toJSONString(vehicleRemote), InsureRemote.class);
         if("0000".equals(result.getStatus())) {
             PureRiskEo savePureRiskEo = result.getData()
                     .getPureRiskInfoRemote().createPureRiskEoByPureRiskInfoRemote();

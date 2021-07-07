@@ -41,6 +41,11 @@ public class RemoteRecordEo {
 	 * 是否成功
 	 */
 	private String isSuccess;
+	
+	/**
+	 * 重试次数
+	 */
+	private Integer retryCount;
 
 	public String getId() {
 		return id;
@@ -81,6 +86,16 @@ public class RemoteRecordEo {
 	public void setIsSuccess(String isSuccess) {
 		this.isSuccess = isSuccess;
 	}
+
+	public Integer getRetryCount() {
+		return retryCount;
+	}
+
+	public void setRetryCount(Integer retryCount) {
+		this.retryCount = retryCount;
+	}
+	
+	
 
 	
 	

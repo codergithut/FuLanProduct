@@ -1,5 +1,7 @@
 package fulan.tianjian.demo.quartz;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CronMetadataCurd extends JpaRepository<CronMetadataEo, String>{
@@ -10,5 +12,7 @@ public interface CronMetadataCurd extends JpaRepository<CronMetadataEo, String>{
 	 * @param cronGroup 组名名称
 	 */
 	void deleteByCronNameAndCronGroup(String cronName, String cronGroup);
+
+	List<CronMetadataEo> findByCronNameAndCronGroup(String cronName, String cronGroup);
 
 }

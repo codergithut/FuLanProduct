@@ -1,8 +1,12 @@
 package fulan.tianjian.demo.web.controller.server;
 
 import com.google.common.cache.Cache;
-import fulan.tianjian.demo.client.sms.SmsService;
+
+import fulan.tianjian.demo.client.HttpClient;
+import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.interceptor.LoginCacheDataService;
+import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
+import fulan.tianjian.demo.model.client.sms.SmsModel;
 import fulan.tianjian.demo.model.web.ResponseValue;
 import fulan.tianjian.demo.model.web.eo.UserEo;
 import fulan.tianjian.demo.model.web.vo.UserVo;
@@ -20,15 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 public class UserManagerController {
 
     @Autowired
-    private SmsService smsService;
+    private HttpClient httpClient;
 
     @Autowired
     private UserService userService;
     
     @Autowired
     private LoginCacheDataService loginCacheDataService;
-
- 
 
 
     /**
@@ -44,8 +46,9 @@ public class UserManagerController {
         UserEo userEo =  userService.findUserInfo(userVo.getIdentityCardNumber());
         if(userEo != null) {
         	//发送验证码给用户
-            boolean sendResult = smsService.sendCheckCode(userEo.getPhoneNumber(), checkCode);
-            if(sendResult) {
+        	MyRestValueModel<SmsModel> sendResult = httpClient.postRestResult(ConstantCls.ORDER_CENTER_URL, 
+    				userEo.getUserCredential(), SmsModel.class);
+            if("0000".equals(sendResult.getStatus())) {
             	//缓存记录
             	Cache<String, String> checkCodeCache = loginCacheDataService.getCheckCodeCache();
                 checkCodeCache.put(identityCardNumber, checkCode);

@@ -8,18 +8,21 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
 
-import fulan.tianjian.demo.client.synchro.SysnchroService;
+import fulan.tianjian.demo.client.HttpClient;
 import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.model.client.RemoteRecordCurd;
+import fulan.tianjian.demo.model.client.RemoteRecordEo;
 import fulan.tianjian.demo.model.client.insure.notice.NoticeEsMessage;
 import fulan.tianjian.demo.model.client.insure.notice.NoticeEsMessageCurd;
 import fulan.tianjian.demo.model.client.insure.notice.NoticeMessage;
 import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.rest.RestValueLogCurd;
+import fulan.tianjian.demo.model.client.synchro.SynchroModel;
 
 @Component
 public class MessageConsumer {
@@ -49,8 +52,25 @@ public class MessageConsumer {
     	
     	//需要重试请求的url并且请求未能成功入重试请求库以便重试请求
     	if(retryUrls.contains(myRestValueModel.getUrl())) {
+    		
+    		
+    		List<RemoteRecordEo> remoteRecordEos = remoteRecordCurd.findByMd5Value(myRestValueModel.getMd5Value());
+    		
+    		if("0000".equals(myRestValueModel.getStatus())) {
+    			remoteRecordEos.forEach(e -> e.setIsSuccess("Y"));
+    			remoteRecordCurd.saveAll(remoteRecordEos);
+    		}
+    		
+    		
     		if(!"0000".equals(myRestValueModel.getStatus())) {
-    			remoteRecordCurd.save(myRestValueModel.convertToRemoteRecordEo());
+    			if(CollectionUtils.isEmpty(remoteRecordEos)) {
+    				remoteRecordCurd.save(myRestValueModel.convertToRemoteRecordEo());
+    			} else {
+    				for(RemoteRecordEo remoteRecordEo : remoteRecordEos) {
+    					remoteRecordEo.setRetryCount(remoteRecordEo.getRetryCount());
+    				}
+    				remoteRecordCurd.saveAll(remoteRecordEos);
+    			}
     		}
     	} 
     	
@@ -66,7 +86,7 @@ public class MessageConsumer {
 	private NoticeEsMessageCurd noticeEsMessageCurd;
 
 	@Autowired
-	private SysnchroService sysnchroService;
+	private HttpClient httpClient;
 
 	@RabbitListener(queues = QueueConstants.MESSAGE_QUEUE_NAME_RECORD)
 	public void recordMessage(Channel channel, Message message, @Payload NoticeMessage result) {
@@ -75,7 +95,9 @@ public class MessageConsumer {
 
 		noticeEsMessageCurd.save(noticeEsMessage);
 		// 同步给第三方需要知道的系统
-		sysnchroService.sysnchroData(JSON.toJSONString(result.mockToSynchroRequest()));
+		
+		httpClient.postRestResult(ConstantCls.SYSNCHRO_URL, JSON.toJSONString(result.mockToSynchroRequest()), 
+				SynchroModel.class);
 		try {
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		} catch (Exception e) {

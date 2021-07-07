@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
+import fulan.tianjian.demo.client.HttpClient;
 import fulan.tianjian.demo.client.insure.InsureClient;
-import fulan.tianjian.demo.client.order.OrderCenterClient;
+import fulan.tianjian.demo.constant.ConstantCls;
 import fulan.tianjian.demo.model.client.insure.dto.InsureResultDTO;
 import fulan.tianjian.demo.model.client.order.OrderCenterVo;
+import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.web.vo.PersonVo;
 import fulan.tianjian.demo.model.web.vo.PolicyInstanceVo;
 import fulan.tianjian.demo.model.web.vo.VehicleVo;
@@ -17,7 +19,7 @@ import fulan.tianjian.demo.model.web.vo.VehicleVo;
 public class OrderCenterService {
 	
 	@Autowired
-	private OrderCenterClient orderCenterClient;
+	private HttpClient httpClient;
 	
 	@Autowired
 	private VehicleService vehicleService;
@@ -34,16 +36,17 @@ public class OrderCenterService {
 	public Boolean initOrderCenterData(String orderCenterId) {
 		
 		//订单中心获取订单数据
-		OrderCenterVo orderCenterVo = orderCenterClient.getOrderCenterByOrderCenterId(orderCenterId);
-		if(orderCenterVo != null) {
-			saveOrderCenterData(orderCenterVo);
+		MyRestValueModel<OrderCenterVo> orderCenterVo = httpClient.postRestResult(ConstantCls.ORDER_CENTER_URL, 
+				orderCenterId, OrderCenterVo.class);
+		if(orderCenterVo != null && orderCenterVo.getData() != null) {
+			saveOrderCenterData(orderCenterVo.getData());
 		}
 		
 		//删除车辆数据
 		vehicleService.deleteVehicleByOrderNumber(orderCenterId);
 		
 		//转换订单中心数据为本地模型数据并入库
-		Boolean result = converAndSaveOrderCenterVo(orderCenterVo);
+		Boolean result = converAndSaveOrderCenterVo(orderCenterVo.getData());
 	
 		return result;
 	}

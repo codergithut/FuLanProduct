@@ -1,6 +1,8 @@
 package fulan.tianjian.demo.client.insure;
 
 import com.alibaba.fastjson.JSON;
+
+import fulan.tianjian.demo.client.HttpClient;
 import fulan.tianjian.demo.client.vehicle.ThirdPartyModelWarehouseClient;
 import fulan.tianjian.demo.exception.PureRiskLossException;
 import fulan.tianjian.demo.model.client.convert.VehicleConvertUtil;
@@ -48,7 +50,7 @@ public class InsureClient {
 	private ThirdPartyModelWarehouseClient thirdPartyModelWarehouseClient;
 
 	@Autowired
-	private InsureRemoteService insureRemoteService;
+	private HttpClient httpClient;
 
 	@Autowired
 	private InsureModelService insureModelService;
@@ -82,8 +84,8 @@ public class InsureClient {
 		vehicleRemote.setVinCode(vin);
 		vehicleRemote.setEngineNo(engineNo);
 		insureRemote.setVehicleRemote(vehicleRemote);
-		MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(RENEW_POLICY_URL,
-				JSON.toJSONString(insureRemote));
+		MyRestValueModel<InsureRemote> result = httpClient.postRestResult(RENEW_POLICY_URL,
+				JSON.toJSONString(insureRemote), InsureRemote.class);
 		if ("0000".equals(result.getStatus())) {
 			InsureResultDTO inSureResutDTO = insureModelService.createInsureResultDTOByInsureRemote(result.getData());
 			InsureRemote v = result.getData();
@@ -123,8 +125,8 @@ public class InsureClient {
 		vehicleRemote.setVinCode(vin);
 		vehicleRemote.setEngineNo(engineNo);
 		insureRemote.setVehicleRemote(vehicleRemote);
-		MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(TRAFFIC_VEHICLE_URL,
-				JSON.toJSONString(insureRemote));
+		MyRestValueModel<InsureRemote> result = httpClient.postRestResult(TRAFFIC_VEHICLE_URL,
+				JSON.toJSONString(insureRemote), InsureRemote.class);
 		if ("0000".equals(result.getStatus())) {
 			VehicleRemote v = result.getData().getVehicleRemote();
 			insureModelService.createInsureResultDTOByInsureRemote(result.getData());
@@ -180,8 +182,8 @@ public class InsureClient {
 		
 		InsureResultDTO insureReult = null;
 		
-		MyRestValueModel<InsureRemote> result = insureRemoteService.postRestResult(QUOTED_PRICE_URL,
-				JSON.toJSONString(insureRemote));
+		MyRestValueModel<InsureRemote> result = httpClient.postRestResult(QUOTED_PRICE_URL,
+				JSON.toJSONString(insureRemote), InsureRemote.class);
 		
 		NoticeMessage noticeMessage = createNotcieMessage(insureRemote);
 		noticeMessage.setOrderCenterCode(orderNumber);

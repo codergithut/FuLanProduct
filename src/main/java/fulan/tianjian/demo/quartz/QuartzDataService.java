@@ -19,7 +19,6 @@ public class QuartzDataService {
 		String cronGroup = cronMetadataEo.getCronGroup();
 		cronMetadataCurd.deleteByCronNameAndCronGroup(cronName, cronGroup);
 		cronMetadataCurd.save(cronMetadataEo);
-		
 	}
 
 	public List<CronMetadataEo> findAllQuartzData() {

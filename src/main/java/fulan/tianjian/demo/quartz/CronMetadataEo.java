@@ -56,6 +56,12 @@ public class CronMetadataEo {
 	 * 结束时间
 	 */
 	private Date endTime;
+	
+	
+	/**
+	 * 1 运行中， 2 暂停中 
+	 */
+	private String status;
 
 	public String getCron() {
 		return cron;
@@ -120,6 +126,16 @@ public class CronMetadataEo {
 	public void setCronGroup(String cronGroup) {
 		this.cronGroup = cronGroup;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 	
 
 }
