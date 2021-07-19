@@ -10,7 +10,7 @@ import fulan.tianjian.demo.convert.model.TargetValue;
 import fulan.tianjian.demo.exception.DrlResourceEmptyException;
 import fulan.tianjian.demo.pool.KieSessionManager;
 
-public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<S, T> {
+public class DroolBeanConvert implements BeanConvertByUserTemplateService {
 	
 	List<DefaultDroolsValue> defaultDroolsValues = new ArrayList<DefaultDroolsValue>();
 	
@@ -34,7 +34,7 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 	 * @throws Exception 
 	 * @throws DrlResourceEmptyException 模板数据获取失败
 	 */
-	private KieSessionProxy initKieSession(Class<S> s, Class<T> t) throws Exception {
+	private <S,T> KieSessionProxy initKieSession(Class<S> s, Class<T> t) throws Exception {
 		
 		KieSessionProxy kieSession = null;
 
@@ -62,7 +62,7 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 	}
 
 	// 关闭模板引擎的会话记录
-	public void closeKieSession(Class<S> sc, Class<T> tc) {
+	public <S,T> void closeKieSession(Class<S> sc, Class<T> tc) {
 		defaultDroolsValues.stream().forEach(e -> {
 			if(e.getSource() == sc && e.getTarget() == tc) {
 				try {
@@ -81,7 +81,7 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	public T beanConvertBySource(S s, Class<S> sc, Class<T> tc) throws Exception {
+	public <S, T> T beanConvertBySource(S s, Class<S> sc, Class<T> tc) throws Exception {
 
 		KieSessionProxy kieSession = null;
 		try {
@@ -125,7 +125,7 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 				+ "        $target.setTargetName($source.getSourceName());\r\n"
 				+ "        $target.setTargetValue($source.getSourceValue());\r\n" + "end";
 		
-		DroolBeanConvert<SourceValue, TargetValue> droolBeanConvert = new DroolBeanConvert<SourceValue, TargetValue>();
+		DroolBeanConvert droolBeanConvert = new DroolBeanConvert();
 		
 		droolBeanConvert.initDroolsDefault(SourceValue.class, TargetValue.class, droolsContent);
 		SourceValue s = new SourceValue();

@@ -7,8 +7,8 @@ package fulan.tianjian.demo.convert;
  * @param <S> 源数据
  * @param <T> 转换数据
  */
-public interface BeanConvertByUserTemplateService<S, T>  {
+public interface BeanConvertByUserTemplateService  {
 
-	T beanConvertBySource(S s, Class<S> sc, Class<T> tc) throws Exception;
+	<S,T> T beanConvertBySource(S s, Class<S> sc, Class<T> tc) throws Exception;
 	
 }
