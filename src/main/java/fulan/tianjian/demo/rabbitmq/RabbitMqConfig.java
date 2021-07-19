@@ -94,31 +94,6 @@ public class RabbitMqConfig {
                 .with(QueueConstants.MESSAGE_ROUTE_KEY_RECORD);
     }
     
-    
-    
-    @Bean
-    DirectExchange delayedDirect() {
-        return (DirectExchange) ExchangeBuilder.directExchange(QueueConstants.MESSAGE_EXCHANGE_DELAYED).delayed().durable(true)
-                .build();
-    }
-    
-
-    @Bean
-    Queue delayedQueue() {
-        return QueueBuilder.durable(QueueConstants.MESSAGE_QUEUE_NAME_DELAYED)
-                // 配置到期后转发的交换
-                .withArgument("x-dead-letter-exchange", QueueConstants.MESSAGE_EXCHANGE_DL)
-                //会固定死不太妙
-//                .withArgument("x-message-ttl", 60000)
-                // 配置到期后转发的路由键
-                .withArgument("x-dead-letter-routing-key", QueueConstants.MESSAGE_ROUTE_KEY_DL).build();
-    }
-    
-    @Bean
-    public Binding DelayedBinding() {
-        return BindingBuilder.bind(delayedQueue()).to(delayedDirect()).with(QueueConstants.MESSAGE_ROUTE_KEY_DELAYED);
-    }
-    
     /**
      * 交换配置
      *
@@ -146,6 +121,34 @@ public class RabbitMqConfig {
     public Binding DlBinding() {
         return BindingBuilder.bind(dlQueue()).to(dlDirectExchange()).with(QueueConstants.MESSAGE_ROUTE_KEY_DL);
     }
+    
+    
+    
+    @Bean
+    DirectExchange delayedDirect() {
+        return (DirectExchange) ExchangeBuilder.directExchange(QueueConstants.MESSAGE_EXCHANGE_DELAYED)
+        		.durable(true)
+                .build();
+    }
+    
+
+    @Bean
+    Queue delayedQueue() {
+        return QueueBuilder.durable(QueueConstants.MESSAGE_QUEUE_NAME_DELAYED)
+                // 配置到期后转发的交换
+                .withArgument("x-dead-letter-exchange", QueueConstants.MESSAGE_EXCHANGE_DL)
+                //会固定死不太妙
+//                .withArgument("x-message-ttl", 60000)
+                // 配置到期后转发的路由键
+                .withArgument("x-dead-letter-routing-key", QueueConstants.MESSAGE_ROUTE_KEY_DL).build();
+    }
+    
+    @Bean
+    public Binding DelayedBinding() {
+        return BindingBuilder.bind(delayedQueue()).to(delayedDirect()).with(QueueConstants.MESSAGE_ROUTE_KEY_DELAYED);
+    }
+    
+    
     
     
     

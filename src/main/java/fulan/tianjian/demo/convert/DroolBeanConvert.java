@@ -1,26 +1,21 @@
 package fulan.tianjian.demo.convert;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kie.api.KieBase;
-import org.kie.api.io.Resource;
-import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieSession;
-import org.kie.internal.builder.KnowledgeBuilder;
-import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.io.ResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fulan.tianjian.demo.convert.model.SourceValue;
 import fulan.tianjian.demo.convert.model.TargetValue;
 import fulan.tianjian.demo.exception.DrlResourceEmptyException;
+import fulan.tianjian.demo.pool.KieSessionManager;
 
 public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<S, T> {
-
 	
 	List<DefaultDroolsValue> defaultDroolsValues = new ArrayList<DefaultDroolsValue>();
+	
+	private KieSessionManager KieSessionManager = new KieSessionManager();
 	
 	public void initDroolsDefault(Class<?> s, Class<?> t, String droolsContent) {
 		if(s == SourceValue.class && t == TargetValue.class) {
@@ -37,9 +32,10 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 	 * 初始化模板引擎会话信息
 	 * 
 	 * @param drlResources 模板信息资源
+	 * @throws Exception 
 	 * @throws DrlResourceEmptyException 模板数据获取失败
 	 */
-	private KieSession initKieSession(Class<S> s, Class<T> t) {
+	private KieSession initKieSession(Class<S> s, Class<T> t) throws Exception {
 		
 		KieSession kieSession = null;
 
@@ -55,11 +51,12 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 				
 				String drlContent = defaultValue.getDroolsContent();
 				// 初始化知识库获并取会话信息
-				KnowledgeBuilder kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
-				Resource resource = ResourceFactory.newReaderResource(new StringReader(drlContent.replaceAll("\r", "")));
-				kb.add(resource, ResourceType.DRL);
-				KieBase kieBase = kb.newKieBase();
-				kieSession = kieBase.newKieSession();
+//				KnowledgeBuilder kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
+//				Resource resource = ResourceFactory.newReaderResource(new StringReader(drlContent.replaceAll("\r", "")));
+//				kb.add(resource, ResourceType.DRL);
+//				KieBase kieBase = kb.newKieBase();
+//				kieSession = kieBase.newKieSession();
+				kieSession = KieSessionManager.getKieSessionPool(drlContent).borrowObject();
 			}
 		}
 		
@@ -85,7 +82,14 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 	@Override
 	public T beanConvertBySource(S s, Class<S> sc, Class<T> tc) {
 
-		KieSession kieSession = initKieSession(sc, tc);
+		KieSession kieSession = null;
+		try {
+			kieSession = initKieSession(sc, tc);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return null;
+		}
 
 		T tv = null;
 

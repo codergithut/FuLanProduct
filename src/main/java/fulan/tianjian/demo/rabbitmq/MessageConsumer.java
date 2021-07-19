@@ -24,7 +24,7 @@ import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.rest.RestValueLogCurd;
 import fulan.tianjian.demo.model.client.synchro.SynchroModel;
 
-@Component
+//@Component
 public class MessageConsumer {
 	
 	@Autowired
@@ -115,14 +115,14 @@ public class MessageConsumer {
 		}
 	}
 	
-//	@RabbitListener(queues = QueueConstants.MESSAGE_QUEUE_NAME_DELAYED)
-//	public void delayedMessage(Channel channel, Message message) {
-//		System.out.println("哈哈 我收到消息拉 1");
-//		try {
-//			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-//		} catch (Exception e) {
-//
-//		}
-//	}
+	@RabbitListener(queues = QueueConstants.MESSAGE_QUEUE_NAME_DELAYED)
+	public void delayedMessage(Channel channel, Message message) {
+		System.out.println("哈哈 我收到消息拉 1");
+		try {
+			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+		} catch (Exception e) {
+
+		}
+	}
 
 }

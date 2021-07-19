@@ -20,5 +20,7 @@ public class CommonUtil {
 		return DigestUtils.md5DigestAsHex(key.getBytes());
 	}
 	
+	
+	
 
 }
