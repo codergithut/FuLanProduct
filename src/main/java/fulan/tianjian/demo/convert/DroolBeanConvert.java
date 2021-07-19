@@ -50,12 +50,7 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 				}
 				
 				String drlContent = defaultValue.getDroolsContent();
-				// 初始化知识库获并取会话信息
-//				KnowledgeBuilder kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
-//				Resource resource = ResourceFactory.newReaderResource(new StringReader(drlContent.replaceAll("\r", "")));
-//				kb.add(resource, ResourceType.DRL);
-//				KieBase kieBase = kb.newKieBase();
-//				kieSession = kieBase.newKieSession();
+				// 池化管理
 				kieSession = KieSessionManager.getKieSessionPool(drlContent).borrowObject();
 			}
 		}
