@@ -9,6 +9,6 @@ package fulan.tianjian.demo.convert;
  */
 public interface BeanConvertByUserTemplateService<S, T>  {
 
-	T beanConvertBySource(S s, Class<S> sc, Class<T> tc);
+	T beanConvertBySource(S s, Class<S> sc, Class<T> tc) throws Exception;
 	
 }

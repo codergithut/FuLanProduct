@@ -3,7 +3,6 @@ package fulan.tianjian.demo.convert;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import fulan.tianjian.demo.convert.model.SourceValue;
@@ -35,9 +34,9 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 	 * @throws Exception 
 	 * @throws DrlResourceEmptyException 模板数据获取失败
 	 */
-	private KieSession initKieSession(Class<S> s, Class<T> t) throws Exception {
+	private KieSessionProxy initKieSession(Class<S> s, Class<T> t) throws Exception {
 		
-		KieSession kieSession = null;
+		KieSessionProxy kieSession = null;
 
 		/**
 		 * 如果已有session关闭
@@ -51,33 +50,40 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 				
 				String drlContent = defaultValue.getDroolsContent();
 				// 池化管理
-				kieSession = KieSessionManager.getKieSessionPool(drlContent).borrowObject();
+				kieSession = new KieSessionProxy(KieSessionManager.getKieSessionPool(drlContent));
+				if(kieSession != null) {
+					defaultValue.setKieSession(kieSession);
+				}
 			}
 		}
 		
 		return kieSession;
-		
-
+	
 	}
 
 	// 关闭模板引擎的会话记录
 	public void closeKieSession(Class<S> sc, Class<T> tc) {
 		defaultDroolsValues.stream().forEach(e -> {
 			if(e.getSource() == sc && e.getTarget() == tc) {
-				e.getKieSession().dispose();
-				e.setKieSession(null);
+				try {
+					e.getKieSession().dispose();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
 
 	/**
 	 * 转换工具是哦也能够
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	public T beanConvertBySource(S s, Class<S> sc, Class<T> tc) {
+	public T beanConvertBySource(S s, Class<S> sc, Class<T> tc) throws Exception {
 
-		KieSession kieSession = null;
+		KieSessionProxy kieSession = null;
 		try {
 			kieSession = initKieSession(sc, tc);
 		} catch (Exception e1) {
@@ -101,11 +107,13 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 
 		kieSession.insert(convertModel);
 		kieSession.fireAllRules(1);
+		
+		kieSession.dispose();
 
 		return convertModel.getTarget();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		String droolsContent = "package fulan.tianjian.demo.convert\r\n" + "\r\n"
 				+ "import fulan.tianjian.demo.convert.model.SourceValue\r\n"
@@ -143,7 +151,7 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 		}
 		
 		@Autowired
-		private KieSession kieSession;
+		private KieSessionProxy kieSession;
 
 		@SuppressWarnings("rawtypes")
 		public void setSource(Class source) {
@@ -168,19 +176,14 @@ public class DroolBeanConvert<S, T> implements BeanConvertByUserTemplateService<
 			this.droolsContent = droolsContent;
 		}
 
-		public KieSession getKieSession() {
+		public KieSessionProxy getKieSession() {
 			return kieSession;
 		}
 
-		public void setKieSession(KieSession kieSession) {
+		public void setKieSession(KieSessionProxy kieSession) {
 			this.kieSession = kieSession;
 		}
 		
-		
-		
-		
-
-
 	}
 
 }

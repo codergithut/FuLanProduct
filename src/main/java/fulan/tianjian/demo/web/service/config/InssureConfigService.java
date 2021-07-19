@@ -1,7 +1,5 @@
 package fulan.tianjian.demo.web.service.config;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
