@@ -126,7 +126,6 @@ public class DroolBeanConvert implements BeanConvertByUserTemplateService {
 				+ "        $target.setTargetValue($source.getSourceValue());\r\n" + "end";
 		
 		DroolBeanConvert droolBeanConvert = new DroolBeanConvert();
-		
 		droolBeanConvert.initDroolsDefault(SourceValue.class, TargetValue.class, droolsContent);
 		SourceValue s = new SourceValue();
 		s.setSourceName("我是名字");
