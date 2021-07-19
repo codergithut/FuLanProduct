@@ -24,7 +24,7 @@ import fulan.tianjian.demo.model.client.rest.MyRestValueModel;
 import fulan.tianjian.demo.model.client.rest.RestValueLogCurd;
 import fulan.tianjian.demo.model.client.synchro.SynchroModel;
 
-//@Component
+@Component
 public class MessageConsumer {
 	
 	@Autowired
